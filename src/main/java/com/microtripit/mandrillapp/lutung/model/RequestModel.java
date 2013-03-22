@@ -19,8 +19,14 @@ public interface RequestModel<V> {
 	/**
 	 * @return The url for this request, as {@link String}.
 	 */
-	public abstract String getUrl();
+	public String getUrl();
 	
+	/**
+	 * @return The request object describing the request to 
+	 * be made w/ a http client.
+	 * @throws IOException
+	 * @since Mar 22, 2013
+	 */
 	public HttpRequestBase getRequest() throws IOException;
 	
 	/**
