@@ -1,0 +1,101 @@
+/**
+ * 
+ */
+package com.microtripit.mandrillapp.lutung.model;
+
+import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.TimeZone;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+/**
+ * @author rschreijer
+ * @since Mar 16, 2013
+ */
+public final class LutungGsonUtils {
+	private static final String dateFormatStr = "yyyy-MM-dd HH:mm:ss";
+	
+	private static Gson gson = createGson();
+	
+	public static final Gson getGson() {
+		return gson;
+	}
+	
+	public static final Gson createGson() {
+		return createGsonBuilder().create();
+	}
+	
+	public static final GsonBuilder createGsonBuilder() {
+		return new GsonBuilder()
+				.setDateFormat(dateFormatStr)
+				.registerTypeAdapter(Date.class, new DateDeserializer())
+				.registerTypeAdapter(Map.class, new MapSerializer());
+	}
+	
+	public static final class DateDeserializer 
+			implements JsonDeserializer<Date>, JsonSerializer<Date> {
+		
+		private final SimpleDateFormat formatter;
+		
+		protected DateDeserializer() {
+			formatter = new SimpleDateFormat(dateFormatStr);
+			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+		}
+		
+		public final Date deserialize(final JsonElement json, 
+				final Type typeOfT, final JsonDeserializationContext context) 
+						throws JsonParseException {
+			
+			if(!json.isJsonPrimitive()) {
+				throw new JsonParseException(
+						"Unexpected type for date: " +json.toString());
+				
+			}
+			try {
+				return formatter.parse(json.getAsString());
+				
+			} catch(final ParseException e) {
+				throw new JsonParseException("Failed to parse date '" 
+						+json.getAsString()+ "'", e);
+				
+			}
+		}
+		
+		public JsonElement serialize(Date src, Type typeOfSrc,
+				JsonSerializationContext context) {
+			
+			return new JsonPrimitive(formatter.format(src));
+		}
+	}
+	
+	public static class MapSerializer implements JsonSerializer<Map<? extends Object,? extends Object>> {
+		
+		public final JsonElement serialize(final Map<?, ?> src, 
+				final Type typeOfSrc, final JsonSerializationContext context) {
+			
+			Object value;
+			final JsonObject json = new JsonObject();
+			for(Object key : src.keySet()) {
+				value = src.get(key);
+				json.add( key.toString(), context.serialize(
+						value, value.getClass()) );
+			}
+			return json;
+			
+		}
+		
+	}
+}

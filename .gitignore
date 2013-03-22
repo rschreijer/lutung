@@ -1,0 +1,23 @@
+# Java class files
+*.class
+# Java Package Files
+*.jar
+*.war
+*.ear
+
+# Maven
+target/
+
+# Eclipse project files
+.classpath
+.project
+.settings
+
+# Spring
+.springBeans
+
+# General
+.DS_Store
+
+# my api key
+myapikey.txt
