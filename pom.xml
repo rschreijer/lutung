@@ -9,7 +9,7 @@
 
 	<name>lutung</name>
 	<description>Mandrill API Client - Java</description>
-	<url>https://lutung.microtrip.it</url>
+	<url>https://dev.lutung.microtrip.it</url>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
 		<name>Microtrip.it</name>
@@ -21,6 +21,17 @@
 		<java-version>1.6</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>microtripit-releases</id>
+			<url>https://github.com/rschreijer/microtripit-maven/raw/master/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>microtripit-snapshots</id>
+			<url>https://github.com/rschreijer/microtripit-maven/raw/master/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencies>
 

@@ -3,6 +3,7 @@
  */
 package com.microtripit.mandrillapp.lutung.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -395,6 +396,26 @@ public class MandrillMessage {
 	 */
 	public void setTags(final List<String> tags) {
 		this.tags = tags;
+	}
+	
+	/**
+	 * @param tags Strings to tag the message with. Stats 
+	 * are accumulated using tags, though we only store the first 
+	 * 100 we see, so this should not be unique or change frequently. 
+	 * Tags should be 50 characters or less. Any tags starting with 
+	 * an underscore are reserved for internal use and will cause 
+	 * errors.
+	 */
+	public void setTags(final String... tags) {
+		final ArrayList<String> ts = new ArrayList<String>();
+		for(String tag : tags) {
+			ts.add(tag);
+		}
+		if(!ts.isEmpty()) {
+			this.tags = ts;
+		} else {
+			this.tags = null;
+		}
 	}
 
 	/**
