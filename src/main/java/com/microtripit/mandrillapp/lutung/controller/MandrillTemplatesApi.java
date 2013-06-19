@@ -196,10 +196,10 @@ public final class MandrillTemplatesApi {
 		}
 		if(mergeVars != null && !mergeVars.isEmpty()) {
 			final ArrayList<MandrillContentWrapper> vars = 
-					new ArrayList<MandrillContentWrapper>(templateContent.size());
-			for(String cName : templateContent.keySet()) {
+					new ArrayList<MandrillContentWrapper>(mergeVars.size());
+			for(String cName : mergeVars.keySet()) {
 				vars.add( MandrillContentWrapper.create(
-						cName, templateContent.get(cName)) );
+						cName, mergeVars.get(cName)) );
 			}
 			params.put("merge_vars", vars);
 		}
