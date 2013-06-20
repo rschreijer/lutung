@@ -23,7 +23,7 @@ public class MandrillMessage {
 	private Boolean track_opens, track_clicks, auto_text, auto_html;
 	private Boolean inline_css, url_strip_qs, preserve_recipients, merge;
 	private List<MergeVar> global_merge_vars;
-	private MergeVarBucket merge_vars;
+	private List<MergeVarBucket> merge_vars;
 	private List<String> tags, google_analytics_domains;
 	private String google_analytics_campaign;
 	private Map<String,String> metadata;
@@ -362,7 +362,7 @@ public class MandrillMessage {
 	 * @return The per-recipient merge variables, which override 
 	 * global merge variables with the same name.
 	 */
-	public MergeVarBucket getMergeVars() {
+	public List<MergeVarBucket> getMergeVars() {
 		return merge_vars;
 	}
 
@@ -370,7 +370,7 @@ public class MandrillMessage {
 	 * @param mergeVars The per-recipient merge variables, which override 
 	 * global merge variables with the same name.
 	 */
-	public void setMergeVars(final MergeVarBucket mergeVars) {
+	public void setMergeVars(final List<MergeVarBucket> mergeVars) {
 		this.merge_vars = mergeVars;
 	}
 
