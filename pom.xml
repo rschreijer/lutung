@@ -6,16 +6,29 @@
 	<groupId>com.microtripit.mandrillapp</groupId>
 	<artifactId>lutung</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
 	<name>lutung</name>
-	<description>Mandrill API Client - Java</description>
-	<url>https://dev.lutung.microtrip.it</url>
+	<description>Mandrill API Client for Java</description>
+	<url>https://github.com/rschreijer/lutung</url>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
 		<name>Microtrip.it</name>
 		<url>http://www.microtrip.it</url>
 	</organization>
 	<packaging>jar</packaging>
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>rschreijer</id>
+			<name>rschreijer</name>
+			<email>yukyuk@gmx.com</email>
+		</developer>
+	</developers>
 
 	<properties>
 		<java-version>1.6</java-version>
