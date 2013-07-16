@@ -4,7 +4,7 @@
 
 	<groupId>com.mandrillapp.wrapper.lutung</groupId>
 	<artifactId>lutung</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>lutung</name>
 	<description>Mandrill API Client for Java</description>
 	<url>https://github.com/rschreijer/lutung</url>
