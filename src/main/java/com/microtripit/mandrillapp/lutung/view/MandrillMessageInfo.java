@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class MandrillMessageInfo {
 	private Integer ts, opens, clicks;
-	private String _id, sender, subject, email, state;
+	private String _id, sender, subject, email, state, diag, bounce_description;
 	private List<String> tags;
 	// TODO: private Object metadata;
 	
@@ -69,6 +69,18 @@ public class MandrillMessageInfo {
 	 */
 	public List<String> getTags() {
 		return tags;
+	}
+	/**
+	 * @return The dialog message if the sending status is not sent
+	 */
+	public String getDiag() {
+		return diag;
+	}
+	/**
+	 * @return The bounce description if the sending status is bounced or soft-bounced
+	 */
+	public String getBounceDescription() {
+		return bounce_description;
 	}
 
 }
