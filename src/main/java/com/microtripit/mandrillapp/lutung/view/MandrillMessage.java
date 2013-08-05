@@ -639,6 +639,22 @@ public class MandrillMessage {
 		private String name, content;
 
 		/**
+		 * Construct a MergeVar.
+		 */
+		public MergeVar() {
+		}
+
+		/**
+		 * Construct and assign name and content in one step.
+		 * @param name The merge variable's name
+		 * @param content The merge variable's content.
+		 */
+		public MergeVar(final String name, final String content) {
+			this.name = name;
+			this.content = content;
+		}
+
+		/**
 		 * @return The merge variable's name. 
 		 * Merge variable names are case-insensitive 
 		 * and may not start with _ (underline).
