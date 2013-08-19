@@ -63,8 +63,8 @@ public final class MandrillMessagesApi {
 	 * in the user's account; <b>Required</b>.
 	 * @param templateContent An map of template content to send. 
 	 * Each entry in the map should have the name of the content 
-	 * block to set the content for, and the actual content 
-	 * to put into the block.
+	 * block to set the content for, corresponding to an mc:edit block,
+	 * and the actual content to put into the block.  May be null.
 	 * @param m The other information on the message to send &ndash; 
 	 * same as {@link #messagesSend(MandrillMessage, Boolean)}, but 
 	 * without the html content.
@@ -92,9 +92,12 @@ public final class MandrillMessagesApi {
 		params.put("template_name", templateName);
 		final ArrayList<TemplateContent> contents;
 		if(templateContent == null) {
-			contents = null;
-		} else {
-			contents = new ArrayList<MandrillMessagesApi.TemplateContent>(
+            contents = new ArrayList<MandrillMessagesApi.TemplateContent>(1);
+            // API requires at least one entry in the template_content array, even when unused
+            contents.add( TemplateContent.create("satisfy_validation", "") );
+        }
+        else {
+            contents = new ArrayList<MandrillMessagesApi.TemplateContent>(
 					templateContent.size());
 			for(String name : templateContent.keySet()) {
 				contents.add( TemplateContent.create(
