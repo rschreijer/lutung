@@ -28,6 +28,7 @@ public class MandrillMessage {
 	private String google_analytics_campaign;
 	private Map<String,String> metadata;
 	private List<RecipientMetadata> recipient_metadata;
+	private String subaccount;
 	
 	/**
 	 * @return The message subject.
@@ -495,7 +496,20 @@ public class MandrillMessage {
 		this.recipient_metadata = recipientMetadata;
 	}
 
+	/**
+	 * Subaccounts are an additional way for users who send on behalf of many others, or who operate multi-tenant 
+	 * systems to separate sending for different users (besides using tags or metadata, for example).
+   * With subaccounts you can separate reputation, activity, reports, and quotas for different types of senders in 
+   * a single Mandrill account.
+	 * @param subaccount specify subaccount name. The subaccount must exist before you can use it
+	 */
+	public void setSubaccount(String subaccount) {
+    this.subaccount = subaccount;
+  }
 	
+	public String getSubaccount() {
+    return this.subaccount;
+  }
 
 	/**
 	 * <p>A single recipient's information.</p>
