@@ -13,7 +13,7 @@ import java.util.Date;
 public class MandrillSearchMessageParams {
 	private String query;
 	private Date date_from, date_to;
-	private String[] tags, senders;
+	private String[] tags, senders, api_keys;
 	private Integer limit;
 	
 	/**
@@ -83,6 +83,20 @@ public class MandrillSearchMessageParams {
 	 */
 	public void setSenders(final String[] senders) {
 		this.senders = senders;
+	}
+	/**
+	 * @return An array of API keys to narrow the search to, 
+	 * will return messages sent by ANY of the keys.
+	 */
+	public String[] getApiKeys() {
+		return api_keys;
+	}
+	/**
+	 * @param api_keys An array of API keys to narrow the search to, 
+	 * will return messages sent by ANY of the keys.
+	 */
+	public void setApiKeys(final String[] api_keys) {
+		this.api_keys = api_keys;
 	}
 	/**
 	 * @return The maximum number of results to return, 

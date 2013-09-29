@@ -63,8 +63,9 @@ public class MandrillRequest<OUT> implements RequestModel<OUT> {
 	public final OUT handleResponse(final InputStream is) 
 			throws HandleResponseException {
 		
+		String raw = null;
 		try {
-			final String raw = IOUtils.toString(is);
+			raw = IOUtils.toString(is);
 			if(log.isDebugEnabled()) {
 				log.debug("raw content from response:\n" +raw);
 			}
@@ -72,7 +73,9 @@ public class MandrillRequest<OUT> implements RequestModel<OUT> {
 					raw, responseContentType);
 			
 		} catch(final Throwable t) {
-			throw new HandleResponseException(t);
+			String msg = "Error handling Mandrill response " +
+					((raw != null)?": '"+raw+"'" : "");
+			throw new HandleResponseException(msg, t);
 			
 		}
 	}

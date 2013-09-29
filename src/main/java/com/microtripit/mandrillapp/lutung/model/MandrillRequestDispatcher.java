@@ -51,7 +51,7 @@ public final class MandrillRequestDispatcher {
 					
 				} catch(final HandleResponseException e) {
 					throw new IOException(
-							"Failed to parse content from response in '" 
+							"Failed to parse response from request '" 
 							+requestModel.getUrl()+ "'", e);
 					
 				}

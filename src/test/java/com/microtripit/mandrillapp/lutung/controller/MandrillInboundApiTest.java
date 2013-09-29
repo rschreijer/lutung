@@ -7,13 +7,9 @@ import java.io.IOException;
 
 import junit.framework.Assert;
 
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.microtripit.mandrillapp.lutung.MandrillApi;
-import com.microtripit.mandrillapp.lutung.MandrillApiTest;
+import com.microtripit.mandrillapp.lutung.MandrillTestCase;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillInboundDomain;
 import com.microtripit.mandrillapp.lutung.view.MandrillMailboxRoute;
@@ -22,25 +18,8 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMailboxRoute;
  * @author rschreijer
  * @since Mar 22, 2013
  */
-public final class MandrillInboundApiTest {
-	private static MandrillApi mandrillApi;
+public final class MandrillInboundApiTest extends MandrillTestCase {
 			
-	
-	@BeforeClass
-	public static final void runBeforeClass() {
-		final String key = MandrillApiTest.getMandrillApiKey();
-		if(key != null) {
-			mandrillApi = new MandrillApi(key);
-		} else {
-			mandrillApi = null;
-		}
-	}
-	
-	@Before
-	public final void runBefore() {
-		Assume.assumeNotNull(mandrillApi);
-	}
-	
 	@Test
 	public final void testDomains() throws IOException, MandrillApiError {
 		MandrillInboundDomain[] domains = mandrillApi.inbound().domains();

@@ -12,6 +12,7 @@ import com.microtripit.mandrillapp.lutung.view.StatsBucket.Stats;
  */
 public class MandrillTag extends Stats {
 	private String tag;
+	private Integer reputation;
 	private StatsBucket stats;
 
 	/**
@@ -26,6 +27,13 @@ public class MandrillTag extends Stats {
 	 */
 	public StatsBucket getStats() {
 		return stats;
+	}
+	
+	/**
+	 * @return The tag's current reputation on a scale from 0 to 100.
+	 */
+	public Integer getReputation() {
+		return reputation;
 	}
 
 }

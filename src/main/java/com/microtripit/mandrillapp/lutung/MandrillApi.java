@@ -3,15 +3,19 @@
  */
 package com.microtripit.mandrillapp.lutung;
 
+import com.microtripit.mandrillapp.lutung.controller.MandrillExportsApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillInboundApi;
+import com.microtripit.mandrillapp.lutung.controller.MandrillIpsApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillMessagesApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillRejectsApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillSendersApi;
+import com.microtripit.mandrillapp.lutung.controller.MandrillSubaccountsApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillTagsApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillTemplatesApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillUrlsApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillUsersApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillWebhooksApi;
+import com.microtripit.mandrillapp.lutung.controller.MandrillWhitelistsApi;
 
 /**
  * @author rschreijer
@@ -23,11 +27,15 @@ public class MandrillApi {
 	private final MandrillMessagesApi messages;
 	private final MandrillTagsApi tags;
 	private final MandrillRejectsApi rejects;
+	private final MandrillWhitelistsApi whitelists;
 	private final MandrillSendersApi senders;
 	private final MandrillUrlsApi urls;
 	private final MandrillTemplatesApi templates;
 	private final MandrillWebhooksApi webhooks;
+	private final MandrillSubaccountsApi subaccounts;
 	private final MandrillInboundApi inbound;
+	private final MandrillExportsApi exports;
+	private final MandrillIpsApi ips;
 	
 	public MandrillApi(final String key) {
 		if(key == null) {
@@ -40,11 +48,15 @@ public class MandrillApi {
 		messages = new MandrillMessagesApi(key);
 		tags = new MandrillTagsApi(key);
 		rejects = new MandrillRejectsApi(key);
+		whitelists = new MandrillWhitelistsApi(key);
 		senders = new MandrillSendersApi(key);
 		urls = new MandrillUrlsApi(key);
 		templates = new MandrillTemplatesApi(key);
 		webhooks = new MandrillWebhooksApi(key);
+		subaccounts = new MandrillSubaccountsApi(key);
 		inbound = new MandrillInboundApi(key);
+		exports = new MandrillExportsApi(key);
+		ips = new MandrillIpsApi(key);
 	}
 
 	/**
@@ -74,6 +86,10 @@ public class MandrillApi {
 		return rejects;
 	}
 	
+	public final MandrillWhitelistsApi whitelists() {
+		return whitelists;
+	}
+	
 	public final MandrillSendersApi senders() {
 		return senders;
 	}
@@ -90,8 +106,20 @@ public class MandrillApi {
 		return webhooks;
 	}
 	
+	public final MandrillSubaccountsApi subaccounts() {
+		return subaccounts;
+	}
+	
 	public final MandrillInboundApi inbound() {
 		return inbound;
+	}
+	
+	public final MandrillExportsApi exports() {
+		return exports;
+	}
+	
+	public final MandrillIpsApi ips() {
+		return ips;
 	}
 	
 }

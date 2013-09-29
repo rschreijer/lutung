@@ -7,13 +7,9 @@ import java.io.IOException;
 
 import junit.framework.Assert;
 
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.microtripit.mandrillapp.lutung.MandrillApi;
-import com.microtripit.mandrillapp.lutung.MandrillApiTest;
+import com.microtripit.mandrillapp.lutung.MandrillTestCase;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
 import com.microtripit.mandrillapp.lutung.view.MandrillUrl;
@@ -22,23 +18,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillUrl;
  * @author rschreijer
  * @since Mar 21, 2013
  */
-public final class MandrillUrlsApiTest {
-	private static MandrillApi mandrillApi;
-	
-	@BeforeClass
-	public static final void runBeforeClass() {
-		final String key = MandrillApiTest.getMandrillApiKey();
-		if(key != null) {
-			mandrillApi = new MandrillApi(key);
-		} else {
-			mandrillApi = null;
-		}
-	}
-	
-	@Before
-	public final void runBefore() {
-		Assume.assumeNotNull(mandrillApi);
-	}
+public final class MandrillUrlsApiTest extends MandrillTestCase {
 	
 	@Test
 	public final void testList() throws IOException, MandrillApiError {
@@ -56,6 +36,9 @@ public final class MandrillUrlsApiTest {
 	public final void testSearch02() throws IOException, MandrillApiError {
 		final MandrillUrl[] urls = mandrillApi.urls().search("com");
 		Assert.assertNotNull(urls);
+		for(MandrillUrl url : urls) {
+			Assert.assertNotNull(url.getUrl());
+		}
 	}
 	
 	@Test(expected=MandrillApiError.class)

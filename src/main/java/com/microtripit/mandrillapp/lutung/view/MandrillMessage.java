@@ -16,18 +16,23 @@ public class MandrillMessage {
 	private String subject, html, text, from_email, from_name;
 	private List<Recipient> to;
 	private Map<String,String> headers;
-	private List<MessageContent> attachments;
-	private List<MessageContent> images;
-	// following params are send-only
-	private String bcc_address, tracking_domain, signing_domain;
-	private Boolean track_opens, track_clicks, auto_text, auto_html;
-	private Boolean inline_css, url_strip_qs, preserve_recipients, merge;
+	private Boolean important, track_opens, track_clicks, auto_text, auto_html, 
+			inline_css, url_strip_qs, preserve_recipients, view_content_link;
+	private String bcc_address, tracking_domain, signing_domain, 
+			return_path_domain;
+	private Boolean merge;
 	private List<MergeVar> global_merge_vars;
 	private List<MergeVarBucket> merge_vars;
-	private List<String> tags, google_analytics_domains;
+	private List<String> tags;
+	private String subaccount;
+	private List<String> google_analytics_domains;
 	private String google_analytics_campaign;
 	private Map<String,String> metadata;
 	private List<RecipientMetadata> recipient_metadata;
+	private List<MessageContent> attachments;
+	private List<MessageContent> images;
+	// following params are send-only
+	
 	
 	/**
 	 * @return The message subject.
@@ -158,6 +163,22 @@ public class MandrillMessage {
 	public void setImages(final List<MessageContent> images) {
 		this.images = images;
 	}
+	
+	/**
+	 * @return Whether or not this message is important, and should be 
+	 * delivered ahead of non-important messages.
+	 */
+	public Boolean getImportant() {
+		return important;
+	}
+	
+	/**
+	 * @param important Set whether or not this message is important, and 
+	 * should be delivered ahead of non-important messages
+	 */
+	public void setImportant(final Boolean important) {
+		this.important = important;
+	}
 
 	/**
 	 * @return Whether or not to turn on open tracking 
@@ -272,6 +293,22 @@ public class MandrillMessage {
 	public void setPreserveRecipients(final Boolean preserveRecipients) {
 		this.preserve_recipients = preserveRecipients;
 	}
+	
+	/**
+	 * @return False if you want to remove content logging for 
+	 * sensitive emails.
+	 */
+	public Boolean getViewContentLink() {
+		return view_content_link;
+	}
+	
+	/**
+	 * @param view_content_link Set to false to remove content logging for 
+	 * sensitive emails.
+	 */
+	public void setViewContentLink(final Boolean view_content_link) {
+		this.view_content_link = view_content_link;
+	}
 
 	/**
 	 * @return An optional address to receive an exact copy of 
@@ -320,6 +357,21 @@ public class MandrillMessage {
 	 */
 	public void setSigningDomain(final String signingDomain) {
 		this.signing_domain = signingDomain;
+	}
+	
+	/**
+	 * @return The custom domain to use for the messages's return-path.
+	 */
+	public String getReturnPathDomain() {
+		return return_path_domain;
+	}
+	
+	/**
+	 * @param return_path_domain A custom domain to use for the 
+	 * messages's return-path.
+	 */
+	public void setReturnPathDomain(final String return_path_domain) {
+		this.return_path_domain = return_path_domain;
 	}
 
 	/**
@@ -416,6 +468,22 @@ public class MandrillMessage {
 		} else {
 			this.tags = null;
 		}
+	}
+	
+	/**
+	 * @return The unique id of a subaccount for this message 
+	 * &ndash; must already exist or will fail with an error.
+	 */
+	public String getSubaccount() {
+		return subaccount;
+	}
+	
+	/**
+	 * @param subaccount The unique id of a subaccount for this message 
+	 * &ndash; must already exist or will fail with an error.
+	 */
+	public void setSubaccount(final String subaccount) {
+		this.subaccount = subaccount;
 	}
 
 	/**

@@ -47,10 +47,10 @@ public final class MandrillUsersApi {
 	}
 	
 	/**
-	 * <p>Get all sender addresses that have been used with this 
-	 * account this far.</p>
+	 * <p>Return the senders that have tried to use this account, 
+	 * both verified and unverified.</p>
 	 * @return The senders that have tried to use this account, 
-	 * both verified and unverified
+	 * both verified and unverified.
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */

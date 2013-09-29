@@ -8,10 +8,10 @@ import java.util.Date;
  * @since Mar 18, 2013
  */
 public class MandrillRejectsEntry {
-	private String email, reason;
-	private Date created_at, expires_at;
+	private String email, reason, detail;
+	private Date created_at, last_event_at, expires_at;
 	private Boolean expired;
-	// TODO: Sender
+	private MandrillSender sender;
 	
 	/**
 	 * @return The email that is blocked.
@@ -28,11 +28,26 @@ public class MandrillRejectsEntry {
 		return reason;
 	}
 	/**
+	 * @return Extended details about the event, 
+	 * such as the SMTP diagnostic for bounces or 
+	 * the comment for manually-created rejections.
+	 */
+	public String getDetail() {
+		return detail;
+	}
+	/**
 	 * @return When this email was added to the 
 	 * blacklist, UTC.
 	 */
 	public Date getCreatedAt() {
 		return created_at;
+	}
+	/**
+	 * @return The time of the most recent event 
+	 * that either created or renewed this rejection.
+	 */
+	public Date getLastEventAt() {
+		return last_event_at;
 	}
 	/**
 	 * @return When this blacklist entry will 
@@ -46,5 +61,12 @@ public class MandrillRejectsEntry {
 	 */
 	public Boolean isExpired() {
 		return expired;
+	}
+	/**
+	 * @return The sender that this blacklist entry 
+	 * applies to, or null if none.
+	 */
+	public MandrillSender getSender() {
+		return sender;
 	}
 }

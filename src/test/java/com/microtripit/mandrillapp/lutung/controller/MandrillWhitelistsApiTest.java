@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.microtripit.mandrillapp.lutung.controller;
 
 import java.io.IOException;
@@ -11,29 +8,30 @@ import org.junit.Test;
 
 import com.microtripit.mandrillapp.lutung.MandrillTestCase;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
+import com.microtripit.mandrillapp.lutung.view.MandrillWhitelistEntry;
 
-/**
- * @author rschreijer
- * @since Mar 21, 2013
- */
-public final class MandrillRejectsApiTest extends MandrillTestCase {
+public final class MandrillWhitelistsApiTest extends MandrillTestCase {
 	
 	@Test(expected=MandrillApiError.class)
 	public final void testAdd() throws IOException, MandrillApiError {
-		mandrillApi.rejects().add(null, null, null);
+		mandrillApi.whitelists().add(null);
 		Assert.fail();
 	}
 	
 	@Test
 	public final void testList() throws IOException, MandrillApiError {
-		Assert.assertNotNull( mandrillApi.rejects().list(null, null) );
-		
+		final MandrillWhitelistEntry[] entries = 
+				mandrillApi.whitelists().list(null);
+		Assert.assertNotNull(entries);
+		for(MandrillWhitelistEntry entry : entries) {
+			Assert.assertNotNull(entry.getEmail());
+		}
 	}
 	
 	@Test(expected=MandrillApiError.class)
 	public final void testDelete() throws IOException, MandrillApiError {
-		mandrillApi.rejects().delete(null);
+		mandrillApi.whitelists().delete(null);
 		Assert.fail();
 	}
-
+	
 }

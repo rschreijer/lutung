@@ -41,9 +41,39 @@ public final class MandrillTemplatesApi {
 			final String code, final Boolean publish) 
 					throws MandrillApiError, IOException {
 		
+		return add(name, null, null, null, code, null, publish);
+		
+	}
+	
+	/**
+	 * <p>Add a new template.</p>
+	 * @param name The name for the new template - must be unique.
+	 * @param fromEmail A default sending address for emails 
+	 * sent using this template.
+	 * @param fromName A default from name to be used.
+	 * @param subject A default subject line to be used.
+	 * @param code The HTML code for the template with mc:edit 
+	 * attributes for the editable elements.
+	 * @param text A default text part to be used when 
+	 * sending with this template.
+	 * @param publish Set to false to add a draft template 
+	 * without publishing.
+	 * @return The information saved about the new template.
+	 * @throws MandrillApiError
+	 * @throws IOException
+	 */
+	public final MandrillTemplate add(final String name, final String fromEmail,
+			final String fromName, final String subject, final String code, 
+			final String text, final Boolean publish) 
+					throws MandrillApiError, IOException {
+		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
 		params.put("name", name);
+		params.put("from_email", fromEmail);
+		params.put("from_name", fromName);
+		params.put("subject", subject);
 		params.put("code", code);
+		params.put("text", text);
 		params.put("publish", publish);
 		return MandrillUtil.query(rootUrl+ "templates/add.json", 
 				params, MandrillTemplate.class);
@@ -81,9 +111,38 @@ public final class MandrillTemplatesApi {
 			final String code, final Boolean publish) 
 					throws MandrillApiError, IOException {
 		
+		return update(name, null, null, null, code, null, publish);
+		
+	}
+	
+	/**
+	 * <p>Update the code for an existing template.</p> 
+	 * @param name The immutable name of an existing template.
+	 * @param fromEmail A default sending address for emails 
+	 * sent using this template.
+	 * @param fromName A default from name to be used.
+	 * @param subject A default subject line to be used.
+	 * @param code The new code for the template.
+	 * @param text A default text part to be used when 
+	 * sending with this template.
+	 * @param publish Set to false to update the draft 
+	 * version of the template without publishing.
+	 * @return The updated template.
+	 * @throws MandrillApiError
+	 * @throws IOException
+	 */
+	public final MandrillTemplate update(final String name, 
+			final String fromEmail, final String fromName, 
+			final String subject, final String code, final String text, 
+			final Boolean publish) throws MandrillApiError, IOException {
+		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
 		params.put("name", name);
+		params.put("from_email", fromEmail);
+		params.put("from_name", fromName);
+		params.put("subject", subject);
 		params.put("code", code);
+		params.put("text", text);
 		params.put("publish", publish);
 		return MandrillUtil.query(rootUrl+ "templates/update.json", 
 				params, MandrillTemplate.class);

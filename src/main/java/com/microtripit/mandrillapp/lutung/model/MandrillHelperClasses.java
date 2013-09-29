@@ -9,27 +9,39 @@ package com.microtripit.mandrillapp.lutung.model;
  */
 public final class MandrillHelperClasses {
 	
+	
+	public static class EmailClass {
+		private String email;
+		public final String getEmail() {
+			return email;
+		}
+	}
+	/**
+	 * @author rschreijer
+	 * @since Sep 27, 2013
+	 */
+	public static class MandrillRejectsAdded extends EmailClass {
+		/*
+		 * This class is only used in one call.
+		 */
+		private Boolean added;
+		public final Boolean getAdded() {
+			return added;
+		}
+	}
+	
 	/**
 	 * @author rschreijer
 	 * @since Mar 18, 2013
 	 */
-	public static class MandrillRejectsDeleted {
-		private String email;
+	public static class MandrillRejectsDeleted extends EmailClass {
+		/*
+		 * This class is only used in one call.
+		 */
 		private Boolean deleted;
-		
-		/**
-		 * @return the email
-		 */
-		public final String getEmail() {
-			return email;
-		}
-		/**
-		 * @return the deleted
-		 */
 		public final Boolean getDeleted() {
 			return deleted;
 		}
-
 	}
 	
 	/**

@@ -8,13 +8,9 @@ import java.util.HashMap;
 
 import junit.framework.Assert;
 
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.microtripit.mandrillapp.lutung.MandrillApi;
-import com.microtripit.mandrillapp.lutung.MandrillApiTest;
+import com.microtripit.mandrillapp.lutung.MandrillTestCase;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillTemplate;
 import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
@@ -23,52 +19,21 @@ import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
  * @author rschreijer
  * @since Mar 22, 2013
  */
-public final class MandrillTemplatesApiTest {
-	private static MandrillApi mandrillApi;
-	private static String templateName; 
-			
-	
-	@BeforeClass
-	public static final void runBeforeClass() {
-		final String key = MandrillApiTest.getMandrillApiKey();
-		if(key != null) {
-			mandrillApi = new MandrillApi(key);
-		} else {
-			mandrillApi = null;
-		}
-		templateName = "lutung_templatename_unit_test_" 
-					+System.currentTimeMillis();
-	}
-	
-	@Before
-	public final void runBefore() {
-		Assume.assumeNotNull(mandrillApi);
-	}
+public final class MandrillTemplatesApiTest extends MandrillTestCase {
+	private static String templateName = 
+			"lutung_templatename_unit_test_" +System.currentTimeMillis(); 
 	
 	@Test(expected=MandrillApiError.class)
 	public final void testAddWithoutName() throws IOException, MandrillApiError {
-		mandrillApi.templates().add(
-				null, 
-				"<html><body><h1>Hello World!</h1></body></html>", 
-				null);
-		Assert.fail();
-	}
-	
-	@Test(expected=MandrillApiError.class)
-	public final void testAddWithoutCode() throws IOException, MandrillApiError {
-		mandrillApi.templates().add(
-				templateName, 
-				null, 
-				null);
+		mandrillApi.templates().add(null, 
+				"<html><body><h1>Hello World!</h1></body></html>", null);
 		Assert.fail();
 	}
 	
 	@Test
 	public final void testAdd() throws IOException, MandrillApiError {
-		final MandrillTemplate t = mandrillApi.templates().add(
-				templateName, 
-				"<html><body><h1>Hello World!</h1></body></html>",
-				false);
+		final MandrillTemplate t = mandrillApi.templates().add(templateName, 
+				"<html><body><h1>Hello World!</h1></body></html>", false);
 		Assert.assertNotNull(t);
 		Assert.assertNotNull(t.getName());
 		Assert.assertNotNull( mandrillApi.templates().delete(t.getName()) );
@@ -80,7 +45,6 @@ public final class MandrillTemplatesApiTest {
 		Assert.assertNotNull(templates);
 		for(MandrillTemplate t : templates) {
 			Assert.assertNotNull(t.getName());
-			Assert.assertNotNull(t.getCode());
 			Assert.assertNotNull(t.getCreatedAt());
 		}
 	}
@@ -107,10 +71,8 @@ public final class MandrillTemplatesApiTest {
 	
 	@Test(expected=MandrillApiError.class)
 	public final void testUpdateWithoutName() throws IOException, MandrillApiError {
-		mandrillApi.templates().update(
-				null, 
-				"<html><body><h1>Hello World!</h1></body></html>",
-				false);
+		mandrillApi.templates().update(null, 
+				"<html><body><h1>Hello World!</h1></body></html>", false);
 		Assert.fail();
 	}
 	
@@ -122,10 +84,8 @@ public final class MandrillTemplatesApiTest {
 	
 	@Test
 	public final void testUpdate() throws IOException, MandrillApiError {
-		MandrillTemplate t = mandrillApi.templates().add(
-				templateName, 
-				"<html><body><h1>Hello World!</h1></body></html>",
-				false);
+		MandrillTemplate t = mandrillApi.templates().add(templateName, 
+				"<html><body><h1>Hello World!</h1></body></html>", false);
 		Assert.assertNotNull(t);
 		final String updatedCode = "<html><body><h1>Hello World! UPDATED</h1></body></html>";
 		t = mandrillApi.templates().update(t.getName(), updatedCode, false);

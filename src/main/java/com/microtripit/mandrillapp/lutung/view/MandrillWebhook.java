@@ -21,9 +21,9 @@ public class MandrillWebhook {
 	public static final String REJECT = "reject";
 	
 	private Integer id, batches_sent, events_sent;
-	private String url, last_error;
+	private String url, description, auth_key, last_error;
+	private String[] events;
 	private Date created_at, last_sent_at;
-	private String events;
 	
 	/**
 	 * @return The unique integer indentifier for the webhook.
@@ -50,6 +50,18 @@ public class MandrillWebhook {
 	 */
 	public String getUrl() {
 		return url;
+	}
+	/**
+	 * @return A description of the webhook.
+	 */
+	public String getDescription() {
+		return description;
+	}
+	/**
+	 * @return The key used to requests for this webhook.
+	 */
+	public String getAuthKey() {
+		return auth_key;
 	}
 	/**
 	 * @return If we've ever gotten an error trying to post 
@@ -79,7 +91,7 @@ public class MandrillWebhook {
 	 * {@link #OPEN}, {@link #CLICK}, {@link #SPAM}, {@link #UNSUB}, 
 	 * {@link #REJECT}
 	 */
-	public String getEvents() {
+	public String[] getEvents() {
 		return events;
 	}
 }
