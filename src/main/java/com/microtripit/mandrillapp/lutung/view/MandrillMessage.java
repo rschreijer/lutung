@@ -571,7 +571,28 @@ public class MandrillMessage {
 	 * @since Mar 16, 2013
 	 */
 	public static class Recipient {
+		public enum Type {
+			TO, BCC, CC;
+		}
+
 		private String email, name;
+
+		private Type type = Type.TO;
+
+		/**
+		 * @return The type of the recipient (one of: TO, CC OR BCC).
+		 */
+		public Type getType() {
+			return type;
+		}
+
+		/**
+		 * @param type The type of the recipient (one of: TO, CC OR BCC).
+		 */
+		public void setType(final Type type) {
+			this.type = type;
+		}
+
 
 		/**
 		 * @return The email address of the recipient.
@@ -597,6 +618,8 @@ public class MandrillMessage {
 		public void setName(final String name) {
 			this.name = name;
 		}
+
+
 	}
 	
 	/**
