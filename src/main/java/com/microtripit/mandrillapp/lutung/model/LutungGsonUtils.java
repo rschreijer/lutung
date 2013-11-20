@@ -3,23 +3,15 @@
  */
 package com.microtripit.mandrillapp.lutung.model;
 
+import com.google.gson.*;
+import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
+
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
 /**
  * @author rschreijer
@@ -42,7 +34,8 @@ public final class LutungGsonUtils {
 		return new GsonBuilder()
 				.setDateFormat(dateFormatStr)
 				.registerTypeAdapter(Date.class, new DateDeserializer())
-				.registerTypeAdapter(Map.class, new MapSerializer());
+				.registerTypeAdapter(Map.class, new MapSerializer())
+                .registerTypeAdapter(MandrillMessage.Recipient.Type.class, new RecipientTypeSerializer());
 	}
 	
 	public static final class DateDeserializer 
@@ -97,5 +90,27 @@ public final class LutungGsonUtils {
 			
 		}
 		
+	}
+
+	public static final class RecipientTypeSerializer
+			implements JsonDeserializer<MandrillMessage.Recipient.Type>, JsonSerializer<MandrillMessage.Recipient.Type> {
+
+		public final MandrillMessage.Recipient.Type deserialize(final JsonElement json,
+									  final Type typeOfT, final JsonDeserializationContext context)
+				throws JsonParseException {
+			if(!json.isJsonPrimitive()) {
+				throw new JsonParseException(
+						"Unexpected type for recipient type: " +json.toString());
+			}
+
+			return MandrillMessage.Recipient.Type.valueOf(json.getAsString().toUpperCase());
+
+		}
+
+		public JsonPrimitive serialize(MandrillMessage.Recipient.Type src, Type typeOfSrc,
+									 JsonSerializationContext context) {
+
+			return new JsonPrimitive(src.name().toLowerCase());
+		}
 	}
 }
