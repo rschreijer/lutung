@@ -572,7 +572,7 @@ public class MandrillMessage {
 	 */
 	public static class Recipient {
 		public enum Type {
-			TO, BCC, CC;
+			TO, BCC, CC
 		}
 
 		private String email, name;

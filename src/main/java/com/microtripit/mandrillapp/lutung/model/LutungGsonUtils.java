@@ -5,6 +5,7 @@ package com.microtripit.mandrillapp.lutung.model;
 
 import com.google.gson.*;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
+import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -35,7 +36,8 @@ public final class LutungGsonUtils {
 				.setDateFormat(dateFormatStr)
 				.registerTypeAdapter(Date.class, new DateDeserializer())
 				.registerTypeAdapter(Map.class, new MapSerializer())
-                .registerTypeAdapter(MandrillMessage.Recipient.Type.class, new RecipientTypeSerializer());
+				.registerTypeAdapter(MandrillMessage.Recipient.Type.class, new RecipientTypeSerializer())
+				.registerTypeAdapter(MandrillMessageStatus.Status.class, new MessageStatusSerializer());
 	}
 	
 	public static final class DateDeserializer 
@@ -113,4 +115,27 @@ public final class LutungGsonUtils {
 			return new JsonPrimitive(src.name().toLowerCase());
 		}
 	}
+
+	public static final class MessageStatusSerializer
+			implements JsonDeserializer<MandrillMessageStatus.Status>, JsonSerializer<MandrillMessageStatus.Status> {
+
+		public final MandrillMessageStatus.Status deserialize(final JsonElement json,
+																final Type typeOfT, final JsonDeserializationContext context)
+				throws JsonParseException {
+			if(!json.isJsonPrimitive()) {
+				throw new JsonParseException(
+						"Unexpected type for recipient type: " +json.toString());
+			}
+
+			return MandrillMessageStatus.Status.valueOf(json.getAsString().toUpperCase());
+
+		}
+
+		public JsonPrimitive serialize(MandrillMessageStatus.Status src, Type typeOfSrc,
+									   JsonSerializationContext context) {
+
+			return new JsonPrimitive(src.name().toLowerCase());
+		}
+	}
+
 }
