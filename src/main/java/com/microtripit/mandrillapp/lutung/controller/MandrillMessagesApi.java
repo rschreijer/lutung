@@ -22,7 +22,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillMessagesApi {
+public class MandrillMessagesApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -48,7 +48,7 @@ public final class MandrillMessagesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillMessageStatus[] send(final MandrillMessage m, 
+	public MandrillMessageStatus[] send(final MandrillMessage m, 
 			final Boolean async) throws MandrillApiError, IOException {
 	
 		return send(m, async, null, null);
@@ -83,7 +83,7 @@ public final class MandrillMessagesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillMessageStatus[] send(final MandrillMessage m, 
+	public MandrillMessageStatus[] send(final MandrillMessage m, 
 			final Boolean async, final String ipPool, final Date sendAt) 
 					throws MandrillApiError, IOException {
 		
@@ -130,7 +130,7 @@ public final class MandrillMessagesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillMessageStatus[] sendTemplate(
+	public MandrillMessageStatus[] sendTemplate(
 			final String templateName, final Map<String,String> templateContent, 
 			final MandrillMessage m, final Boolean async) 
 					throws MandrillApiError, IOException {
@@ -177,7 +177,7 @@ public final class MandrillMessagesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillMessageStatus[] sendTemplate(
+	public MandrillMessageStatus[] sendTemplate(
 			final String templateName, final Map<String,String> templateContent, 
 			final MandrillMessage m, final Boolean async, 
 			final String ipPool, final Date sendAt) 
@@ -222,7 +222,7 @@ public final class MandrillMessagesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillMessageInfo[] search(
+	public MandrillMessageInfo[] search(
 			final MandrillSearchMessageParams search) 
 					throws MandrillApiError, IOException {
 		
@@ -250,7 +250,7 @@ public final class MandrillMessagesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTimeSeries[] searchTimeSeries(
+	public MandrillTimeSeries[] searchTimeSeries(
 			final MandrillSearchMessageParams search) 
 					throws MandrillApiError, IOException {
 		
@@ -294,7 +294,7 @@ public final class MandrillMessagesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillMessage parse(final String rawMessage) 
+	public MandrillMessage parse(final String rawMessage) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -316,7 +316,7 @@ public final class MandrillMessagesApi {
 	 * @throws IOException
 	 * @since Mar 18, 2013
 	 */
-	public final MandrillMessageStatus[] sendRaw(final String fromEmail, 
+	public MandrillMessageStatus[] sendRaw(final String fromEmail, 
 			final String fromName, final String rawMessage, 
 			final Collection<String> to, final Boolean async) 
 					throws MandrillApiError, IOException {
@@ -326,7 +326,7 @@ public final class MandrillMessagesApi {
 		
 	}
 	
-	public final MandrillMessageStatus[] sendRaw(final String fromEmail, 
+	public MandrillMessageStatus[] sendRaw(final String fromEmail, 
 			final String fromName, final String rawMessage, 
 			final Collection<String> to, final Boolean async,
 			final String ipPool, final Date sendAt, 

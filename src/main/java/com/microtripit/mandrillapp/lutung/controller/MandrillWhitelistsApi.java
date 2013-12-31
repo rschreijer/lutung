@@ -24,7 +24,7 @@ public class MandrillWhitelistsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final Boolean add(final String email) 
+	public Boolean add(final String email) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -43,7 +43,7 @@ public class MandrillWhitelistsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillWhitelistEntry[] list(final String email) 
+	public MandrillWhitelistEntry[] list(final String email) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -60,7 +60,7 @@ public class MandrillWhitelistsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final Boolean delete(final String email) 
+	public Boolean delete(final String email) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);

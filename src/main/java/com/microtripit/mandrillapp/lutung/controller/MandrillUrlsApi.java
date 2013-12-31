@@ -14,7 +14,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillUrl;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillUrlsApi {
+public class MandrillUrlsApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -29,7 +29,7 @@ public final class MandrillUrlsApi {
 	 * @throws IOException
 	 * @since Mar 19, 2013
 	 */
-	public final MandrillUrl[] list() 
+	public MandrillUrl[] list() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(
@@ -48,7 +48,7 @@ public final class MandrillUrlsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillUrl[] search(final String query) 
+	public MandrillUrl[] search(final String query) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -66,7 +66,7 @@ public final class MandrillUrlsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTimeSeries[] timeSeries(final String url) 
+	public MandrillTimeSeries[] timeSeries(final String url) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);

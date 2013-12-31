@@ -6,7 +6,7 @@ import java.util.HashMap;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillSubaccountInfo;
 
-public final class MandrillSubaccountsApi {
+public class MandrillSubaccountsApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -23,7 +23,7 @@ public final class MandrillSubaccountsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSubaccountInfo[] list(final String q) 
+	public MandrillSubaccountInfo[] list(final String q) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -48,7 +48,7 @@ public final class MandrillSubaccountsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSubaccountInfo add(final String id, final String name, 
+	public MandrillSubaccountInfo add(final String id, final String name, 
 			final String notes, final Integer customQuota)  
 					throws MandrillApiError, IOException {
 		
@@ -69,7 +69,7 @@ public final class MandrillSubaccountsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSubaccountInfo info(final String id) 
+	public MandrillSubaccountInfo info(final String id) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -94,7 +94,7 @@ public final class MandrillSubaccountsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSubaccountInfo update(final String id, 
+	public MandrillSubaccountInfo update(final String id, 
 			final String name, final String notes, final Integer customQuota)  
 					throws MandrillApiError, IOException {
 		
@@ -117,7 +117,7 @@ public final class MandrillSubaccountsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSubaccountInfo delete(final String id) 
+	public MandrillSubaccountInfo delete(final String id) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -136,7 +136,7 @@ public final class MandrillSubaccountsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSubaccountInfo pause(final String id) 
+	public MandrillSubaccountInfo pause(final String id) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -153,7 +153,7 @@ public final class MandrillSubaccountsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSubaccountInfo resume(final String id) 
+	public MandrillSubaccountInfo resume(final String id) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);

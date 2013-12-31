@@ -17,19 +17,19 @@ public class MandrillWhitelistEntry {
 	/**
 	 * @return The email that is whitelisted.
 	 */
-	public final String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 	/**
 	 * @return A description of why the email was whitelisted.
 	 */
-	public final String getDetail() {
+	public String getDetail() {
 		return detail;
 	}
 	/**
 	 * @return When the email was added to the whitelist.
 	 */
-	public final Date getCreated_at() {
+	public Date getCreated_at() {
 		return created_at;
 	}
 

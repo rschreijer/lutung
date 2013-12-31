@@ -16,7 +16,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillExportJobInfo;
  * @author rschreijer
  *
  */
-public final class MandrillExportsApi {
+public class MandrillExportsApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -37,7 +37,7 @@ public final class MandrillExportsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillExportJobInfo info(final String id) 
+	public MandrillExportJobInfo info(final String id) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -53,7 +53,7 @@ public final class MandrillExportsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillExportJobInfo list() 
+	public MandrillExportJobInfo list() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(rootUrl+ "exports/list.json", 
@@ -79,7 +79,7 @@ public final class MandrillExportsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillExportJobInfo rejects(final String notifyEmail) 
+	public MandrillExportJobInfo rejects(final String notifyEmail) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -102,7 +102,7 @@ public final class MandrillExportsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillExportJobInfo whitelist(final String notifyEmail) 
+	public MandrillExportJobInfo whitelist(final String notifyEmail) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -143,7 +143,7 @@ public final class MandrillExportsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillExportJobInfo activity(final String notifyEmail, 
+	public MandrillExportJobInfo activity(final String notifyEmail, 
 			final Date dateFrom, final Date dateTo, 
 			final Collection<String> tags, final Collection<String> senders,
 			final Collection<String> states, final Collection<String> apiKeys) 

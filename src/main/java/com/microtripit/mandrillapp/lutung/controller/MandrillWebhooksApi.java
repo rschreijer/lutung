@@ -15,7 +15,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillWebhook;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillWebhooksApi {
+public class MandrillWebhooksApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -29,7 +29,7 @@ public final class MandrillWebhooksApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillWebhook[] list() throws MandrillApiError, 
+	public MandrillWebhook[] list() throws MandrillApiError, 
 			IOException {
 		
 		return MandrillUtil.query(
@@ -58,7 +58,7 @@ public final class MandrillWebhooksApi {
 	 * {@link MandrillWebhook#UNSUB} and {@link MandrillWebhook#REJECT} 
 	 * for valid events.
 	 */
-	public final MandrillWebhook add(final String url, final String event) 
+	public MandrillWebhook add(final String url, final String event) 
 			throws MandrillApiError, IOException {
 		
 		final ArrayList<String> events = new ArrayList<String>(1);
@@ -86,7 +86,7 @@ public final class MandrillWebhooksApi {
 	 * {@link MandrillWebhook#UNSUB} and {@link MandrillWebhook#REJECT} 
 	 * for valid events.
 	 */
-	public final MandrillWebhook add(final String url, 
+	public MandrillWebhook add(final String url, 
 			final Collection<String> events) throws MandrillApiError, 
 			IOException {
 		
@@ -114,7 +114,7 @@ public final class MandrillWebhooksApi {
 	 * {@link MandrillWebhook#UNSUB} and {@link MandrillWebhook#REJECT} 
 	 * for valid events.
 	 */
-	public final MandrillWebhook add(final String url, final String description, 
+	public MandrillWebhook add(final String url, final String description, 
 			final Collection<String> events) throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -134,7 +134,7 @@ public final class MandrillWebhooksApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillWebhook info(final Integer id) 
+	public MandrillWebhook info(final Integer id) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -165,7 +165,7 @@ public final class MandrillWebhooksApi {
 	 * {@link MandrillWebhook#UNSUB} and {@link MandrillWebhook#REJECT} 
 	 * for valid events.
 	 */
-	public final MandrillWebhook update(final Integer id, 
+	public MandrillWebhook update(final Integer id, 
 			final String url, final String event) 
 					throws MandrillApiError, IOException {
 		
@@ -196,7 +196,7 @@ public final class MandrillWebhooksApi {
 	 * {@link MandrillWebhook#UNSUB} and {@link MandrillWebhook#REJECT} 
 	 * for valid events.
 	 */
-	public final MandrillWebhook update(final Integer id, 
+	public MandrillWebhook update(final Integer id, 
 			final String url, final Collection<String> events) 
 					throws MandrillApiError, IOException {
 		
@@ -226,7 +226,7 @@ public final class MandrillWebhooksApi {
 	 * {@link MandrillWebhook#UNSUB} and {@link MandrillWebhook#REJECT} 
 	 * for valid events.
 	 */
-	public final MandrillWebhook update(final Integer id, final String url, 
+	public MandrillWebhook update(final Integer id, final String url, 
 			final String description, final Collection<String> events) 
 					throws MandrillApiError, IOException {
 		
@@ -249,7 +249,7 @@ public final class MandrillWebhooksApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillWebhook delete(final Integer id) 
+	public MandrillWebhook delete(final Integer id) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);

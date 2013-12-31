@@ -18,19 +18,19 @@ public class MandrillDedicatedIpPool {
 	/**
 	 * @return This pool's name.
 	 */
-	public final String getName() {
+	public String getName() {
 		return name;
 	}
 	/**
 	 * @return The date and time that this pool was created.
 	 */
-	public final Date getCreatedAt() {
+	public Date getCreatedAt() {
 		return created_at;
 	}
 	/**
 	 * @return The dedicated IPs in this pool.
 	 */
-	public final List<MandrillDedicatedIp> getIps() {
+	public List<MandrillDedicatedIp> getIps() {
 		return ips;
 	}
 

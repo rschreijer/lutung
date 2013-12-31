@@ -14,7 +14,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillUserInfo;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillUsersApi {
+public class MandrillUsersApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	

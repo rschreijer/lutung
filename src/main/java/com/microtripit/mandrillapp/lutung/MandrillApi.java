@@ -62,7 +62,7 @@ public class MandrillApi {
 	/**
 	 * @return Your Mandrill API key.
 	 */
-	public final String getKey() {
+	public String getKey() {
 		return key;
 	}
 	
@@ -70,55 +70,55 @@ public class MandrillApi {
 	 * <p>Get access to 'users' calls.</p>
 	 * @return An object with access to user calls.
 	 */
-	public final MandrillUsersApi users() {
+	public MandrillUsersApi users() {
 		return users;
 	}
 	
-	public final MandrillMessagesApi messages() {
+	public MandrillMessagesApi messages() {
 		return messages;
 	}
 	
-	public final MandrillTagsApi tags() {
+	public MandrillTagsApi tags() {
 		return tags;
 	}
 	
-	public final MandrillRejectsApi rejects() {
+	public MandrillRejectsApi rejects() {
 		return rejects;
 	}
 	
-	public final MandrillWhitelistsApi whitelists() {
+	public MandrillWhitelistsApi whitelists() {
 		return whitelists;
 	}
 	
-	public final MandrillSendersApi senders() {
+	public MandrillSendersApi senders() {
 		return senders;
 	}
 	
-	public final MandrillUrlsApi urls() {
+	public MandrillUrlsApi urls() {
 		return urls;
 	}
 	
-	public final MandrillTemplatesApi templates() {
+	public MandrillTemplatesApi templates() {
 		return templates;
 	}
 	
-	public final MandrillWebhooksApi webhooks() {
+	public MandrillWebhooksApi webhooks() {
 		return webhooks;
 	}
 	
-	public final MandrillSubaccountsApi subaccounts() {
+	public MandrillSubaccountsApi subaccounts() {
 		return subaccounts;
 	}
 	
-	public final MandrillInboundApi inbound() {
+	public MandrillInboundApi inbound() {
 		return inbound;
 	}
 	
-	public final MandrillExportsApi exports() {
+	public MandrillExportsApi exports() {
 		return exports;
 	}
 	
-	public final MandrillIpsApi ips() {
+	public MandrillIpsApi ips() {
 		return ips;
 	}
 	

@@ -17,37 +17,37 @@ public class MandrillScheduledMessageInfo {
 	/**
 	 * @return The scheduled message id.
 	 */
-	public final String getId() {
+	public String getId() {
 		return _id;
 	}
 	/**
 	 * @return The email's sender address.
 	 */
-	public final String getFromEmail() {
+	public String getFromEmail() {
 		return from_email;
 	}
 	/**
 	 * @return The email's recipient.
 	 */
-	public final String getTo() {
+	public String getTo() {
 		return to;
 	}
 	/**
 	 * @return The email's subject.
 	 */
-	public final String getSubject() {
+	public String getSubject() {
 		return subject;
 	}
 	/**
 	 * @return The time when the message was created.
 	 */
-	public final Date getCreated_at() {
+	public Date getCreated_at() {
 		return created_at;
 	}
 	/**
 	 * @return The time when the message will be sent.
 	 */
-	public final Date getSend_at() {
+	public Date getSend_at() {
 		return send_at;
 	}
 

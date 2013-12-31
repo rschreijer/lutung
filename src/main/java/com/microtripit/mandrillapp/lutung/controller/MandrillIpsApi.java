@@ -16,7 +16,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillDedicatedIpPool;
  * @author rschreijer
  *
  */
-public final class MandrillIpsApi {
+public class MandrillIpsApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -30,7 +30,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIp[] list() 
+	public MandrillDedicatedIp[] list() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(rootUrl+ "ips/list.json", 
@@ -46,7 +46,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIp info(final String ip) 
+	public MandrillDedicatedIp info(final String ip) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -67,7 +67,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final Date provision(final Boolean warmup, final String pool) 
+	public Date provision(final Boolean warmup, final String pool) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -89,7 +89,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIp startWarmup(final String ip) 
+	public MandrillDedicatedIp startWarmup(final String ip) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -106,7 +106,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIp cancelWarmup(final String ip) 
+	public MandrillDedicatedIp cancelWarmup(final String ip) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -126,7 +126,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIp setPool(final String ip, 
+	public MandrillDedicatedIp setPool(final String ip, 
 			final String pool, final Boolean createPool) 
 					throws MandrillApiError, IOException {
 		
@@ -146,7 +146,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final Boolean delete(final String ip) 
+	public Boolean delete(final String ip) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -163,7 +163,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIpPool[] listPools() 
+	public MandrillDedicatedIpPool[] listPools() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(rootUrl+ "ips/list-pools.json", 
@@ -179,7 +179,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIpPool poolInfo(final String pool) 
+	public MandrillDedicatedIpPool poolInfo(final String pool) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -197,7 +197,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIpPool createPool(final String pool) 
+	public MandrillDedicatedIpPool createPool(final String pool) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -215,7 +215,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final Boolean deletePool(final String pool) 
+	public Boolean deletePool(final String pool) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -234,7 +234,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDnsCheck checkCustomDns(final String ip, 
+	public MandrillDnsCheck checkCustomDns(final String ip, 
 			final String domain) throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -254,7 +254,7 @@ public final class MandrillIpsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDedicatedIp setCustomDns(final String ip, 
+	public MandrillDedicatedIp setCustomDns(final String ip, 
 			final String domain) throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -268,7 +268,7 @@ public final class MandrillIpsApi {
 	public static class DateWrapper {
 		private Date requested_at;
 		
-		public final Date getRequestedAt() {
+		public Date getRequestedAt() {
 			return requested_at;
 		}
 	}

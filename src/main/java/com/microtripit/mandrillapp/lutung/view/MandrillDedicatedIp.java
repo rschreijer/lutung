@@ -25,32 +25,32 @@ public class MandrillDedicatedIp {
 	/**
 	 * @return The name of the pool that this dedicated IP belongs to.
 	 */
-	public final String getPool() {
+	public String getPool() {
 		return pool;
 	}
 	/**
 	 * @return The domain name (reverse dns) of this dedicated IP.
 	 */
-	public final String getDomain() {
+	public String getDomain() {
 		return domain;
 	}
 	/**
 	 * @return The date and time that the dedicated IP was created.
 	 */
-	public final Date getCreatedAt() {
+	public Date getCreatedAt() {
 		return created_at;
 	}
 	/**
 	 * @return Information about the ip's custom dns, 
 	 * if it has been configured.
 	 */
-	public final CustomDns getCustomDns() {
+	public CustomDns getCustomDns() {
 		return custom_dns;
 	}
 	/**
 	 * @return Information about the ip's warmup status.
 	 */
-	public final WarmupStatus getWarmup() {
+	public WarmupStatus getWarmup() {
 		return warmup;
 	}
 

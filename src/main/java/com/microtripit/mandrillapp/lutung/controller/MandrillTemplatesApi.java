@@ -18,7 +18,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillTemplatesApi {
+public class MandrillTemplatesApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -37,7 +37,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTemplate add(final String name, 
+	public MandrillTemplate add(final String name, 
 			final String code, final Boolean publish) 
 					throws MandrillApiError, IOException {
 		
@@ -62,7 +62,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTemplate add(final String name, final String fromEmail,
+	public MandrillTemplate add(final String name, final String fromEmail,
 			final String fromName, final String subject, final String code, 
 			final String text, final Boolean publish) 
 					throws MandrillApiError, IOException {
@@ -87,7 +87,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTemplate info(final String name) 
+	public MandrillTemplate info(final String name) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -107,7 +107,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTemplate update(final String name, 
+	public MandrillTemplate update(final String name, 
 			final String code, final Boolean publish) 
 					throws MandrillApiError, IOException {
 		
@@ -131,7 +131,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTemplate update(final String name, 
+	public MandrillTemplate update(final String name, 
 			final String fromEmail, final String fromName, 
 			final String subject, final String code, final String text, 
 			final Boolean publish) throws MandrillApiError, IOException {
@@ -158,7 +158,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTemplate publish(final String name) 
+	public MandrillTemplate publish(final String name) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -175,7 +175,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTemplate delete(final String name) 
+	public MandrillTemplate delete(final String name) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -192,7 +192,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTemplate[] list() 
+	public MandrillTemplate[] list() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(
@@ -211,7 +211,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTimeSeries[] timeSeries(final String name) 
+	public MandrillTimeSeries[] timeSeries(final String name) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -237,7 +237,7 @@ public final class MandrillTemplatesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final String render(final String name, 
+	public String render(final String name, 
 			final Map<String,String> templateContent, 
 			final Map<String,String> mergeVars) 
 					throws MandrillApiError, IOException {

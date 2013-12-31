@@ -16,7 +16,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillSendersApi {
+public class MandrillSendersApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -31,7 +31,7 @@ public final class MandrillSendersApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSender[] list() 
+	public MandrillSender[] list() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(
@@ -48,7 +48,7 @@ public final class MandrillSendersApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDomain[] domains() 
+	public MandrillDomain[] domains() 
 			throws MandrillApiError, IOException {
 
 		return MandrillUtil.query(
@@ -67,7 +67,7 @@ public final class MandrillSendersApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDomain addDomain(final String domain) 
+	public MandrillDomain addDomain(final String domain) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -86,7 +86,7 @@ public final class MandrillSendersApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDomain checkDomain(final String domain) 
+	public MandrillDomain checkDomain(final String domain) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -111,7 +111,7 @@ public final class MandrillSendersApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillDomainVerificationInfo verifyDomain(
+	public MandrillDomainVerificationInfo verifyDomain(
 			final String domain, final String mailbox) 
 					throws MandrillApiError, IOException {
 		
@@ -131,7 +131,7 @@ public final class MandrillSendersApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillSender info(final String address) 
+	public MandrillSender info(final String address) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -149,7 +149,7 @@ public final class MandrillSendersApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTimeSeries[] timeSeries(final String address) 
+	public MandrillTimeSeries[] timeSeries(final String address) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);

@@ -16,7 +16,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMailboxRoute;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillInboundApi {
+public class MandrillInboundApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -31,7 +31,7 @@ public final class MandrillInboundApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillInboundDomain[] domains() 
+	 MandrillInboundDomain[] domains() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(
@@ -48,7 +48,7 @@ public final class MandrillInboundApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillMailboxRoute[] routes(final String domain)
+	 MandrillMailboxRoute[] routes(final String domain)
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -73,7 +73,7 @@ public final class MandrillInboundApi {
 	 * @throws IOException
 	 * @since Mar 19, 2013
 	 */
-	public final MandrillInboundRecipient[] sendRaw(
+	 MandrillInboundRecipient[] sendRaw(
 			final String rawMessage, final Collection<String> to) 
 					throws MandrillApiError, IOException {
 		
@@ -101,7 +101,7 @@ public final class MandrillInboundApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillInboundRecipient[] sendRaw(final String rawMessage, 
+	 MandrillInboundRecipient[] sendRaw(final String rawMessage, 
 			final Collection<String> to, final String mailFrom, 
 			final String helo, final String clientAddress) 
 					throws MandrillApiError, IOException {

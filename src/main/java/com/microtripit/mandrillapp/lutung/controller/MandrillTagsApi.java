@@ -14,7 +14,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillTagsApi {
+public class MandrillTagsApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -28,7 +28,7 @@ public final class MandrillTagsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTag[] list() 
+	public MandrillTag[] list() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(
@@ -48,7 +48,7 @@ public final class MandrillTagsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTag delete(final String tagName) 
+	public MandrillTag delete(final String tagName) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -66,7 +66,7 @@ public final class MandrillTagsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTag info(final String tagName) 
+	public MandrillTag info(final String tagName) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -85,7 +85,7 @@ public final class MandrillTagsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTimeSeries[] timeSeries(final String tagName) 
+	public MandrillTimeSeries[] timeSeries(final String tagName) 
 			throws MandrillApiError, IOException{
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -103,7 +103,7 @@ public final class MandrillTagsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillTimeSeries[] allTimeSeries() 
+	public MandrillTimeSeries[] allTimeSeries() 
 			throws MandrillApiError, IOException {
 		
 		return MandrillUtil.query(

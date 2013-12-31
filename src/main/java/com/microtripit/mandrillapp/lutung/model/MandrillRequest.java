@@ -18,7 +18,7 @@ import org.apache.http.entity.StringEntity;
  * @author rschreijer
  * @since Mar 16, 2013
  */
-public class MandrillRequest<OUT> implements RequestModel<OUT> {
+public final class MandrillRequest<OUT> implements RequestModel<OUT> {
 	private static final Log log = LogFactory.getLog(MandrillRequest.class);
 	
 	private final String url;

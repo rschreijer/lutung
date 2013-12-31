@@ -15,7 +15,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillRejectsEntry;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillRejectsApi {
+public class MandrillRejectsApi {
 	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
 	
@@ -23,7 +23,7 @@ public final class MandrillRejectsApi {
 		this.key = key;
 	}
 	
-	public final Boolean add(final String email, final String comment, 
+	public Boolean add(final String email, final String comment, 
 			final String subaccount) throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
@@ -48,7 +48,7 @@ public final class MandrillRejectsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillRejectsEntry[] list(final String email, 
+	public MandrillRejectsEntry[] list(final String email, 
 			final Boolean includeExpired) throws MandrillApiError, IOException {
 	
 		return list(email, includeExpired, null);
@@ -70,7 +70,7 @@ public final class MandrillRejectsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final MandrillRejectsEntry[] list(final String email, 
+	public MandrillRejectsEntry[] list(final String email, 
 			final Boolean includeExpired, final String subaccount) 
 					throws MandrillApiError, IOException {
 		
@@ -96,7 +96,7 @@ public final class MandrillRejectsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final Boolean delete(final String email) 
+	public Boolean delete(final String email) 
 			throws MandrillApiError, IOException {
 		
 		return delete(email, null);
@@ -116,7 +116,7 @@ public final class MandrillRejectsApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public final Boolean delete(final String email, final String subaccount) 
+	public Boolean delete(final String email, final String subaccount) 
 			throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
