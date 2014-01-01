@@ -184,16 +184,19 @@ public final class MandrillTemplatesApiTest extends MandrillTestCase {
 	
 	@Test
 	public final void testRender() throws IOException, MandrillApiError {
-		final String content = "<html><body><h1>Hello World!</h1></body></html>";
+		final String code = "<html><body><h1>Hello *|MERGE1|*!</h1></body></html>";
 		MandrillTemplate t = mandrillApi.templates().add(templateName, 
-				content, false);
+				code, false);
 		Assert.assertNotNull(t);
+		final HashMap<String, String> content = new HashMap<String,String>();
+		content.put("editable", "<div>foo *|MERGE2|*</div>");
+		final HashMap<String, String> mergeVars = new HashMap<String, String>();
+		mergeVars.put("merge1", "Lutung");
+		mergeVars.put("merge2", "bar");
 		final String rendered = mandrillApi.templates().render(
-				t.getName(), 
-				new HashMap<String,String>(),
-				null);
+				t.getName(), content, mergeVars);
 		Assert.assertNotNull(rendered);
-		Assert.assertEquals(content, rendered);
+		Assert.assertEquals(code.replace("*|MERGE1|*", "Lutung"), rendered);
 	}
 	
 }
