@@ -9,7 +9,13 @@ package com.microtripit.mandrillapp.lutung.view;
  * @since Mar 16, 2013
  */
 public class MandrillMessageStatus {
-	private String email, status, reject_reason, _id;
+	public enum Status {
+		SENT, QUEUED, SCHEDULED, REJECTED, INVALID
+	}
+
+
+	private String email, reject_reason, _id;
+	private Status status;
 
 	/**
 	 * @return The email address of the recipient.
@@ -19,10 +25,9 @@ public class MandrillMessageStatus {
 	}
 
 	/**
-	 * @return The sending status of the recipient &ndash; 
-	 * either 'sent', 'queued', 'rejected', or 'invalid'.
+	 * @return The sending status of the recipient
 	 */
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	
