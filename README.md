@@ -20,6 +20,18 @@ Features:
 *  API request errors are exposed to the user (you!) as a 
    [MandrillApiError](src/main/java/com/microtripit/mandrillapp/lutung/model/MandrillApiError.java). 
 
+Installation
+------------
+If you're using Maven, just add this dependency to your pom.xml:
+```
+<dependency>
+    <groupId>com.mandrillapp.wrapper.lutung</groupId>
+    <artifactId>lutung</artifactId>
+    <version>0.0.3</version>
+</dependency>
+```
+If you're not using Maven, see [Dependencies](#dependencies) below.
+
 Examples
 --------
 **The 'whoami' of Mandrill:**
@@ -89,12 +101,10 @@ MandrillTemplate newTemplate = mandrillApi.templates().add(
 		false);
 ```
 
+<a name="dependencies"></a>
 Dependencies
 ------------
-If you use Maven, the [pom file](pom.xml) should help you with this. If you are not 
-using Maven, make sure to put the following libraries (and their dependencies) 
-on your classpath:
-
+If you're not using Maven, here's a list of dependencies. Just make sure these jar files are on your classpath:
 * [google-gson](https://code.google.com/p/google-gson/)
 * [Apache Http Components](http://hc.apache.org/index.html)
 * [Apache Commons IO](http://commons.apache.org/proper/commons-io/)
