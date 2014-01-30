@@ -9,7 +9,7 @@ import com.google.gson.Gson;
  * @author rschreijer
  * @since Mar 17, 2013
  */
-public class MandrillApiError extends Throwable {
+public class MandrillApiError extends Exception {
 	private static final long serialVersionUID = 1L;
 	private MandrillError error;
 	
