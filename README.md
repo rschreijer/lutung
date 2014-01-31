@@ -27,7 +27,7 @@ If you're using Maven, just add this dependency to your pom.xml:
 <dependency>
     <groupId>com.mandrillapp.wrapper.lutung</groupId>
     <artifactId>lutung</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 </dependency>
 ```
 If you're not using Maven, see [Dependencies](#dependencies) below.
