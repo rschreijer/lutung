@@ -4,10 +4,14 @@
 package com.microtripit.mandrillapp.lutung.controller;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
+import com.microtripit.mandrillapp.lutung.view.MandrillMessageContent;
 import junit.framework.Assert;
 
+import org.junit.Assume;
 import org.junit.Test;
 
 import com.microtripit.mandrillapp.lutung.MandrillTestCase;
@@ -74,4 +78,25 @@ public final class MandrillMessagesApiTest extends MandrillTestCase {
 			Assert.assertNotNull(i.getSender());
 		}
 	}
+
+    @Test
+    public void testContent01() throws Exception {
+        // The content call only works on 'recently sent' messages.  So get a listing
+        // of messages from the last 6 hours, and try to get their content.
+        // This means that the testing account must have at least one sent message within
+        // that time.
+        Calendar cal = Calendar.getInstance();
+        cal.add( Calendar.HOUR, -6 );
+        MandrillSearchMessageParams search = new MandrillSearchMessageParams();
+        search.setDateFrom( cal.getTime() );
+        search.setDateTo( new Date() );
+        MandrillMessageInfo[] messages = mandrillApi.messages().search( search );
+        Assume.assumeNotNull( messages );
+        Assume.assumeTrue( messages.length > 0 );
+
+        for ( MandrillMessageInfo info : messages ) {
+            MandrillMessageContent content = mandrillApi.messages().content( info.getId() );
+            Assert.assertNotNull( content );
+        }
+    }
 }

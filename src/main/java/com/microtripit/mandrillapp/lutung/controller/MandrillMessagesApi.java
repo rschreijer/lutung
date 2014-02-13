@@ -11,12 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
-import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
-import com.microtripit.mandrillapp.lutung.view.MandrillMessageInfo;
-import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus;
-import com.microtripit.mandrillapp.lutung.view.MandrillScheduledMessageInfo;
-import com.microtripit.mandrillapp.lutung.view.MandrillSearchMessageParams;
-import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
+import com.microtripit.mandrillapp.lutung.view.*;
 
 /**
  * @author rschreijer
@@ -208,8 +203,8 @@ public class MandrillMessagesApi {
 		if(sendAt != null) {
 			params.put("send_at", sendAt);
 		}
-		return MandrillUtil.query(rootUrl+ "messages/send-template.json", 
-				params, MandrillMessageStatus[].class);
+		return MandrillUtil.query( rootUrl + "messages/send-template.json",
+                params, MandrillMessageStatus[].class );
 		
 	}
 	
@@ -284,8 +279,26 @@ public class MandrillMessagesApi {
 				params,	MandrillMessageInfo.class);
 		
 	}
-	
-	/**
+
+    /**
+     * <p>Get the content of a single recently sent message.</p>
+     * @param id The unique id of the message to get &ndash; passed as
+     * the '_id' field in webhooks, send calls, or search calls.
+     * @return The content of the message.
+     * @throws MandrillApiError
+     * @throws IOException
+     */
+    public MandrillMessageContent content(final String id)
+            throws MandrillApiError, IOException {
+
+        final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
+        params.put("id", id);
+        return MandrillUtil.query(rootUrl+ "messages/content.json",
+                params,	MandrillMessageContent.class);
+
+    }
+
+    /**
 	 * <p>Parse the full MIME document for an email message, 
 	 * returning the content of the message broken into 
 	 * its constituent pieces.</p>

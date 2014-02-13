@@ -11,7 +11,8 @@ import java.util.List;
  * @since Mar 16, 2013
  */
 public class MandrillMessageInfo {
-	private Integer ts, opens, clicks;
+    private Long ts;
+	private Integer opens, clicks;
 	private String _id, sender, template, subject, email, state;
 	private List<String> tags;
 	private List<UserActionDetail> opens_detail, clicks_detail;
@@ -21,7 +22,7 @@ public class MandrillMessageInfo {
 	/**
 	 * @return The Unix timestamp from when this message was sent.
 	 */
-	public Integer getTs() {
+	public Long getTs() {
 		return ts;
 	}
 	/**
