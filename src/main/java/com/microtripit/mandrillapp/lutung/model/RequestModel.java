@@ -5,6 +5,7 @@ package com.microtripit.mandrillapp.lutung.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -20,6 +21,11 @@ public interface RequestModel<V> {
 	 * @return The url for this request, as {@link String}.
 	 */
 	public String getUrl();
+
+	/**
+	 * @return The requestParameters, as {@link Map<String, ? extends Object>}.
+	 */
+	public Map<String, ? extends Object> getRequestParams();
 	
 	/**
 	 * @return The request object describing the request to 
