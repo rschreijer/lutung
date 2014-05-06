@@ -3,12 +3,10 @@
  */
 package com.microtripit.mandrillapp.lutung.model;
 
-import java.io.IOException;
-import java.io.InputStream;
-
+import com.microtripit.mandrillapp.lutung.logging.Logger;
+import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
+import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
@@ -16,16 +14,17 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 
-import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author rschreijer
  * @since Feb 21, 2013
  */
 public final class MandrillRequestDispatcher {
-	private static final Log log = LogFactory.getLog(MandrillRequestDispatcher.class);
-	
-	public static final <T> T execute(final RequestModel<T> requestModel, 
+    private static final Logger log = LoggerFactory.getLogger(MandrillRequestDispatcher.class);
+
+	public static final <T> T execute(final RequestModel<T> requestModel,
 			HttpClient client) throws MandrillApiError, IOException {
 
 		HttpResponse response = null;
@@ -39,9 +38,7 @@ public final class MandrillRequestDispatcher {
 						client.getParams().getParameter(CoreProtocolPNames.USER_AGENT)
 						+ "/Lutung-0.1");
 			}
-			if(log.isDebugEnabled()) {
-				log.debug("starting request '" +requestModel.getUrl()+ "'");
-			}
+            log.debug("starting request '" +requestModel.getUrl()+ "'");
 			response = client.execute( requestModel.getRequest() );
 			final StatusLine status = response.getStatusLine();
 			responseInputStream = response.getEntity().getContent();
