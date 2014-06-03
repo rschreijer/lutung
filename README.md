@@ -53,7 +53,7 @@ MandrillApi mandrillApi = new MandrillApi("<put ur Mandrill API key here>");
 // create your message
 MandrillMessage message = new MandrillMessage();
 message.setSubject("Hello World!");
-message.setHtml("<h1>Hi pal!</h2><br />Really, I'm just saying hi!");
+message.setHtml("<h1>Hi pal!</h1><br />Really, I'm just saying hi!");
 message.setAutoText(true);
 message.setFromEmail("kitty@yourdomain.com");
 message.setFromName("Kitty Katz");
