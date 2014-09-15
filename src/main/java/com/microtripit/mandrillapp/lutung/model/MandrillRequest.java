@@ -42,6 +42,10 @@ public final class MandrillRequest<OUT> implements RequestModel<OUT> {
 		return url;
 	}
 
+	public final Map<String, ? extends Object> getRequestParams(){
+		return requestParams;
+	}
+
 	public final HttpRequestBase getRequest() throws IOException {
 		final String paramsStr = LutungGsonUtils.getGson().toJson(
 				requestParams, requestParams.getClass());
