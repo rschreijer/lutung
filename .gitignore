@@ -14,8 +14,8 @@ release.properties
 .project
 .settings
 
-# IntelliJ project files
-.idea/
+# IntelliJ
+.idea
 *.iml
 
 # Spring

@@ -9,9 +9,10 @@ import java.net.*;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpHost;
+import com.microtripit.mandrillapp.lutung.logging.Logger;
+import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
+import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
@@ -21,14 +22,12 @@ import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.params.HttpConnectionParams;
 
-import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
-
 /**
  * @author rschreijer
  * @since Feb 21, 2013
  */
 public final class MandrillRequestDispatcher {
-	private static final Log log = LogFactory.getLog(MandrillRequestDispatcher.class);
+    private static final Logger log = LoggerFactory.getLogger(MandrillRequestDispatcher.class);
 
 	/**
 	 * See https://hc.apache.org/httpcomponents-core-4.3.x/httpcore/apidocs/org/apache/http/params/HttpConnectionParams.html#setSoTimeout(org.apache.http.params.HttpParams, int)
@@ -46,7 +45,7 @@ public final class MandrillRequestDispatcher {
 	 * */
 	public static int CONNECTION_TIMEOUT_MILLIS = 0;
 
-	public static final <T> T execute(final RequestModel<T> requestModel, 
+	public static final <T> T execute(final RequestModel<T> requestModel,
 			HttpClient client) throws MandrillApiError, IOException {
 
 		HttpResponse response = null;
@@ -70,9 +69,7 @@ public final class MandrillRequestDispatcher {
 				HttpConnectionParams.setSoTimeout(client.getParams(), SOCKET_TIMEOUT_MILLIS);
 				HttpConnectionParams.setConnectionTimeout(client.getParams(), CONNECTION_TIMEOUT_MILLIS);
 			}
-			if(log.isDebugEnabled()) {
-				log.debug("starting request '" +requestModel.getUrl()+ "'");
-			}
+            log.debug("starting request '" +requestModel.getUrl()+ "'");
 			response = client.execute( requestModel.getRequest() );
 			final StatusLine status = response.getStatusLine();
 			responseInputStream = response.getEntity().getContent();
