@@ -5,13 +5,17 @@ package com.microtripit.mandrillapp.lutung.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.*;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
@@ -36,8 +40,16 @@ public final class MandrillRequestDispatcher {
 				client = new DefaultHttpClient();
 				client.getParams().setParameter(
 						CoreProtocolPNames.USER_AGENT, 
-						client.getParams().getParameter(CoreProtocolPNames.USER_AGENT)
-						+ "/Lutung-0.1");
+						client.getParams().getParameter(CoreProtocolPNames.USER_AGENT)+ "/Lutung-0.1");
+                // use proxy?
+                final ProxyData proxyData = detectProxyServer(requestModel.getUrl());
+                if(proxyData != null) {
+                    if(log.isDebugEnabled()) {
+                        log.debug(String.format("Using proxy @" +proxyData.host+ ":"+String.valueOf(proxyData.port)));
+                    }
+                    final HttpHost proxy = new HttpHost(proxyData.host, proxyData.port);
+                    client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+                }
 			}
 			if(log.isDebugEnabled()) {
 				log.debug("starting request '" +requestModel.getUrl()+ "'");
@@ -77,5 +89,37 @@ public final class MandrillRequestDispatcher {
 			}
 		}
 	}
+
+    private static final ProxyData detectProxyServer(final String url) {
+        try {
+            final List<Proxy> proxies = ProxySelector.getDefault().select(new URI(url));
+            if(proxies != null) {
+                for(Proxy proxy : proxies) {
+                    InetSocketAddress addr = (InetSocketAddress) proxy.address();
+                    if(addr != null) {
+                        return new ProxyData(addr.getHostName(), addr.getPort());
+                    }
+                }
+            }
+            // no proxy detected!
+            return null;
+
+        } catch (final Throwable t) {
+            log.error("Error detecting proxy server", t);
+            return null;
+
+        }
+    }
+
+    private static final class ProxyData {
+        String host;
+        int port;
+
+        protected ProxyData(final String host, final int port) {
+            this.host = host;
+            this.port = port;
+        }
+
+    }
 
 }
