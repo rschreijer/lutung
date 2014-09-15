@@ -137,26 +137,26 @@ License
 This library is released under the GNU Lesser General Public 
 License [http://www.gnu.org/licenses/lgpl.html](http://www.gnu.org/licenses/lgpl.html).
 
+Release 0.0.5 - Release Notes
+-------
+* Added [messages/content.json](https://mandrillapp.com/api/docs/messages.JSON.html#method=content) (thanks @benfastmodel)
+* Now regarding JVM proxy parameters (thanks @joseanibl138)
+* Made commons-logging dependency optional (thanks @aldenquimby)
+
 Release 0.0.3 - Release Notes
------------- 
+-------
 *  Added support for Mandrill [sub accounts](https://mandrillapp.com/api/docs/subaccounts.JSON.html) 
-   in [MandrillApi.subaccounts](src/main/java/com/microtripit/mandrillapp/lutung/controller/MandrillSubaccountsApi.java). 
- 
+   in [MandrillApi.subaccounts](src/main/java/com/microtripit/mandrillapp/lutung/controller/MandrillSubaccountsApi.java).
 *  More support for **rejects** (blacklists): [add](https://mandrillapp.com/api/docs/rejects.JSON.html#method=add) 
    and [delete](https://mandrillapp.com/api/docs/rejects.JSON.html#method=delete); 
    also, list rejects for sub accounts. 
-
 *  Added support for [whitelists](https://mandrillapp.com/api/docs/whitelists.JSON.html) 
    in [MandrillApi.whitelists](src/main/java/com/microtripit/mandrillapp/lutung/controller/MandrillWhitelistsApi.java).
-
 *  Added support to manage [sender-domains](https://mandrillapp.com/api/docs/senders.JSON.html#method=add-domain) 
    in [MandrillApi.senders](src/main/java/com/microtripit/mandrillapp/lutung/controller/MandrillSendersApi.java).
-
 *  Added support to [update templates](https://mandrillapp.com/api/docs/templates.JSON.html#method=update) 
    in [MandrillApi.templates](src/main/java/com/microtripit/mandrillapp/lutung/controller/MandrillTemplatesApi.java).
-
 *  Added support for [exports](https://mandrillapp.com/api/docs/exports.JSON.html) 
    in [MandrillApi.exports](src/main/java/com/microtripit/mandrillapp/lutung/controller/MandrillExportsApi.java).
-
 *  Added support for [dedicated IPs and IP Pools](https://mandrillapp.com/api/docs/ips.JSON.html) 
    in [MandrillApi.ips](src/main/java/com/microtripit/mandrillapp/lutung/controller/MandrillIpsApi.java).
