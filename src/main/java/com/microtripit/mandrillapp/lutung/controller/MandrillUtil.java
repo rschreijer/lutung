@@ -4,13 +4,7 @@
 package com.microtripit.mandrillapp.lutung.controller;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.ProxySelector;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
@@ -31,26 +25,8 @@ final class MandrillUtil {
 	protected static final HashMap<String,Object> paramsWithKey(final String key) {
 		final HashMap<String,Object> params = new HashMap<String,Object>();
 		params.put("key",key);
-		List l = null;
-		try {
-		    l = ProxySelector.getDefault().select(new URI(rootUrl));
-		} 
-		catch (URISyntaxException e) {
-		    e.printStackTrace();
-		}
-		if (l != null) {
-		    for (Iterator iter = l.iterator(); iter.hasNext();) {
-		    	java.net.Proxy proxy = (java.net.Proxy) iter.next();
-
-		    	InetSocketAddress addr = (InetSocketAddress) proxy.address();
-
-		    	if (addr != null){
-		    		params.put("http.proxyHost",addr.getHostName());
-		    		params.put("http.proxyPort", Integer.toString(addr.getPort()));
-		    	}
-		    }
-		}
 		return params;
+
 	}
 	
 	/**

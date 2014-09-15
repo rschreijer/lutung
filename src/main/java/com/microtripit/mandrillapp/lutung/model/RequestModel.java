@@ -23,11 +23,6 @@ public interface RequestModel<V> {
 	public String getUrl();
 
 	/**
-	 * @return The requestParameters, as {@link Map<String, ? extends Object>}.
-	 */
-	public Map<String, ? extends Object> getRequestParams();
-	
-	/**
 	 * @return The request object describing the request to 
 	 * be made w/ a http client.
 	 * @throws IOException
