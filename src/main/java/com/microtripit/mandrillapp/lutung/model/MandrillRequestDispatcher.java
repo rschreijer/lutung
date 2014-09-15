@@ -19,6 +19,7 @@ import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
+import org.apache.http.params.HttpConnectionParams;
 
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 
@@ -28,7 +29,23 @@ import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
  */
 public final class MandrillRequestDispatcher {
 	private static final Log log = LogFactory.getLog(MandrillRequestDispatcher.class);
-	
+
+	/**
+	 * See https://hc.apache.org/httpcomponents-core-4.3.x/httpcore/apidocs/org/apache/http/params/HttpConnectionParams.html#setSoTimeout(org.apache.http.params.HttpParams, int)
+	 *
+	 * A value of 0 means no timeout at all.
+	 * The value is expressed in milliseconds.
+	 * */
+	public static int SOCKET_TIMEOUT_MILLIS = 0;
+
+	/**
+	 * See https://hc.apache.org/httpcomponents-core-4.3.x/httpcore/apidocs/org/apache/http/params/HttpConnectionParams.html#setConnectionTimeout(org.apache.http.params.HttpParams, int)
+	 *
+	 * A value of 0 means no timeout at all.
+	 * The value is expressed in milliseconds.
+	 * */
+	public static int CONNECTION_TIMEOUT_MILLIS = 0;
+
 	public static final <T> T execute(final RequestModel<T> requestModel, 
 			HttpClient client) throws MandrillApiError, IOException {
 
@@ -50,6 +67,8 @@ public final class MandrillRequestDispatcher {
                     final HttpHost proxy = new HttpHost(proxyData.host, proxyData.port);
                     client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
                 }
+				HttpConnectionParams.setSoTimeout(client.getParams(), SOCKET_TIMEOUT_MILLIS);
+				HttpConnectionParams.setConnectionTimeout(client.getParams(), CONNECTION_TIMEOUT_MILLIS);
 			}
 			if(log.isDebugEnabled()) {
 				log.debug("starting request '" +requestModel.getUrl()+ "'");
