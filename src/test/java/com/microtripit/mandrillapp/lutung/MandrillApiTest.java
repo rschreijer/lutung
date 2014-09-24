@@ -3,6 +3,8 @@
  */
 package com.microtripit.mandrillapp.lutung;
 
+import com.microtripit.mandrillapp.lutung.controller.MandrillUtil;
+import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -85,4 +87,10 @@ public final class MandrillApiTest extends MandrillTestCase {
 	public final void testIps() {
 		Assert.assertNotNull(mandrillApi.ips());
 	}
+    @Test
+    public final void testOverrideAddress() throws MandrillApiError {
+        String newAddress = "https://overtheproxy.com/api";
+        mandrillApi.overrideMandrillApiAddress(newAddress);
+        Assert.assertEquals(newAddress, MandrillUtil.rootUrl);
+    }
 }

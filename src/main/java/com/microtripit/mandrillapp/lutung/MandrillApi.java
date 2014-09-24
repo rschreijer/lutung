@@ -3,19 +3,7 @@
  */
 package com.microtripit.mandrillapp.lutung;
 
-import com.microtripit.mandrillapp.lutung.controller.MandrillExportsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillInboundApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillIpsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillMessagesApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillRejectsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillSendersApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillSubaccountsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillTagsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillTemplatesApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillUrlsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillUsersApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillWebhooksApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillWhitelistsApi;
+import com.microtripit.mandrillapp.lutung.controller.*;
 
 /**
  * @author rschreijer
@@ -121,5 +109,9 @@ public class MandrillApi {
 	public MandrillIpsApi ips() {
 		return ips;
 	}
+
+    public void overrideMandrillApiAddress(String address) {
+        MandrillUtil.rootUrl = address;
+    }
 	
 }

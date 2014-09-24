@@ -3,20 +3,20 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.model.MandrillRequest;
 import com.microtripit.mandrillapp.lutung.model.MandrillRequestDispatcher;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
-final class MandrillUtil {
-	protected static final String rootUrl = "https://mandrillapp.com/api/1.0/";
+public final class MandrillUtil {
+	public static String rootUrl = "https://mandrillapp.com/api/1.0/";
 	
 	/**
 	 * @param key
