@@ -21,6 +21,7 @@ public class MandrillMessage {
 	private String bcc_address, tracking_domain, signing_domain, 
 			return_path_domain;
 	private Boolean merge;
+	private String merge_language;
 	private List<MergeVar> global_merge_vars;
 	private List<MergeVarBucket> merge_vars;
 	private List<String> tags;
@@ -385,7 +386,22 @@ public class MandrillMessage {
 	}
 
 	/**
-	 * @param merge Whether to evaluate merge tags in the message. Will 
+	 * @return The merge language used for this message one of (mailchimp, handlebars). May be null.
+	 */
+	public String getMergeLanguage() {
+		return merge_language;
+	}
+
+	/**
+	 * The merge tag language to use when evaluating merge tags, either mailchimp or handlebars
+	 * @param mergeLanguage one of (mailchimp, handlebars)
+	 */
+	public void setMergeLanguage(String mergeLanguage) {
+		this.merge_language = mergeLanguage;
+	}
+
+	/**
+	 * @param merge Whether to evaluate merge tags in the message. Will
 	 * automatically be set to true if either 
 	 * {@link #setMerge_vars(MergeVarBucket)} or 
 	 * {@link #setGlobal_merge_vars(MergeVar[])} are provided.
