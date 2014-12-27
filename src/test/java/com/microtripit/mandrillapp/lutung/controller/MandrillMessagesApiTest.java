@@ -99,4 +99,21 @@ public final class MandrillMessagesApiTest extends MandrillTestCase {
             Assert.assertNotNull( content );
         }
     }
+
+	@Test
+	public void testParse01() throws IOException, MandrillApiError {
+		String testUnparsedMsg = "From: sender@example.com\n" +
+				"To: recipient.email@example.com\n" +
+				"Subject: Lutang test subject\n\n" +
+				"Sup mandrill !";
+		MandrillMessage parsedMessage = mandrillApi.messages().parse(testUnparsedMsg);
+		Assume.assumeNotNull(parsedMessage);
+		Assert.assertEquals("Lutang test subject", parsedMessage.getSubject());
+	}
+
+	@Test(expected = MandrillApiError.class)
+	public void testParse02() throws IOException, MandrillApiError {
+		MandrillMessage parsedMessage = mandrillApi.messages().parse(null);
+		Assert.fail();
+	}
 }

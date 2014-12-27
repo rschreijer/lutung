@@ -51,15 +51,15 @@ public abstract class MandrillTestCase {
 			is.close();
 			if(apikey == null || apikey.isEmpty()) {
 				throw new IOException("Empty file 'myapikey.txt'");
-				
+
 			}
 			return apikey;
-			
+
 		} catch(final IOException e) {
 			log.error("No Mandrill API key defined - " +
 					"please provide your Mandrill API key!", e);
 			return null;
-			
+
 		}
 	}
 	
