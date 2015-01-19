@@ -13,7 +13,7 @@ import java.util.List;
 public class MandrillMessageInfo {
     private Long ts;
 	private Integer opens, clicks;
-	private String _id, sender, template, subject, email, state;
+	private String _id, sender, template, subject, email, state, diag, bounce_description;
 	private List<String> tags;
 	private List<UserActionDetail> opens_detail, clicks_detail;
 	private List<SMTPEvent> smtp_events;
@@ -93,6 +93,18 @@ public class MandrillMessageInfo {
 	}
 	public List<SMTPEvent> getSmtpEvents() {
 		return smtp_events;
+	}
+	/**
+	 * @return The dialog message if the sending status is not sent
+	 */
+	public String getDiag() {
+		return diag;
+	}
+	/**
+	 * @return The bounce description if the sending status is bounced or soft-bounced
+	 */
+	public String getBounceDescription() {
+		return bounce_description;
 	}
 //	/**
 //	 * @return Any custom metadata provided when the message was sent.
