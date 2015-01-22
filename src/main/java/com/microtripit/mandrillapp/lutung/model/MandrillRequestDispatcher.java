@@ -9,6 +9,7 @@ import java.net.*;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import com.microtripit.mandrillapp.lutung.logging.Logger;
 import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
@@ -101,7 +102,7 @@ public final class MandrillRequestDispatcher {
 				responseInputStream.close();
 			}
 			if(response != null) {
-				EntityUtils.consume(response.getEntity());
+				consume(response.getEntity());
 			}
 		}
 	}
@@ -126,6 +127,18 @@ public final class MandrillRequestDispatcher {
 
         }
     }
+
+	private static void consume(HttpEntity entity) throws IOException {
+		if (entity == null) {
+			return;
+		}
+		if (entity.isStreaming()) {
+			InputStream inputStream = entity.getContent();
+			if (inputStream != null) {
+				inputStream.close();
+			}
+		}
+	}
 
     private static final class ProxyData {
         String host;
