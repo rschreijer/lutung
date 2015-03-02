@@ -3,24 +3,27 @@
  */
 package com.microtripit.mandrillapp.lutung.model;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.*;
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpHost;
 import com.microtripit.mandrillapp.lutung.logging.Logger;
 import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.util.EntityUtils;
 import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.util.List;
 
 /**
  * @author rschreijer
@@ -35,7 +38,7 @@ public final class MandrillRequestDispatcher {
 	 * A value of 0 means no timeout at all.
 	 * The value is expressed in milliseconds.
 	 * */
-	public static int SOCKET_TIMEOUT_MILLIS = 0;
+	public static int SOCKET_TIMEOUT_MILLIS = 5000;
 
 	/**
 	 * See https://hc.apache.org/httpcomponents-core-4.3.x/httpcore/apidocs/org/apache/http/params/HttpConnectionParams.html#setConnectionTimeout(org.apache.http.params.HttpParams, int)
@@ -43,7 +46,7 @@ public final class MandrillRequestDispatcher {
 	 * A value of 0 means no timeout at all.
 	 * The value is expressed in milliseconds.
 	 * */
-	public static int CONNECTION_TIMEOUT_MILLIS = 0;
+	public static int CONNECTION_TIMEOUT_MILLIS = 5000;
 
 	public static final <T> T execute(final RequestModel<T> requestModel,
 			HttpClient client) throws MandrillApiError, IOException {
