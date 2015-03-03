@@ -1,6 +1,8 @@
 Lutung - Java Mandrill API
 ======
 
+[![Join the chat at https://gitter.im/rschreijer/lutung](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/rschreijer/lutung?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Lutung - a Java interface to the [Mandrill](http://www.mandrill.com/) API. 
 Check out Mandrill's API [Documentation]
 (https://mandrillapp.com/api/docs/) to see all the possible magic.
