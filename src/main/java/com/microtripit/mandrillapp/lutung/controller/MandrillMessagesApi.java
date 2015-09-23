@@ -312,7 +312,7 @@ public class MandrillMessagesApi {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
 		params.put("raw_message", rawMessage);
-		return MandrillUtil.query(rootUrl+ "messages/send.json", 
+		return MandrillUtil.query(rootUrl+ "messages/parse.json",
 				params, MandrillMessage.class);
 		
 	}
