@@ -125,10 +125,6 @@ Known Issues
 *  Also, I have no inbound-emailing set up with Mandrill. Would be great if anyone 
    out there could test the implemented 'inbound' functionalities.
 
-Contribute
------------
-Sure! Just shoot me an email and let me know about your ideas.
-
 Lutung? Huh?
 ------------
 **A monkey!!!** The [Javan Lutung](http://en.wikipedia.org/wiki/Javan_lutung) is the name giver 
@@ -138,6 +134,15 @@ License
 -------
 This library is released under the GNU Lesser General Public 
 License [http://www.gnu.org/licenses/lgpl.html](http://www.gnu.org/licenses/lgpl.html).
+
+Release 0.0.6 - Release Notes
+-------
+* Support to specify the merge-language when using templates, [look](https://github.com/rschreijer/lutung/commit/293627b9e0c81a4704922bca8f2b9f700d848152)
+* Fixing endpoint URI for 'parse', [look](https://github.com/rschreijer/lutung/commit/e303934a53260697af0f7c88de0f367435e2ff2c)
+* Better Android compatibility, [look](https://github.com/rschreijer/lutung/commit/381c34e014b6a12810e370eb90edd6c1308b9a83)
+* Added lables for templates, [look](https://github.com/rschreijer/lutung/commit/d06dc36702cb629e1b8183ef2e278028e86c5f1a)
+
+Thanks [billoneil](https://github.com/billoneil)
 
 Release 0.0.5 - Release Notes
 -------
