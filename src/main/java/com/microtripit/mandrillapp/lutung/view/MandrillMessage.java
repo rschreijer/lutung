@@ -747,7 +747,8 @@ public class MandrillMessage {
 	 * @since Mar 16, 2013
 	 */
 	public static class MergeVar {
-		private String name, content;
+		private String name;
+		private Object content;
 
 		/**
 		 * Construct a MergeVar.
@@ -760,7 +761,7 @@ public class MandrillMessage {
 		 * @param name The merge variable's name
 		 * @param content The merge variable's content.
 		 */
-		public MergeVar(final String name, final String content) {
+		public MergeVar(final String name, final Object content) {
 			this.name = name;
 			this.content = content;
 		}
@@ -784,13 +785,13 @@ public class MandrillMessage {
 		/**
 		 * @return The merge variable's content.
 		 */
-		public String getContent() {
+		public Object getContent() {
 			return content;
 		}
 		/**
 		 * @param content The merge variable's content.
 		 */
-		public void setContent(final String content) {
+		public void setContent(final Object content) {
 			this.content = content;
 		}
 	}
