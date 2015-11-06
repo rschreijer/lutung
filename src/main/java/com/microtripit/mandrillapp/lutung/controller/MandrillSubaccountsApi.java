@@ -56,7 +56,7 @@ public class MandrillSubaccountsApi {
 		params.put("id", id);
 		params.put("name", name);
 		params.put("notes", notes);
-		params.put("customQuota", customQuota);
+		params.put("custom_quota", customQuota);
 		return MandrillUtil.query(rootUrl+ "subaccounts/add.json", 
 				params, MandrillSubaccountInfo.class);
 		
