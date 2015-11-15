@@ -22,6 +22,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMessageContent;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageInfo;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus;
 import com.microtripit.mandrillapp.lutung.view.MandrillSearchMessageParams;
+import com.microtripit.mandrillapp.lutung.view.MandrillTemplate;
 
 import junit.framework.Assert;
 
@@ -80,6 +81,34 @@ public final class MandrillMessagesApiTest extends MandrillTestCase {
 				null, message, null);
 		Assert.fail();
 	}
+
+	@Test
+    public final void testSendTemplate04() throws IOException, MandrillApiError {
+        String templateName = "lutung_templatename_unit_test_sendTemplate04_" + System.currentTimeMillis();
+
+        final MandrillTemplate t = mandrillApi.templates().add(templateName,
+                "<html><body><h1>Hello World!</h1></body></html>", false);
+        Assert.assertNotNull(t);
+        Assert.assertNotNull(t.getName());
+
+        Recipient to = new Recipient();
+        to.setEmail("to@test.com");
+        to.setType(Type.TO);
+        List<Recipient> recipients = new ArrayList<MandrillMessage.Recipient>();
+        recipients.add(to);
+        MandrillMessage message = new MandrillMessage();
+        message.setFromEmail("from@test.com");
+        message.setTo(recipients);
+        MandrillMessageStatus[] status = mandrillApi.messages()
+                                                    .sendTemplate(templateName,
+                                                                  null,
+                                                                  message,
+                                                                  null);
+        Assert.assertNotNull(status);
+
+        Assert.assertNotNull( mandrillApi.templates().delete(t.getName()) );
+
+    }
 
 	@Test
 	public final void testSearch01() throws IOException, MandrillApiError {
