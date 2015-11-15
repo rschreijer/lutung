@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package com.microtripit.mandrillapp.lutung.view;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Basic information for a message.</p>
@@ -17,8 +18,8 @@ public class MandrillMessageInfo {
 	private List<String> tags;
 	private List<UserActionDetail> opens_detail, clicks_detail;
 	private List<SMTPEvent> smtp_events;
-//	private Map<String,String> metadata;
-	
+	private Map<String,String> metadata;
+
 	/**
 	 * @return The Unix timestamp from when this message was sent.
 	 */
@@ -94,17 +95,17 @@ public class MandrillMessageInfo {
 	public List<SMTPEvent> getSmtpEvents() {
 		return smtp_events;
 	}
-//	/**
-//	 * @return Any custom metadata provided when the message was sent.
-//	 */
-//	public Map<String,String> getMetadata() {
-//		return metadata;
-//	}
-	
+	/**
+	 * @return Any custom metadata provided when the message was sent.
+	 */
+	public Map<String,String> getMetadata() {
+		return metadata;
+	}
+
 	public static class UserActionDetail {
 		private Integer ts;
 		private String url, ip, location, ua;
-		
+
 		/**
 		 * @return The unix timestamp from when the action occured.
 		 */
@@ -124,7 +125,7 @@ public class MandrillMessageInfo {
 			return ip;
 		}
 		/**
-		 * @return The approximate region and country that the 
+		 * @return The approximate region and country that the
 		 * acting IP is located.
 		 */
 		public final String getLocation() {
@@ -137,11 +138,11 @@ public class MandrillMessageInfo {
 			return ua;
 		}
 	}
-	
+
 	public static class SMTPEvent {
 		private Integer ts;
 		private String type, diag;
-		
+
 		/**
 		 * @return The Unix timestamp when the event occured.
 		 */
@@ -155,13 +156,13 @@ public class MandrillMessageInfo {
 			return type;
 		}
 		/**
-		 * @return The SMTP response from the recipient's server. 
+		 * @return The SMTP response from the recipient's server.
 		 */
 		public final String getDiag() {
 			return diag;
 		}
-		
-		
+
+
 	}
 
 }
