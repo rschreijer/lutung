@@ -1,6 +1,7 @@
 package com.microtripit.mandrillapp.lutung.view;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>The content of a sent message.  Corresponds to the result of {@code messages/content.json}.</p>
@@ -14,7 +15,7 @@ public class MandrillMessageContent {
     private String from_email, from_name, subject;
     private MandrillMessage.Recipient to;
     private List<String> tags;
-    // private Map< String, String > headers;
+    private Map< String, String > headers;
     private String text, html;
     private List< MandrillMessage.MessageContent > attachments;
 
@@ -86,5 +87,12 @@ public class MandrillMessageContent {
      */
     public List<MandrillMessage.MessageContent> getAttachments() {
         return attachments;
+    }
+
+    /**
+     * @return The key-value pairs of the custom MIME headers for the message's main document
+     */
+    public Map<String, String> getHeaders() {
+        return headers;
     }
 }
