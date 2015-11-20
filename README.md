@@ -135,6 +135,14 @@ License
 This library is released under the GNU Lesser General Public 
 License [http://www.gnu.org/licenses/lgpl.html](http://www.gnu.org/licenses/lgpl.html).
 
+Release 0.0.7 - Release Notes
+-------
+* Fixed custom_quota field in the submarkets API [look](https://github.com/rschreijer/lutung/commit/f47e91fa0fb8c87d3afdc9e7c80298c653197703) thanks [Lokesh-Github123](https://github.com/Lokesh-Github123)
+* Re-enabled headers on MandrillMessageContent [look](https://github.com/rschreijer/lutung/commit/26cc3c5b7f8e47abba63db8360876bd0219b37eb)
+* Re-enabled metadata on MandrillMessageInfo [look](https://github.com/rschreijer/lutung/commit/3ad452da8fe98513ff93b325f4ed09158ed4313a)
+* Catch Json parsing exceptions and throw a MandrillError with the body of the response as the message [look](https://github.com/rschreijer/lutung/commit/5f6b766faffdc803932f313d9a18f75f6e7db9cf)
+
+
 Release 0.0.6 - Release Notes
 -------
 * Support to specify the merge-language when using templates, [look](https://github.com/rschreijer/lutung/commit/293627b9e0c81a4704922bca8f2b9f700d848152)
