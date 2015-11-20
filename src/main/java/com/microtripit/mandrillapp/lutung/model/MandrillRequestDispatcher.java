@@ -5,23 +5,27 @@ package com.microtripit.mandrillapp.lutung.model;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.*;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.ProxySelector;
+import java.net.URI;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
-import com.microtripit.mandrillapp.lutung.logging.Logger;
-import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
-import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.util.EntityUtils;
 import org.apache.http.params.HttpConnectionParams;
+
+import com.google.gson.JsonSyntaxException;
+import com.microtripit.mandrillapp.lutung.logging.Logger;
+import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
+import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 
 /**
  * @author rschreijer
@@ -88,8 +92,17 @@ public final class MandrillRequestDispatcher {
 			} else {
 				// ==> compile mandrill error!
 				final String e = IOUtils.toString(responseInputStream);
-				final MandrillError error = LutungGsonUtils.getGson()
+				MandrillError error = null;
+				try {
+				    error = LutungGsonUtils.getGson()
 						.fromJson(e, MandrillError.class);
+				} catch (Throwable ex) {
+				    error = new MandrillError("Invalid Error Format",
+				                              "Invalid Error Format",
+				                              e,
+				                              status.getStatusCode());
+				}
+
 				throw new MandrillApiError(
 						"Unexpected http status in response: " 
 						+status.getStatusCode()+ " (" 

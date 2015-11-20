@@ -100,6 +100,13 @@ public class MandrillApiError extends Exception {
 		private String status, name, message;
 		private Integer code;
 		
+		public MandrillError(String status, String name, String message, Integer code) {
+            this.status = status;
+            this.name = name;
+            this.message = message;
+            this.code = code;
+        }
+
 		/**
 		 * @return The error status returned by the Mandrill API.
 		 */
