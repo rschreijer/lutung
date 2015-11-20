@@ -72,6 +72,10 @@ public abstract class MandrillTestCase {
 			mandrillApi = null;
 		}
 	}
+
+	protected static final String mailToAddress() {
+		return "lutung.mandrill@gmail.com";
+	}
 	
 	@Before
 	public final void runBefore() {
