@@ -13,6 +13,7 @@ import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.util.EntityUtils;
 
 import com.microtripit.mandrillapp.lutung.logging.Logger;
 import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
@@ -70,7 +71,7 @@ public final class MandrillRequestDispatcher {
 	public static final <T> T execute(final RequestModel<T> requestModel) throws MandrillApiError, IOException {
 
 		HttpResponse response = null;
-		InputStream responseInputStream = null;
+		String responseString = null;
 		try {
 			// use proxy?
 			final ProxyData proxyData = detectProxyServer(requestModel.getUrl());
@@ -87,10 +88,10 @@ public final class MandrillRequestDispatcher {
             log.debug("starting request '" +requestModel.getUrl()+ "'");
 			response = httpClient.execute( requestModel.getRequest() );
 			final StatusLine status = response.getStatusLine();
-			responseInputStream = response.getEntity().getContent();
+			responseString = EntityUtils.toString(response.getEntity());
 			if( requestModel.validateResponseStatus(status.getStatusCode()) ) {
 				try {
-					return requestModel.handleResponse( responseInputStream );
+					return requestModel.handleResponse( responseString );
 					
 				} catch(final HandleResponseException e) {
 					throw new IOException(
@@ -101,15 +102,14 @@ public final class MandrillRequestDispatcher {
 				
 			} else {
 				// ==> compile mandrill error!
-				final String e = IOUtils.toString(responseInputStream);
 				MandrillError error = null;
 				try {
 				    error = LutungGsonUtils.getGson()
-						.fromJson(e, MandrillError.class);
+						.fromJson(responseString, MandrillError.class);
 				} catch (Throwable ex) {
 				    error = new MandrillError("Invalid Error Format",
 				                              "Invalid Error Format",
-				                              e,
+				                              responseString,
 				                              status.getStatusCode());
 				}
 
@@ -121,11 +121,11 @@ public final class MandrillRequestDispatcher {
 			}
 				
 		} finally {
-			if(responseInputStream != null) {
-				responseInputStream.close();
-			}
-			if(response != null) {
-				consume(response.getEntity());
+			try {
+				EntityUtils.consume(response.getEntity());
+			} catch (IOException e) {
+				log.error("Error consuming entity", e);
+				throw e;
 			}
 		}
 	}
@@ -150,18 +150,6 @@ public final class MandrillRequestDispatcher {
 
         }
     }
-
-	private static void consume(HttpEntity entity) throws IOException {
-		if (entity == null) {
-			return;
-		}
-		if (entity.isStreaming()) {
-			InputStream inputStream = entity.getContent();
-			if (inputStream != null) {
-				inputStream.close();
-			}
-		}
-	}
 
     private static final class ProxyData {
         String host;
