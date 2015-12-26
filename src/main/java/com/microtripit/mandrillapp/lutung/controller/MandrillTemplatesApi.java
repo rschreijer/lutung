@@ -291,12 +291,7 @@ public class MandrillTemplatesApi {
                     @Override
                     public void accept(final QueryExecutor queryExecutor) {
                         addContent(templateContent, queryExecutor);
-                    }
-                })
-                .delegate(new Consumer<QueryExecutor>() {
-                    @Override
-                    public void accept(final QueryExecutor queryExecutor) {
-                        addContent(mergeVars, queryExecutor);
+						addContent(mergeVars, queryExecutor);
                     }
                 })
                 .execute(MandrillRenderTemplateResponse.class).getHtml();
