@@ -3,25 +3,24 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillDomain;
 import com.microtripit.mandrillapp.lutung.view.MandrillDomain.MandrillDomainVerificationInfo;
 import com.microtripit.mandrillapp.lutung.view.MandrillSender;
 import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
 
+import java.io.IOException;
+
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
 public class MandrillSendersApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillSendersApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillSendersApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -33,12 +32,9 @@ public class MandrillSendersApi {
 	 */
 	public MandrillSender[] list() 
 			throws MandrillApiError, IOException {
-		
-		return MandrillUtil.query(
-				rootUrl+ "senders/list.json", 
-				MandrillUtil.paramsWithKey(key), 
-				MandrillSender[].class);
-		
+		return queryExecutorFactory.create()
+                .path("senders/list.json")
+                .execute(MandrillSender[].class);
 	}
 	
 	/**
@@ -50,12 +46,9 @@ public class MandrillSendersApi {
 	 */
 	public MandrillDomain[] domains() 
 			throws MandrillApiError, IOException {
-
-		return MandrillUtil.query(
-				rootUrl+ "senders/domains.json", 
-				MandrillUtil.paramsWithKey(key), 
-				MandrillDomain[].class);
-
+        return queryExecutorFactory.create()
+                .path("senders/domains.json")
+                .execute(MandrillDomain[].class);
 	}
 	
 	/**
@@ -69,12 +62,10 @@ public class MandrillSendersApi {
 	 */
 	public MandrillDomain addDomain(final String domain) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("domain", domain);
-		return MandrillUtil.query(rootUrl+ "senders/add-domain.json", 
-				params, MandrillDomain.class);
-		
+		return queryExecutorFactory.create()
+                .path("senders/add-domain.json")
+                .addParam("domain", domain)
+                .execute(MandrillDomain.class);
 	}
 	
 	/**
@@ -88,12 +79,10 @@ public class MandrillSendersApi {
 	 */
 	public MandrillDomain checkDomain(final String domain) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("domain", domain);
-		return MandrillUtil.query(rootUrl+ "senders/check-domain.json", 
-				params, MandrillDomain.class);
-		
+		return queryExecutorFactory.create()
+                .path("senders/check-domain.json")
+                .addParam("domain", domain)
+                .execute(MandrillDomain.class);
 	}
 	
 	/**
@@ -114,13 +103,11 @@ public class MandrillSendersApi {
 	public MandrillDomainVerificationInfo verifyDomain(
 			final String domain, final String mailbox) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("domain", domain);
-		params.put("mailbox", mailbox);
-		return MandrillUtil.query(rootUrl+ "senders/verify-domain.json", 
-				params, MandrillDomainVerificationInfo.class);
-		
+		return queryExecutorFactory.create()
+                .path("senders/verify-domain.json")
+                .addParam("domain", domain)
+                .addParam("mailbox", mailbox)
+                .execute(MandrillDomainVerificationInfo.class);
 	}
 	
 	/**
@@ -133,12 +120,10 @@ public class MandrillSendersApi {
 	 */
 	public MandrillSender info(final String address) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("address", address);
-		return MandrillUtil.query(rootUrl+ "senders/info.json", 
-				params, MandrillSender.class);
-		
+		return queryExecutorFactory.create()
+                .path("senders/info.json")
+                .addParam("address", address)
+                .execute(MandrillSender.class);
 	}
 	
 	/**
@@ -151,12 +136,9 @@ public class MandrillSendersApi {
 	 */
 	public MandrillTimeSeries[] timeSeries(final String address) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("address", address);
-		return MandrillUtil.query(rootUrl+ "senders/time-series.json", 
-				params, MandrillTimeSeries[].class);
-		
+		return queryExecutorFactory.create()
+                .path("senders/time-series.json")
+                .addParam("address", address)
+                .execute(MandrillTimeSeries[].class);
 	}
-	
 }

@@ -14,14 +14,6 @@ import org.junit.Test;
 public final class MandrillApiTest extends MandrillTestCase {
 	
 	@Test
-	public final void testApiKey() {
-		final String key = mandrillApi.getKey();
-		Assert.assertNotNull(key);
-		Assert.assertFalse( key.isEmpty() );
-		Assert.assertFalse( key.equals("<put ur Mandrill API key here>") );
-	}
-	
-	@Test
 	public final void testUsers() {
 		Assert.assertNotNull(mandrillApi.users());
 	}

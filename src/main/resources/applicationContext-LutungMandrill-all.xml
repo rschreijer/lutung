@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+    <!--
+        This is here just an exmaple. The application using this library, will have to define its own mandrillDispatcher
+        (the native MandrillRequestDispatcher can be used, obviously).
+        In future versions, MandrillRequestDispatcher should be removed to avoid httpclient version collisions.
+    -->
+    <!-- bean id="mandrillDispatcher" class="com.microtripit.mandrillapp.lutung.http.MandrillRequestDispatcher" / -->
+
+    <bean id="mandrillService" class="com.microtripit.mandrillapp.lutung.http.MandrillService">
+        <constructor-arg value="${mandrill.root.url}"/>
+        <constructor-arg ref="mandrillDispatcher" />
+        <constructor-arg value="${mandrill.api.key}" />
+    </bean>
+
+    <bean id="queryExecutorFactory" class="com.microtripit.mandrillapp.lutung.controller.QueryExecutorFactory">
+        <constructor-arg ref="mandrillService" />
+    </bean>
+
+    <bean id="mandrillUsersApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillUsersApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillMessagesApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillMessagesApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillTagsApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillTagsApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillRejectsApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillRejectsApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillWhitelistsApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillWhitelistsApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillSendersApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillSendersApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillUrlsApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillUrlsApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillTemplatesApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillTemplatesApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillWebhooksApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillWebhooksApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillSubaccountsApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillSubaccountsApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillInboundApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillInboundApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillExportsApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillExportsApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+    <bean id="mandrillIpsApi" class="com.microtripit.mandrillapp.lutung.controller.MandrillIpsApi">
+        <constructor-arg ref="queryExecutorFactory" />
+    </bean>
+
+</beans>

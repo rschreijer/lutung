@@ -3,11 +3,12 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillSender;
 import com.microtripit.mandrillapp.lutung.view.MandrillUserInfo;
+
+import java.io.IOException;
 
 /**
  * <p></p>
@@ -15,11 +16,10 @@ import com.microtripit.mandrillapp.lutung.view.MandrillUserInfo;
  * @since Mar 19, 2013
  */
 public class MandrillUsersApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillUsersApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillUsersApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -29,9 +29,9 @@ public class MandrillUsersApi {
 	 * @throws IOException
 	 */
 	public MandrillUserInfo info() throws MandrillApiError, IOException {
-		return MandrillUtil.query(rootUrl+ "users/info.json", 
-				MandrillUtil.paramsWithKey(key), MandrillUserInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("users/info.json")
+				.execute(MandrillUserInfo.class);
 	}
 	
 	/**
@@ -41,9 +41,9 @@ public class MandrillUsersApi {
 	 * @throws IOException
 	 */
 	public String ping() throws MandrillApiError, IOException {
-		return MandrillUtil.query(rootUrl+ "users/ping.json", 
-				MandrillUtil.paramsWithKey(key), String.class);
-		
+		return queryExecutorFactory.create()
+				.path("users/ping.json")
+				.execute(String.class);
 	}
 	
 	/**
@@ -56,10 +56,9 @@ public class MandrillUsersApi {
 	 */
 	public MandrillSender[] senders() throws MandrillApiError, 
 			IOException {
-		
-		return MandrillUtil.query(rootUrl+ "users/senders.json", 
-				MandrillUtil.paramsWithKey(key), MandrillSender[].class);
-		
+		return queryExecutorFactory.create()
+				.path("users/senders.json")
+				.execute(MandrillSender[].class);
 	}
 
 }

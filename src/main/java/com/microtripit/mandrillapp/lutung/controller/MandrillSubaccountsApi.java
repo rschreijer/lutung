@@ -1,17 +1,16 @@
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillSubaccountInfo;
 
+import java.io.IOException;
+
 public class MandrillSubaccountsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillSubaccountsApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillSubaccountsApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -25,12 +24,10 @@ public class MandrillSubaccountsApi {
 	 */
 	public MandrillSubaccountInfo[] list(final String q) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("q", q);
-		return MandrillUtil.query(rootUrl+ "subaccounts/list.json", 
-				params, MandrillSubaccountInfo[].class);
-		
+		return queryExecutorFactory.create()
+				.path("subaccounts/list.json")
+				.addParam("q", q)
+				.execute(MandrillSubaccountInfo[].class);
 	}
 	
 	/**
@@ -51,15 +48,13 @@ public class MandrillSubaccountsApi {
 	public MandrillSubaccountInfo add(final String id, final String name, 
 			final String notes, final Integer customQuota)  
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		params.put("name", name);
-		params.put("notes", notes);
-		params.put("custom_quota", customQuota);
-		return MandrillUtil.query(rootUrl+ "subaccounts/add.json", 
-				params, MandrillSubaccountInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("subaccounts/add.json")
+				.addParam("id", id)
+				.addParam("name", name)
+				.addParam("notes", notes)
+				.addParam("custom_quota", customQuota)
+				.execute(MandrillSubaccountInfo.class);
 	}
 	
 	/**
@@ -71,12 +66,10 @@ public class MandrillSubaccountsApi {
 	 */
 	public MandrillSubaccountInfo info(final String id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "subaccounts/info.json", 
-				params, MandrillSubaccountInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("subaccounts/info.json")
+				.addParam("id", id)
+				.execute(MandrillSubaccountInfo.class);
 	}
 	
 	/**
@@ -97,15 +90,13 @@ public class MandrillSubaccountsApi {
 	public MandrillSubaccountInfo update(final String id, 
 			final String name, final String notes, final Integer customQuota)  
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		params.put("name", name);
-		params.put("notes", notes);
-		params.put("customQuota", customQuota);
-		return MandrillUtil.query(rootUrl+ "subaccounts/update.json", 
-				params, MandrillSubaccountInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("subaccounts/update.json")
+				.addParam("id", id)
+				.addParam("name", name)
+				.addParam("notes", notes)
+				.addParam("customQuota", customQuota)
+				.execute(MandrillSubaccountInfo.class);
 	}
 	
 	/**
@@ -119,12 +110,10 @@ public class MandrillSubaccountsApi {
 	 */
 	public MandrillSubaccountInfo delete(final String id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "subaccounts/delete.json", 
-				params, MandrillSubaccountInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("subaccounts/delete.json")
+				.addParam("id", id)
+				.execute(MandrillSubaccountInfo.class);
 	}
 	
 	/**
@@ -138,12 +127,10 @@ public class MandrillSubaccountsApi {
 	 */
 	public MandrillSubaccountInfo pause(final String id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "subaccounts/pause.json", 
-				params, MandrillSubaccountInfo.class);
-		
+		return queryExecutorFactory.create()
+                .path("subaccounts/pause.json")
+                .addParam("id", id)
+                .execute(MandrillSubaccountInfo.class);
 	}
 	
 	/**
@@ -155,12 +142,9 @@ public class MandrillSubaccountsApi {
 	 */
 	public MandrillSubaccountInfo resume(final String id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "subaccounts/resume.json", 
-				params, MandrillSubaccountInfo.class);
-		
+		return queryExecutorFactory.create()
+                .path("subaccounts/resume.json")
+                .addParam("id", id)
+                .execute(MandrillSubaccountInfo.class);
 	}
-
 }

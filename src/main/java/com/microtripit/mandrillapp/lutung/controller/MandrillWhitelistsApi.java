@@ -1,18 +1,17 @@
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.model.MandrillHelperClasses.EmailClass;
 import com.microtripit.mandrillapp.lutung.view.MandrillWhitelistEntry;
 
+import java.io.IOException;
+
 public class MandrillWhitelistsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillWhitelistsApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillWhitelistsApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -26,11 +25,10 @@ public class MandrillWhitelistsApi {
 	 */
 	public Boolean add(final String email) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("email", email);
-		return MandrillUtil.query(rootUrl+ "whitelists/add.json", 
-				params, WhitelistsAddResponse.class).getWhether();
+		return queryExecutorFactory.create()
+                .path("whitelists/add.json")
+                .addParam("email", email)
+                .execute(WhitelistsAddResponse.class).getWhether();
 		
 	}
 	
@@ -45,12 +43,10 @@ public class MandrillWhitelistsApi {
 	 */
 	public MandrillWhitelistEntry[] list(final String email) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("email", email);
-		return MandrillUtil.query(rootUrl+ "whitelists/list.json", 
-				params, MandrillWhitelistEntry[].class);
-		
+		return queryExecutorFactory.create()
+                .path("whitelists/list.json")
+                .addParam("email", email)
+                .execute(MandrillWhitelistEntry[].class);
 	}
 	
 	/**
@@ -62,12 +58,10 @@ public class MandrillWhitelistsApi {
 	 */
 	public Boolean delete(final String email) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("email", email);
-		return MandrillUtil.query(rootUrl+ "whitelists/delete.json", 
-				params, WhitelistsDeleteResponse.class).getDeleted();
-		
+		return queryExecutorFactory.create()
+                .path("whitelists/delete.json")
+                .addParam("email", email)
+                .execute(WhitelistsDeleteResponse.class).getDeleted();
 	}
 	
 	public static class WhitelistsAddResponse extends EmailClass {

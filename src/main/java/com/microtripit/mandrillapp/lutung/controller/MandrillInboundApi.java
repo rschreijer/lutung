@@ -3,26 +3,25 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillInboundDomain;
 import com.microtripit.mandrillapp.lutung.view.MandrillInboundRecipient;
 import com.microtripit.mandrillapp.lutung.view.MandrillMailboxRoute;
+
+import java.io.IOException;
+import java.util.Collection;
 
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
 public class MandrillInboundApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillInboundApi(final String key) {
-		this.key = key;
-	}
+    private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillInboundApi(final QueryExecutorFactory queryExecutorFactory) {
+        this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
+    }
 
 	/**
 	 * <p>List the domains that have been configured for 
@@ -33,12 +32,9 @@ public class MandrillInboundApi {
 	 */
 	 MandrillInboundDomain[] domains() 
 			throws MandrillApiError, IOException {
-		
-		return MandrillUtil.query(
-				rootUrl+ "inbound/domains.json", 
-				MandrillUtil.paramsWithKey(key), 
-				MandrillInboundDomain[].class);
-		
+		return queryExecutorFactory.create()
+                .path("inbound/domains.json")
+                .execute(MandrillInboundDomain[].class);
 	}
 	
 	/**
@@ -50,12 +46,10 @@ public class MandrillInboundApi {
 	 */
 	 MandrillMailboxRoute[] routes(final String domain)
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("domain", domain);
-		return MandrillUtil.query(rootUrl+ "inbound/routes.json", 
-				params, MandrillMailboxRoute[].class);
-		
+		return queryExecutorFactory.create()
+                .path("inbound/routes.json")
+                .addParam("domain", domain)
+                .execute(MandrillMailboxRoute[].class);
 	}
 	
 	/**
@@ -105,15 +99,14 @@ public class MandrillInboundApi {
 			final Collection<String> to, final String mailFrom, 
 			final String helo, final String clientAddress) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("raw_message", rawMessage);
-		params.put("to", to);
-		params.put("mail_from", mailFrom);
-		params.put("helo", helo);
-		params.put("client_address", clientAddress);
-		return MandrillUtil.query(rootUrl+ "inbound/send-raw.json", 
-				params, MandrillInboundRecipient[].class);
+		return queryExecutorFactory.create()
+                .path("inbound/send-raw.json")
+                .addParam("raw_message", rawMessage)
+                .addParam("to", to)
+                .addParam("mail_from", mailFrom)
+                .addParam("helo", helo)
+                .addParam("client_address", clientAddress)
+                .execute(MandrillInboundRecipient[].class);
 		
 	}
 }

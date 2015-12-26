@@ -3,27 +3,27 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.model.MandrillContentWrapper;
 import com.microtripit.mandrillapp.lutung.model.MandrillHelperClasses.MandrillRenderTemplateResponse;
 import com.microtripit.mandrillapp.lutung.view.MandrillTemplate;
 import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Consumer;
+
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
 public class MandrillTemplatesApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
+	private final QueryExecutorFactory queryExecutorFactory;
 
-	public MandrillTemplatesApi(final String key) {
-		this.key = key;
+	public MandrillTemplatesApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 
 	/**
@@ -86,19 +86,17 @@ public class MandrillTemplatesApi {
 			final String fromName, final String subject, final String code,
 			final String text, final Boolean publish, String[] labels)
 					throws MandrillApiError, IOException {
-
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("name", name);
-		params.put("from_email", fromEmail);
-		params.put("from_name", fromName);
-		params.put("subject", subject);
-		params.put("code", code);
-		params.put("text", text);
-		params.put("publish", publish);
-		params.put("labels", labels);
-		return MandrillUtil.query(rootUrl+ "templates/add.json",
-				params, MandrillTemplate.class);
-
+		return queryExecutorFactory.create()
+				.path("templates/add.json")
+				.addParam("name", name)
+				.addParam("from_email", fromEmail)
+				.addParam("from_name", fromName)
+				.addParam("subject", subject)
+				.addParam("code", code)
+				.addParam("text", text)
+				.addParam("publish", publish)
+				.addParam("labels", labels)
+				.execute(MandrillTemplate.class);
 	}
 
 	/**
@@ -110,12 +108,10 @@ public class MandrillTemplatesApi {
 	 */
 	public MandrillTemplate info(final String name)
 			throws MandrillApiError, IOException {
-
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("name", name);
-		return MandrillUtil.query(rootUrl+ "templates/info.json",
-				params, MandrillTemplate.class);
-
+		return queryExecutorFactory.create()
+				.path("templates/info.json")
+				.addParam("name", name)
+				.execute(MandrillTemplate.class);
 	}
 
 	/**
@@ -176,19 +172,17 @@ public class MandrillTemplatesApi {
 			final String fromEmail, final String fromName,
 			final String subject, final String code, final String text,
 			final Boolean publish, String[] labels) throws MandrillApiError, IOException {
-
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("name", name);
-		params.put("from_email", fromEmail);
-		params.put("from_name", fromName);
-		params.put("subject", subject);
-		params.put("code", code);
-		params.put("text", text);
-		params.put("publish", publish);
-		params.put("labels", labels);
-		return MandrillUtil.query(rootUrl+ "templates/update.json",
-				params, MandrillTemplate.class);
-
+		return queryExecutorFactory.create()
+				.path("templates/update.json")
+				.addParam("name", name)
+				.addParam("from_email", fromEmail)
+				.addParam("from_name", fromName)
+				.addParam("subject", subject)
+				.addParam("code", code)
+				.addParam("text", text)
+				.addParam("publish", publish)
+				.addParam("labels", labels)
+				.execute(MandrillTemplate.class);
 	}
 
 	/**
@@ -202,12 +196,10 @@ public class MandrillTemplatesApi {
 	 */
 	public MandrillTemplate publish(final String name)
 			throws MandrillApiError, IOException {
-
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("name", name);
-		return MandrillUtil.query(rootUrl+ "templates/publish.json",
-				params, MandrillTemplate.class);
-
+		return queryExecutorFactory.create()
+				.path("templates/publish.json")
+				.addParam("name", name)
+				.execute(MandrillTemplate.class);
 	}
 
 	/**
@@ -219,12 +211,10 @@ public class MandrillTemplatesApi {
 	 */
 	public MandrillTemplate delete(final String name)
 			throws MandrillApiError, IOException {
-
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("name", name);
-		return MandrillUtil.query(rootUrl+ "templates/delete.json",
-				params, MandrillTemplate.class);
-
+		return queryExecutorFactory.create()
+				.path("templates/delete.json")
+				.addParam("name", name)
+				.execute(MandrillTemplate.class);
 	}
 
 	/**
@@ -236,12 +226,9 @@ public class MandrillTemplatesApi {
 	 */
 	public MandrillTemplate[] list()
 			throws MandrillApiError, IOException {
-
-		return MandrillUtil.query(
-				rootUrl+ "templates/list.json",
-				MandrillUtil.paramsWithKey(key),
-				MandrillTemplate[].class);
-
+        return queryExecutorFactory.create()
+                .path("templates/list.json")
+                .execute(MandrillTemplate[].class);
 	}
 
 	/**
@@ -254,14 +241,10 @@ public class MandrillTemplatesApi {
 	 */
 	public MandrillTemplate[] list(String label)
 			throws MandrillApiError, IOException {
-
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("label", label);
-
-		return MandrillUtil.query(
-				rootUrl+ "templates/list.json",
-				params,
-				MandrillTemplate[].class);
+        return queryExecutorFactory.create()
+                .path("templates/list.json")
+                .addParam("label", label)
+                .execute(MandrillTemplate[].class);
 	}
 
 	/**
@@ -275,12 +258,10 @@ public class MandrillTemplatesApi {
 	 */
 	public MandrillTimeSeries[] timeSeries(final String name)
 			throws MandrillApiError, IOException {
-
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("name", name);
-		return MandrillUtil.query(rootUrl+ "templates/time-series.json",
-				params, MandrillTimeSeries[].class);
-
+        return queryExecutorFactory.create()
+                .path("templates/time-series.json")
+                .addParam("name", name)
+                .execute(MandrillTimeSeries[].class);
 	}
 
 	/**
@@ -303,29 +284,33 @@ public class MandrillTemplatesApi {
 			final Map<String,String> templateContent,
 			final Map<String,String> mergeVars)
 					throws MandrillApiError, IOException {
-
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("template_name", name);
-		if(templateContent != null && !templateContent.isEmpty()) {
-			final ArrayList<MandrillContentWrapper> contents =
-					new ArrayList<MandrillContentWrapper>(templateContent.size());
-			for(String cName : templateContent.keySet()) {
-				contents.add( MandrillContentWrapper.create(
-						cName, templateContent.get(cName)) );
-			}
-			params.put("template_content", contents);
-		}
-		if(mergeVars != null && !mergeVars.isEmpty()) {
-			final ArrayList<MandrillContentWrapper> vars =
-					new ArrayList<MandrillContentWrapper>(mergeVars.size());
-			for(String cName : mergeVars.keySet()) {
-				vars.add( MandrillContentWrapper.create(
-						cName, mergeVars.get(cName)) );
-			}
-			params.put("merge_vars", vars);
-		}
-		return MandrillUtil.query(rootUrl+ "templates/render.json",
-				params, MandrillRenderTemplateResponse.class).getHtml();
-
+        return queryExecutorFactory.create()
+                .path("templates/render.json")
+                .addParam("template_name", name)
+                .delegate(new Consumer<QueryExecutor>() {
+                    @Override
+                    public void accept(final QueryExecutor queryExecutor) {
+                        addContent(templateContent, queryExecutor);
+                    }
+                })
+                .delegate(new Consumer<QueryExecutor>() {
+                    @Override
+                    public void accept(final QueryExecutor queryExecutor) {
+                        addContent(mergeVars, queryExecutor);
+                    }
+                })
+                .execute(MandrillRenderTemplateResponse.class).getHtml();
 	}
+
+    private void addContent(final Map<String, String> contentItems, final QueryExecutor queryExecutor) {
+        if(contentItems != null && !contentItems.isEmpty()) {
+			final ArrayList<MandrillContentWrapper> contents =
+					new ArrayList<MandrillContentWrapper>(contentItems.size());
+			for(String cName : contentItems.keySet()) {
+				contents.add( MandrillContentWrapper.create(
+						cName, contentItems.get(cName)) );
+			}
+            queryExecutor.addParam("template_content", contents);
+		}
+    }
 }

@@ -3,25 +3,24 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillDedicatedIp;
 import com.microtripit.mandrillapp.lutung.view.MandrillDedicatedIp.MandrillDnsCheck;
 import com.microtripit.mandrillapp.lutung.view.MandrillDedicatedIpPool;
+
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * @author rschreijer
  *
  */
 public class MandrillIpsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillIpsApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillIpsApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -32,11 +31,9 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDedicatedIp[] list() 
 			throws MandrillApiError, IOException {
-		
-		return MandrillUtil.query(rootUrl+ "ips/list.json", 
-				MandrillUtil.paramsWithKey(key),
-				MandrillDedicatedIp[].class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/list.json")
+				.execute(MandrillDedicatedIp[].class);
 	}
 	
 	/**
@@ -48,12 +45,10 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDedicatedIp info(final String ip) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("ip", ip);
-		return MandrillUtil.query(rootUrl+ "ips/info.json", 
-				params, MandrillDedicatedIp.class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/info.json")
+				.addParam("ip", ip)
+				.execute(MandrillDedicatedIp.class);
 	}
 	
 	/**
@@ -69,13 +64,11 @@ public class MandrillIpsApi {
 	 */
 	public Date provision(final Boolean warmup, final String pool) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("warmup", warmup);
-		params.put("pool", pool);
-		return MandrillUtil.query(rootUrl+ "ips/provision.json", 
-				params, DateWrapper.class).getRequestedAt();
-		
+		return queryExecutorFactory.create()
+				.path("ips/provision.json")
+				.addParam("warmup", warmup)
+				.addParam("pool", pool)
+				.execute(DateWrapper.class).getRequestedAt();
 	}
 	
 	/**
@@ -91,12 +84,10 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDedicatedIp startWarmup(final String ip) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("ip", ip);
-		return MandrillUtil.query(rootUrl+ "ips/start-warmup.json", 
-				params, MandrillDedicatedIp.class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/start-warmup.json")
+				.addParam("ip", ip)
+				.execute(MandrillDedicatedIp.class);
 	}
 	
 	/**
@@ -108,12 +99,10 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDedicatedIp cancelWarmup(final String ip) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("ip", ip);
-		return MandrillUtil.query(rootUrl+ "ips/cancel-warmup.json", 
-				params, MandrillDedicatedIp.class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/cancel-warmup.json")
+				.addParam("ip", ip)
+				.execute(MandrillDedicatedIp.class);
 	}
 	
 	/**
@@ -129,14 +118,12 @@ public class MandrillIpsApi {
 	public MandrillDedicatedIp setPool(final String ip, 
 			final String pool, final Boolean createPool) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("ip", ip);
-		params.put("pool", pool);
-		params.put("create_pool", createPool);
-		return MandrillUtil.query(rootUrl+ "ips/set-pool.json", 
-				params, MandrillDedicatedIp.class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/set-pool.json")
+				.addParam("ip", ip)
+				.addParam("pool", pool)
+				.addParam("create_pool", createPool)
+				.execute(MandrillDedicatedIp.class);
 	}
 	
 	/**
@@ -148,12 +135,10 @@ public class MandrillIpsApi {
 	 */
 	public Boolean delete(final String ip) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("ip", ip);
-		return MandrillUtil.query(rootUrl+ "ips/delete.json", 
-				params, DeleteResponse.class).getDeleted();
-		
+		return queryExecutorFactory.create()
+				.path("ips/delete.json")
+				.addParam("ip", ip)
+				.execute(DeleteResponse.class).getDeleted();
 	}
 	
 	/**
@@ -165,11 +150,9 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDedicatedIpPool[] listPools() 
 			throws MandrillApiError, IOException {
-		
-		return MandrillUtil.query(rootUrl+ "ips/list-pools.json", 
-				MandrillUtil.paramsWithKey(key),
-				MandrillDedicatedIpPool[].class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/list-pools.json")
+				.execute(MandrillDedicatedIpPool[].class);
 	}
 	
 	/**
@@ -181,12 +164,10 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDedicatedIpPool poolInfo(final String pool) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("pool", pool);
-		return MandrillUtil.query(rootUrl+ "ips/pool-info.json", 
-				params, MandrillDedicatedIpPool.class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/pool-info.json")
+				.addParam("pool", pool)
+				.execute(MandrillDedicatedIpPool.class);
 	}
 	
 	/**
@@ -199,12 +180,10 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDedicatedIpPool createPool(final String pool) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("pool", pool);
-		return MandrillUtil.query(rootUrl+ "ips/create-pool.json", 
-				params, MandrillDedicatedIpPool.class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/create-pool.json")
+				.addParam("pool", pool)
+				.execute(MandrillDedicatedIpPool.class);
 	}
 	
 	/**
@@ -217,12 +196,10 @@ public class MandrillIpsApi {
 	 */
 	public Boolean deletePool(final String pool) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("pool", pool);
-		return MandrillUtil.query(rootUrl+ "ips/delete-pool.json", 
-				params, DeletePoolResponse.class).getDeleted();
-		
+		return queryExecutorFactory.create()
+				.path("ips/delete-pool.json")
+				.addParam("pool", pool)
+				.execute(DeletePoolResponse.class).getDeleted();
 	}
 	
 	/**
@@ -236,13 +213,11 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDnsCheck checkCustomDns(final String ip, 
 			final String domain) throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("ip", ip);
-		params.put("domain", domain);
-		return MandrillUtil.query(rootUrl+ "ips/check-custom-dns.json", 
-				params, MandrillDnsCheck.class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/check-custom-dns.json")
+				.addParam("ip", ip)
+				.addParam("domain", domain)
+				.execute(MandrillDnsCheck.class);
 	}
 	
 	/**
@@ -256,13 +231,11 @@ public class MandrillIpsApi {
 	 */
 	public MandrillDedicatedIp setCustomDns(final String ip, 
 			final String domain) throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("ip", ip);
-		params.put("domain", domain);
-		return MandrillUtil.query(rootUrl+ "ips/set-custom-dns.json", 
-				params, MandrillDedicatedIp.class);
-		
+		return queryExecutorFactory.create()
+				.path("ips/set-custom-dns.json")
+				.addParam("ip", ip)
+				.addParam("domain", domain)
+				.execute(MandrillDedicatedIp.class);
 	}
 	
 	public static class DateWrapper {

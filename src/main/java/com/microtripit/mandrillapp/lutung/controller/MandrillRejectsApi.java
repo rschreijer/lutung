@@ -3,36 +3,33 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
-import com.microtripit.mandrillapp.lutung.model.MandrillHelperClasses.MandrillRejectsDeleted;
 import com.microtripit.mandrillapp.lutung.model.MandrillHelperClasses.MandrillRejectsAdded;
+import com.microtripit.mandrillapp.lutung.model.MandrillHelperClasses.MandrillRejectsDeleted;
 import com.microtripit.mandrillapp.lutung.view.MandrillRejectsEntry;
+
+import java.io.IOException;
 
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
 public class MandrillRejectsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillRejectsApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillRejectsApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	public Boolean add(final String email, final String comment, 
 			final String subaccount) throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("email", email);
-		params.put("comment", comment);
-		params.put("subaccount", subaccount);
-		return MandrillUtil.query(rootUrl+ "rejects/add.json", 
-				params, MandrillRejectsAdded.class).getAdded();
-		
+		return queryExecutorFactory.create()
+                .path("rejects/add.json")
+                .addParam("email", email)
+                .addParam("comment", comment)
+                .addParam("subaccount", subaccount)
+                .execute(MandrillRejectsAdded.class).getAdded();
 	}
 	
 	/**
@@ -73,16 +70,12 @@ public class MandrillRejectsApi {
 	public MandrillRejectsEntry[] list(final String email, 
 			final Boolean includeExpired, final String subaccount) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("email", email);
-		params.put("include_expired", includeExpired);
-		if(subaccount != null) {
-			params.put("subaccount", subaccount);
-		}
-		return MandrillUtil.query(rootUrl+ "rejects/list.json", 
-				params, MandrillRejectsEntry[].class);
-		
+		return queryExecutorFactory.create()
+                .path("rejects/list.json")
+                .addParam("email", email)
+                .addParam("include_expired", includeExpired)
+                .addParamIfNotNull("subaccount", subaccount)
+                .execute(MandrillRejectsEntry[].class);
 	}
 	
 	/**
@@ -118,15 +111,11 @@ public class MandrillRejectsApi {
 	 */
 	public Boolean delete(final String email, final String subaccount) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("email", email);
-		if(subaccount != null) {
-			params.put("subaccount", subaccount);
-		}
-		return MandrillUtil.query(rootUrl+ "rejects/delete.json", 
-				params, MandrillRejectsDeleted.class).getDeleted();
-		
+		return queryExecutorFactory.create()
+                .path("rejects/delete.json")
+                .addParam("email", email)
+                .addParamIfNotNull("subaccount", subaccount)
+                .execute(MandrillRejectsDeleted.class).getDeleted();
 	}
 	
 }

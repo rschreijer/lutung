@@ -3,23 +3,22 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillTag;
 import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
+
+import java.io.IOException;
 
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
 public class MandrillTagsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillTagsApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillTagsApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 
 	/**
@@ -30,12 +29,9 @@ public class MandrillTagsApi {
 	 */
 	public MandrillTag[] list() 
 			throws MandrillApiError, IOException {
-		
-		return MandrillUtil.query(
-				rootUrl+ "tags/list.json", 
-				MandrillUtil.paramsWithKey(key), 
-				MandrillTag[].class);
-		
+		return queryExecutorFactory.create()
+                .path("tags/list.json")
+                .execute(MandrillTag[].class);
 	}
 	
 	/**
@@ -50,12 +46,10 @@ public class MandrillTagsApi {
 	 */
 	public MandrillTag delete(final String tagName) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("tag", tagName);
-		return MandrillUtil.query(rootUrl+ "tags/delete.json", 
-				params, MandrillTag.class);
-		
+		return queryExecutorFactory.create()
+                .path("tags/delete.json")
+                .addParam("tag", tagName)
+                .execute(MandrillTag.class);
 	}
 	
 	/**
@@ -68,12 +62,10 @@ public class MandrillTagsApi {
 	 */
 	public MandrillTag info(final String tagName) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("tag", tagName);
-		return MandrillUtil.query(rootUrl+ "tags/info.json", 
-				params, MandrillTag.class);
-		
+		return queryExecutorFactory.create()
+                .path("tags/info.json")
+                .addParam("tag", tagName)
+                .execute(MandrillTag.class);
 	}
 	
 	/**
@@ -87,12 +79,10 @@ public class MandrillTagsApi {
 	 */
 	public MandrillTimeSeries[] timeSeries(final String tagName) 
 			throws MandrillApiError, IOException{
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("tag", tagName);
-		return MandrillUtil.query(rootUrl+ "tags/time-series.json", 
-				params, MandrillTimeSeries[].class);
-		
+		return queryExecutorFactory.create()
+                .path("tags/time-series.json")
+                .addParam("tag", tagName)
+                .execute(MandrillTimeSeries[].class);
 	}
 	
 	/**
@@ -105,11 +95,8 @@ public class MandrillTagsApi {
 	 */
 	public MandrillTimeSeries[] allTimeSeries() 
 			throws MandrillApiError, IOException {
-		
-		return MandrillUtil.query(
-				rootUrl+ "tags/all-time-series.json", 
-				MandrillUtil.paramsWithKey(key), 
-				MandrillTimeSeries[].class);
-		
+		return queryExecutorFactory.create()
+                .path("tags/all-time-series.json")
+                .execute(MandrillTimeSeries[].class);
 	}
 }

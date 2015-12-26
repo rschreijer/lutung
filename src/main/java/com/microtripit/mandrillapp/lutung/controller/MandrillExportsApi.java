@@ -3,13 +3,13 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
+import com.google.common.base.Preconditions;
+import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
+import com.microtripit.mandrillapp.lutung.view.MandrillExportJobInfo;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-
-import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
-import com.microtripit.mandrillapp.lutung.view.MandrillExportJobInfo;
 
 /**
  * <p>Exports Calls.</p>
@@ -17,11 +17,10 @@ import com.microtripit.mandrillapp.lutung.view.MandrillExportJobInfo;
  *
  */
 public class MandrillExportsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillExportsApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillExportsApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -39,12 +38,10 @@ public class MandrillExportsApi {
 	 */
 	public MandrillExportJobInfo info(final String id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "exports/info.json", 
-				params, MandrillExportJobInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("exports/info.json")
+				.addParam("id", id)
+				.execute(MandrillExportJobInfo.class);
 	}
 	
 	/**
@@ -55,11 +52,9 @@ public class MandrillExportsApi {
 	 */
 	public MandrillExportJobInfo list() 
 			throws MandrillApiError, IOException {
-		
-		return MandrillUtil.query(rootUrl+ "exports/list.json", 
-				MandrillUtil.paramsWithKey(key),
-				MandrillExportJobInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("exports/list.json")
+				.execute(MandrillExportJobInfo.class);
 	}
 	
 	/**
@@ -81,12 +76,10 @@ public class MandrillExportsApi {
 	 */
 	public MandrillExportJobInfo rejects(final String notifyEmail) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("notify_email", notifyEmail);
-		return MandrillUtil.query(rootUrl+ "exports/rejects.json", 
-				params, MandrillExportJobInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("exports/rejects.json")
+				.addParam("notify_email", notifyEmail)
+				.execute(MandrillExportJobInfo.class);
 	}
 	
 	/**
@@ -104,12 +97,10 @@ public class MandrillExportsApi {
 	 */
 	public MandrillExportJobInfo whitelist(final String notifyEmail) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("notify_email", notifyEmail);
-		return MandrillUtil.query(rootUrl+ "exports/whitelist.json", 
-				params, MandrillExportJobInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("exports/whitelist.json")
+				.addParam("notify_email", notifyEmail)
+				.execute(MandrillExportJobInfo.class);
 	}
 	
 	/**
@@ -148,18 +139,15 @@ public class MandrillExportsApi {
 			final Collection<String> tags, final Collection<String> senders,
 			final Collection<String> states, final Collection<String> apiKeys) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("notify_email", notifyEmail);
-		params.put("date_from", dateFrom);
-		params.put("date_to", dateTo);
-		params.put("tags", tags);
-		params.put("senders", senders);
-		params.put("states", states);
-		params.put("api_keys", apiKeys);
-		return MandrillUtil.query(rootUrl+ "exports/activity.json", 
-				params, MandrillExportJobInfo.class);
-		
+		return queryExecutorFactory.create()
+				.path("exports/activity.json")
+				.addParam("notify_email", notifyEmail)
+				.addParam("date_from", dateFrom)
+				.addParam("date_to", dateTo)
+				.addParam("tags", tags)
+				.addParam("senders", senders)
+				.addParam("states", states)
+				.addParam("api_keys", apiKeys)
+				.execute(MandrillExportJobInfo.class);
 	}
-
 }
