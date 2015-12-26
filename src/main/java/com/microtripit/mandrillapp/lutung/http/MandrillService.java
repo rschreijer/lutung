@@ -18,7 +18,7 @@ import java.util.Map;
 public final class MandrillService {
 	private final String rootUrl;
 	private final Dispatcher dispatcher;
-    private final ImmutableMap<String, Object> baseKeyMap;
+	private final ImmutableMap<String, Object> baseKeyMap;
 
 	public MandrillService(final String rootUrl, final Dispatcher dispatcher, final String key) {
 		this.rootUrl = Preconditions.checkNotNull(rootUrl, "rootUrl is null");
