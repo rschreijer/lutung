@@ -18,14 +18,12 @@ import java.util.Map;
 public final class MandrillService {
 	private final String rootUrl;
 	private final Dispatcher dispatcher;
-	private final String key;
     private final ImmutableMap<String, Object> baseKeyMap;
 
 	public MandrillService(final String rootUrl, final Dispatcher dispatcher, final String key) {
 		this.rootUrl = Preconditions.checkNotNull(rootUrl, "rootUrl is null");
 		this.dispatcher = Preconditions.checkNotNull(dispatcher,"dispatcher is null");
-		this.key = Preconditions.checkNotNull(key, "key is null");
-        baseKeyMap = ImmutableMap.<String, Object>builder().put("key", this.key).build();
+        baseKeyMap = ImmutableMap.<String, Object>builder().put("key", key).build();
 	}
 
 	/**
