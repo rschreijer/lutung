@@ -15,7 +15,7 @@ import java.util.Map;
  * @author rschreijer
  * @since Mar 19, 2013
  */
-public final class MandrillService {
+public class MandrillService {
 	private final String rootUrl;
 	private final Dispatcher dispatcher;
 	private final ImmutableMap<String, Object> baseKeyMap;
