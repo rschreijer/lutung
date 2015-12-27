@@ -91,7 +91,7 @@ public class MandrillApiError extends Exception {
 		}
 	}
 	
-	protected final MandrillApiError withError(final MandrillError error) {
+	public final MandrillApiError withError(final MandrillError error) {
 		this.error = error;
 		return this;
 	}

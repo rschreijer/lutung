@@ -3,26 +3,25 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
+import com.google.common.base.Preconditions;
+import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
+import com.microtripit.mandrillapp.lutung.view.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-
-import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
-import com.microtripit.mandrillapp.lutung.view.*;
 
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
 public class MandrillMessagesApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillMessagesApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillMessagesApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -81,19 +80,13 @@ public class MandrillMessagesApi {
 	public MandrillMessageStatus[] send(final MandrillMessage m, 
 			final Boolean async, final String ipPool, final Date sendAt) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("message", m);
-		params.put("async", async);
-		if(ipPool != null) {
-			params.put("ip_pool", ipPool);
-		}
-		if(sendAt != null) {
-			params.put("send_at", sendAt);
-		}
-		return MandrillUtil.query(rootUrl+ "messages/send.json", 
-				params, MandrillMessageStatus[].class);
-		
+        return queryExecutorFactory.create()
+                .path("messages/send.json")
+                .addParam("message", m)
+                .addParam("async", async)
+                .addParamIfNotNull("ip_pool", ipPool)
+                .addParamIfNotNull("send_at", sendAt)
+                .execute(MandrillMessageStatus[].class);
 	}
 	
 	
@@ -177,10 +170,7 @@ public class MandrillMessagesApi {
 			final MandrillMessage m, final Boolean async, 
 			final String ipPool, final Date sendAt) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("template_name", templateName);
-		final ArrayList<TemplateContent> contents;
+                final ArrayList<TemplateContent> contents;
 		if(templateContent == null) {
             contents = new ArrayList<MandrillMessagesApi.TemplateContent>(1);
             // API requires at least one entry in the template_content array, even when unused
@@ -194,18 +184,15 @@ public class MandrillMessagesApi {
 						name, templateContent.get(name)) );
 			}
 		}
-		params.put("template_content", contents);
-		params.put("message", m);
-		params.put("async", async);
-		if(ipPool != null) {
-			params.put("ip_pool", ipPool);
-		}
-		if(sendAt != null) {
-			params.put("send_at", sendAt);
-		}
-		return MandrillUtil.query( rootUrl + "messages/send-template.json",
-                params, MandrillMessageStatus[].class );
-		
+        return  queryExecutorFactory.create()
+                .path("messages/send-template.json")
+                .addParam("template_name", templateName)
+                .addParam("template_content", contents)
+                .addParam("message", m)
+                .addParam("async", async)
+                .addParamIfNotNull("ip_pool", ipPool)
+                .addParamIfNotNull("send_at", sendAt)
+                .execute(MandrillMessageStatus[].class );
 	}
 	
 	/**
@@ -220,20 +207,17 @@ public class MandrillMessagesApi {
 	public MandrillMessageInfo[] search(
 			final MandrillSearchMessageParams search) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
+        final QueryExecutor queryExecutor = queryExecutorFactory.create().path("messages/search.json");
 		if(search != null) {
-			params.put("query", search.getQuery());
-			params.put("date_from", search.getDateFrom());
-			params.put("date_to", search.getDateTo());
-			params.put("tags", search.getTags());
-			params.put("senders", search.getSenders());
-			params.put("api_keys", search.getApiKeys());
-			params.put("limit", search.getLimit());
+            queryExecutor.addParam("query", search.getQuery())
+                    .addParam("date_from", search.getDateFrom())
+                    .addParam("date_to", search.getDateTo())
+                    .addParam("tags", search.getTags())
+                    .addParam("senders", search.getSenders())
+                    .addParam("api_keys", search.getApiKeys())
+                    .addParam("limit", search.getLimit());
 		}
-		return MandrillUtil.query(rootUrl+ "messages/search.json", 
-				params,	MandrillMessageInfo[].class);
-		
+		return queryExecutor.execute(MandrillMessageInfo[].class);
 	}
 	
 	/**
@@ -248,17 +232,16 @@ public class MandrillMessagesApi {
 	public MandrillTimeSeries[] searchTimeSeries(
 			final MandrillSearchMessageParams search) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
+        final QueryExecutor queryExecutor = queryExecutorFactory.create()
+                .path("messages/search-time-series.json");
 		if(search != null) {
-			params.put("query", search.getQuery());
-			params.put("date_from", search.getDateFrom());
-			params.put("date_to", search.getDateTo());
-			params.put("tags", search.getTags());
-			params.put("senders", search.getSenders());
+			queryExecutor.addParam("query", search.getQuery())
+                    .addParam("date_from", search.getDateFrom())
+                    .addParam("date_to", search.getDateTo())
+                    .addParam("tags", search.getTags())
+                    .addParam("senders", search.getSenders());
 		}
-		return MandrillUtil.query(rootUrl+ "messages/search-time-series.json", 
-				params,	MandrillTimeSeries[].class);
+		return queryExecutor.execute(MandrillTimeSeries[].class);
 		
 	}
 	
@@ -272,12 +255,10 @@ public class MandrillMessagesApi {
 	 */
 	public MandrillMessageInfo info(final String id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "messages/info.json", 
-				params,	MandrillMessageInfo.class);
-		
+		return queryExecutorFactory.create()
+                .path("messages/info.json")
+                .addParam("id", id)
+                .execute(MandrillMessageInfo.class);
 	}
 
     /**
@@ -290,12 +271,10 @@ public class MandrillMessagesApi {
      */
     public MandrillMessageContent content(final String id)
             throws MandrillApiError, IOException {
-
-        final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-        params.put("id", id);
-        return MandrillUtil.query(rootUrl+ "messages/content.json",
-                params,	MandrillMessageContent.class);
-
+        return queryExecutorFactory.create()
+                .path("messages/content.json")
+                .addParam("id", id)
+                .execute(MandrillMessageContent.class);
     }
 
     /**
@@ -309,12 +288,10 @@ public class MandrillMessagesApi {
 	 */
 	public MandrillMessage parse(final String rawMessage) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("raw_message", rawMessage);
-		return MandrillUtil.query(rootUrl+ "messages/parse.json",
-				params, MandrillMessage.class);
-		
+        return queryExecutorFactory.create()
+                .path("messages/parse.json")
+                .addParam("raw_message", rawMessage)
+                .execute(MandrillMessage.class);
 	}
 	
 	/**
@@ -345,25 +322,17 @@ public class MandrillMessagesApi {
 			final String ipPool, final Date sendAt, 
 			final String returnPathDomain) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("raw_message", rawMessage);
-		params.put("from_email", fromEmail);
-		params.put("from_name", fromName);
-		params.put("to", to);
-		params.put("async", async);
-		if(ipPool != null) {
-			params.put("ip_pool", ipPool);
-		}
-		if(sendAt != null) {
-			params.put("send_at", sendAt);
-		}
-		if(returnPathDomain != null) {
-			params.put("return_path_domain", returnPathDomain);
-		}
-		return MandrillUtil.query(rootUrl+ "messages/send-raw.json", 
-				params,	MandrillMessageStatus[].class);
-		
+        return queryExecutorFactory.create()
+                .path("messages/send-raw.json")
+                .addParam("raw_message", rawMessage)
+                .addParam("from_email", fromEmail)
+                .addParam("from_name", fromName)
+                .addParam("to", to)
+                .addParam("async", async)
+                .addParamIfNotNull("ip_pool", ipPool)
+                .addParamIfNotNull("send_at", sendAt)
+                .addParamIfNotNull("return_path_domain", returnPathDomain)
+                .execute(MandrillMessageStatus[].class);
 	}
 	
 	/**
@@ -375,12 +344,10 @@ public class MandrillMessagesApi {
 	 */
 	public MandrillScheduledMessageInfo[] listScheduled(final String to) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("to", to);
-		return MandrillUtil.query(rootUrl+ "messages/list-scheduled.json", 
-				params,	MandrillScheduledMessageInfo[].class);
-		
+		return queryExecutorFactory.create()
+                .path("messages/list-scheduled.json")
+                .addParam("to", to)
+                .execute(MandrillScheduledMessageInfo[].class);
 	}
 	
 	/**
@@ -393,12 +360,10 @@ public class MandrillMessagesApi {
 	 */
 	public MandrillScheduledMessageInfo cancelScheduled(final String id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "messages/cancel-scheduled.json", 
-				params,	MandrillScheduledMessageInfo.class);
-		
+		return queryExecutorFactory.create()
+                .path("messages/cancel-scheduled.json")
+                .addParam("id", id)
+                .execute(MandrillScheduledMessageInfo.class);
 	}
 	
 	/**
@@ -414,13 +379,11 @@ public class MandrillMessagesApi {
 	 */
 	public MandrillScheduledMessageInfo reschedule(final String id, 
 			final Date send_at) throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		params.put("send_at", send_at);
-		return MandrillUtil.query(rootUrl+ "messages/reschedule.json", 
-				params,	MandrillScheduledMessageInfo.class);
-		
+		return queryExecutorFactory.create()
+                .path("messages/reschedule.json")
+                .addParam("id", id)
+                .addParam("send_at", send_at)
+                .execute(MandrillScheduledMessageInfo.class);
 	}
 	
 	public static final class TemplateContent {

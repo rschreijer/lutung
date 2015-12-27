@@ -3,26 +3,15 @@
  */
 package com.microtripit.mandrillapp.lutung;
 
-import com.microtripit.mandrillapp.lutung.controller.MandrillExportsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillInboundApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillIpsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillMessagesApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillRejectsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillSendersApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillSubaccountsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillTagsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillTemplatesApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillUrlsApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillUsersApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillWebhooksApi;
-import com.microtripit.mandrillapp.lutung.controller.MandrillWhitelistsApi;
+import com.microtripit.mandrillapp.lutung.controller.*;
+import com.microtripit.mandrillapp.lutung.http.MandrillRequestDispatcher;
+import com.microtripit.mandrillapp.lutung.http.MandrillService;
 
 /**
  * @author rschreijer
  * @since Mar 17, 2013
  */
 public class MandrillApi {
-	private String key;
 	private final MandrillUsersApi users;
 	private final MandrillMessagesApi messages;
 	private final MandrillTagsApi tags;
@@ -37,35 +26,29 @@ public class MandrillApi {
 	private final MandrillExportsApi exports;
 	private final MandrillIpsApi ips;
 	
-	public MandrillApi(final String key) {
+	public MandrillApi(final String key, final String rootUrl) {
 		if(key == null) {
 			throw new NullPointerException(
 					"'key' is null; please provide Mandrill API key");
 			
 		}
-		this.key = key;
-		users = new MandrillUsersApi(key);
-		messages = new MandrillMessagesApi(key);
-		tags = new MandrillTagsApi(key);
-		rejects = new MandrillRejectsApi(key);
-		whitelists = new MandrillWhitelistsApi(key);
-		senders = new MandrillSendersApi(key);
-		urls = new MandrillUrlsApi(key);
-		templates = new MandrillTemplatesApi(key);
-		webhooks = new MandrillWebhooksApi(key);
-		subaccounts = new MandrillSubaccountsApi(key);
-		inbound = new MandrillInboundApi(key);
-		exports = new MandrillExportsApi(key);
-		ips = new MandrillIpsApi(key);
+		final MandrillService mandrillService = new MandrillService(rootUrl, new MandrillRequestDispatcher(), key);
+		final QueryExecutorFactory queryExecutorFactory = new QueryExecutorFactory(mandrillService);
+		users = new MandrillUsersApi(queryExecutorFactory);
+		messages = new MandrillMessagesApi(queryExecutorFactory);
+		tags = new MandrillTagsApi(queryExecutorFactory);
+		rejects = new MandrillRejectsApi(queryExecutorFactory);
+		whitelists = new MandrillWhitelistsApi(queryExecutorFactory);
+		senders = new MandrillSendersApi(queryExecutorFactory);
+		urls = new MandrillUrlsApi(queryExecutorFactory);
+		templates = new MandrillTemplatesApi(queryExecutorFactory);
+		webhooks = new MandrillWebhooksApi(queryExecutorFactory);
+		subaccounts = new MandrillSubaccountsApi(queryExecutorFactory);
+		inbound = new MandrillInboundApi(queryExecutorFactory);
+		exports = new MandrillExportsApi(queryExecutorFactory);
+		ips = new MandrillIpsApi(queryExecutorFactory);
 	}
 
-	/**
-	 * @return Your Mandrill API key.
-	 */
-	public String getKey() {
-		return key;
-	}
-	
 	/**
 	 * <p>Get access to 'users' calls.</p>
 	 * @return An object with access to user calls.

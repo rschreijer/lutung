@@ -3,24 +3,23 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillWebhook;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
 public class MandrillWebhooksApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillWebhooksApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillWebhooksApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -31,12 +30,9 @@ public class MandrillWebhooksApi {
 	 */
 	public MandrillWebhook[] list() throws MandrillApiError, 
 			IOException {
-		
-		return MandrillUtil.query(
-				rootUrl+ "webhooks/list.json", 
-				MandrillUtil.paramsWithKey(key), 
-				MandrillWebhook[].class);
-		
+		return queryExecutorFactory.create()
+                .path("webhooks/list.json")
+                .execute(MandrillWebhook[].class);
 	}
 	
 	/**
@@ -60,11 +56,7 @@ public class MandrillWebhooksApi {
 	 */
 	public MandrillWebhook add(final String url, final String event) 
 			throws MandrillApiError, IOException {
-		
-		final ArrayList<String> events = new ArrayList<String>(1);
-		events.add(event);
-		return add(url, null, events);
-		
+		return add(url, null, Arrays.asList(event));
 	}
 	
 	/**
@@ -89,9 +81,7 @@ public class MandrillWebhooksApi {
 	public MandrillWebhook add(final String url, 
 			final Collection<String> events) throws MandrillApiError, 
 			IOException {
-		
 		return add(url, null, events);
-		
 	}
 	
 	/**
@@ -116,14 +106,12 @@ public class MandrillWebhooksApi {
 	 */
 	public MandrillWebhook add(final String url, final String description, 
 			final Collection<String> events) throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("url", url);
-		params.put("description", description);
-		params.put("events", events);
-		return MandrillUtil.query(rootUrl+ "webhooks/add.json", 
-				params, MandrillWebhook.class);
-		
+	    return queryExecutorFactory.create()
+                .path("webhooks/add.json")
+                .addParam("url", url)
+                .addParam("description", description)
+                .addParam("events", events)
+                .execute(MandrillWebhook.class);
 	}
 	
 	/**
@@ -136,12 +124,10 @@ public class MandrillWebhooksApi {
 	 */
 	public MandrillWebhook info(final Integer id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "webhooks/info.json", 
-				params, MandrillWebhook.class);
-		
+		return queryExecutorFactory.create()
+                .path("webhooks/info.json")
+                .addParam("id", id)
+                .execute(MandrillWebhook.class);
 	}
 	
 	/**
@@ -168,11 +154,7 @@ public class MandrillWebhooksApi {
 	public MandrillWebhook update(final Integer id, 
 			final String url, final String event) 
 					throws MandrillApiError, IOException {
-		
-		final ArrayList<String> events = new ArrayList<String>(1);
-		events.add(event);
-		return update(id, url, events);
-		
+		return update(id, url, Arrays.asList(event));
 	}
 	
 	/**
@@ -199,9 +181,7 @@ public class MandrillWebhooksApi {
 	public MandrillWebhook update(final Integer id, 
 			final String url, final Collection<String> events) 
 					throws MandrillApiError, IOException {
-		
 		return update(id, url, null, events);
-		
 	}
 	
 	/**
@@ -209,7 +189,7 @@ public class MandrillWebhooksApi {
 	 * @param id The unique identifier of a webhook 
 	 * belonging to this account.
 	 * @param url The URL to POST batches of events.
-	 * @param An optional description for the webhook.
+	 * @param description optional description for the webhook.
 	 * @param events An optional collection of events 
 	 * that will be posted to the webhook. You can use
 	 * {@link MandrillWebhook#SEND}, {@link MandrillWebhook#HARD_BOUNCE}, 
@@ -229,15 +209,13 @@ public class MandrillWebhooksApi {
 	public MandrillWebhook update(final Integer id, final String url, 
 			final String description, final Collection<String> events) 
 					throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		params.put("url", url);
-		params.put("description", description);
-		params.put("events", events);
-		return MandrillUtil.query(rootUrl+ "webhooks/update.json", 
-				params, MandrillWebhook.class);
-		
+	    return queryExecutorFactory.create()
+                .path("webhooks/update.json")
+                .addParam("id", id)
+                .addParam("url", url)
+                .addParam("description", description)
+                .addParam("events", events)
+                .execute(MandrillWebhook.class);
 	}
 	
 	/**
@@ -251,11 +229,9 @@ public class MandrillWebhooksApi {
 	 */
 	public MandrillWebhook delete(final Integer id) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("id", id);
-		return MandrillUtil.query(rootUrl+ "webhooks/delete.json", 
-				params, MandrillWebhook.class);
-		
+		return queryExecutorFactory.create()
+                .path("webhooks/delete.json")
+                .addParam("id", id)
+                .execute(MandrillWebhook.class);
 	}
 }

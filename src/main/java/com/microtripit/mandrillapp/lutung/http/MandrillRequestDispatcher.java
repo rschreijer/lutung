@@ -1,16 +1,12 @@
 /**
  * 
  */
-package com.microtripit.mandrillapp.lutung.model;
+package com.microtripit.mandrillapp.lutung.http;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.ProxySelector;
-import java.net.URI;
-import java.util.List;
-
+import com.microtripit.mandrillapp.lutung.logging.Logger;
+import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
+import com.microtripit.mandrillapp.lutung.model.*;
+import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -22,16 +18,20 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.params.HttpConnectionParams;
 
-import com.google.gson.JsonSyntaxException;
-import com.microtripit.mandrillapp.lutung.logging.Logger;
-import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
-import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author rschreijer
  * @since Feb 21, 2013
  */
-public final class MandrillRequestDispatcher {
+public final class MandrillRequestDispatcher implements Dispatcher {
     private static final Logger log = LoggerFactory.getLogger(MandrillRequestDispatcher.class);
 
 	/**
@@ -50,7 +50,12 @@ public final class MandrillRequestDispatcher {
 	 * */
 	public static int CONNECTION_TIMEOUT_MILLIS = 0;
 
-	public static final <T> T execute(final RequestModel<T> requestModel,
+	public <V> V send(final String url, final Map<String,Object> params, Class<V> responseType) throws IOException, MandrillApiError {
+		final MandrillRequest<V> requestModel = new MandrillRequest<V>(url, params, responseType);
+		return execute(requestModel, null);
+	}
+
+	private <T> T execute(final RequestModel<T> requestModel,
 			HttpClient client) throws MandrillApiError, IOException {
 
 		HttpResponse response = null;
@@ -120,7 +125,7 @@ public final class MandrillRequestDispatcher {
 		}
 	}
 
-    private static final ProxyData detectProxyServer(final String url) {
+    private ProxyData detectProxyServer(final String url) {
         try {
             final List<Proxy> proxies = ProxySelector.getDefault().select(new URI(url));
             if(proxies != null) {
@@ -141,7 +146,7 @@ public final class MandrillRequestDispatcher {
         }
     }
 
-	private static void consume(HttpEntity entity) throws IOException {
+	private void consume(HttpEntity entity) throws IOException {
 		if (entity == null) {
 			return;
 		}

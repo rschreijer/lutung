@@ -35,7 +35,7 @@ public final class LutungGsonUtils {
 		return gson;
 	}
 	
-	public static final Gson createGson() {
+	private static final Gson createGson() {
 		return createGsonBuilder().create();
 	}
 	

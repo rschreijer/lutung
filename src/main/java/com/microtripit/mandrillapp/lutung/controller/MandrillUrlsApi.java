@@ -3,23 +3,22 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-
+import com.google.common.base.Preconditions;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
 import com.microtripit.mandrillapp.lutung.view.MandrillUrl;
+
+import java.io.IOException;
 
 /**
  * @author rschreijer
  * @since Mar 19, 2013
  */
 public class MandrillUrlsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
-	private final String key;
-	
-	public MandrillUrlsApi(final String key) {
-		this.key = key;
+	private final QueryExecutorFactory queryExecutorFactory;
+
+	public MandrillUrlsApi(final QueryExecutorFactory queryExecutorFactory) {
+		this.queryExecutorFactory = Preconditions.checkNotNull(queryExecutorFactory, "queryExecutorFactory is null");
 	}
 	
 	/**
@@ -31,12 +30,9 @@ public class MandrillUrlsApi {
 	 */
 	public MandrillUrl[] list() 
 			throws MandrillApiError, IOException {
-		
-		return MandrillUtil.query(
-				rootUrl+ "urls/list.json", 
-				MandrillUtil.paramsWithKey(key), 
-				MandrillUrl[].class);
-		
+		return queryExecutorFactory.create()
+				.path("urls/list.json")
+				.execute(MandrillUrl[].class);
 	}
 	
 	/**
@@ -50,12 +46,10 @@ public class MandrillUrlsApi {
 	 */
 	public MandrillUrl[] search(final String query) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("q", query);
-		return MandrillUtil.query(rootUrl+ "urls/search.json", 
-				params, MandrillUrl[].class);
-		
+		return queryExecutorFactory.create()
+				.path("urls/search.json")
+				.addParam("q", query)
+				.execute(MandrillUrl[].class);
 	}
 	
 	/**
@@ -68,11 +62,9 @@ public class MandrillUrlsApi {
 	 */
 	public MandrillTimeSeries[] timeSeries(final String url) 
 			throws MandrillApiError, IOException {
-		
-		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
-		params.put("url", url);
-		return MandrillUtil.query(rootUrl+ "urls/time-series.json", 
-				params, MandrillTimeSeries[].class);
-		
+		return queryExecutorFactory.create()
+				.path("urls/time-series.json")
+				.addParam("url", url)
+				.execute(MandrillTimeSeries[].class);
 	}
 }

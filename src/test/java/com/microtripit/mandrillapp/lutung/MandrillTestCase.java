@@ -3,10 +3,6 @@
  */
 package com.microtripit.mandrillapp.lutung;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,7 +10,9 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import com.microtripit.mandrillapp.lutung.MandrillApi;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author rschreijer
@@ -67,7 +65,7 @@ public abstract class MandrillTestCase {
 	public static final void runBeforeClass() {
 		final String key = getMandrillApiKey();
 		if(key != null) {
-			mandrillApi = new MandrillApi(key);
+			mandrillApi = new MandrillApi(key, "https://mandrillapp.com/api/1.0/");
 		} else {
 			mandrillApi = null;
 		}
