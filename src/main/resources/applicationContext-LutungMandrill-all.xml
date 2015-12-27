@@ -7,7 +7,7 @@
         (the native MandrillRequestDispatcher can be used, obviously).
         In future versions, MandrillRequestDispatcher should be removed to avoid httpclient version collisions.
     -->
-    <!-- bean id="mandrillDispatcher" class="com.microtripit.mandrillapp.lutung.http.MandrillRequestDispatcher" / -->
+    <bean id="mandrillDispatcher" class="com.microtripit.mandrillapp.lutung.http.MandrillRequestDispatcher" />
 
     <bean id="mandrillService" class="com.microtripit.mandrillapp.lutung.http.MandrillService">
         <constructor-arg value="${mandrill.root.url}"/>
