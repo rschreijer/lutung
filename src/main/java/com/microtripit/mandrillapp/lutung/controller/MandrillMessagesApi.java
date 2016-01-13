@@ -107,6 +107,9 @@ public class MandrillMessagesApi {
 	 * Each entry in the map should have the name of the content 
 	 * block to set the content for, corresponding to an mc:edit block,
 	 * and the actual content to put into the block. May be null.
+	 * @param mergeVars Optional merge variables to use for injecting
+	 * merge field content. If this is not provided, no merge fields
+	 * will be replaced.
 	 * @param m The other information on the message to send &ndash; 
 	 * same as {@link #send(MandrillMessage, Boolean)}, but without 
 	 * the html content.
@@ -126,11 +129,11 @@ public class MandrillMessagesApi {
 	 * @throws IOException
 	 */
 	public MandrillMessageStatus[] sendTemplate(
-			final String templateName, final Map<String,String> templateContent, 
+			final String templateName, final Map<String,String> templateContent, Map<String,String> mergeVars,
 			final MandrillMessage m, final Boolean async) 
 					throws MandrillApiError, IOException {
 	
-		return sendTemplate(templateName, templateContent, m, 
+		return sendTemplate(templateName, templateContent, mergeVars, m, 
 				async, null, null);
 		
 	}
@@ -144,6 +147,9 @@ public class MandrillMessagesApi {
 	 * Each entry in the map should have the name of the content 
 	 * block to set the content for, corresponding to an mc:edit block,
 	 * and the actual content to put into the block. May be null.
+	 * @param mergeVars Optional merge variables to use for injecting
+	 * merge field content. If this is not provided, no merge fields
+	 * will be replaced.
 	 * @param m The other information on the message to send &ndash; 
 	 * same as {@link #send(MandrillMessage, Boolean)}, but without 
 	 * the html content.
@@ -172,29 +178,45 @@ public class MandrillMessagesApi {
 	 * @throws MandrillApiError
 	 * @throws IOException
 	 */
-	public MandrillMessageStatus[] sendTemplate(
-			final String templateName, final Map<String,String> templateContent, 
+		public MandrillMessageStatus[] sendTemplate(
+			final String templateName, final Map<String,String> templateContent, Map<String,String> mergeVars, 
 			final MandrillMessage m, final Boolean async, 
 			final String ipPool, final Date sendAt) 
 					throws MandrillApiError, IOException {
 		
 		final HashMap<String,Object> params = MandrillUtil.paramsWithKey(key);
 		params.put("template_name", templateName);
-		final ArrayList<TemplateContent> contents;
+
+		final ArrayList<MandrillContentWrapper> contents;
 		if(templateContent == null) {
-            contents = new ArrayList<MandrillMessagesApi.TemplateContent>(1);
-            // API requires at least one entry in the template_content array, even when unused
-            contents.add( TemplateContent.create("satisfy_validation", "") );
-        }
-        else {
-            contents = new ArrayList<MandrillMessagesApi.TemplateContent>(
-					templateContent.size());
+	            contents = new ArrayList<MandrillContentWrapper>(1);
+	            // API requires at least one entry in the template_content array, even when unused
+	            contents.add( MandrillContentWrapper.create("satisfy_validation", "") );
+	        }
+	        else {
+	            contents = new ArrayList<MandrillContentWrapper>(templateContent.size());
 			for(String name : templateContent.keySet()) {
-				contents.add( TemplateContent.create(
-						name, templateContent.get(name)) );
+				contents.add( MandrillContentWrapper.create(name, templateContent.get(name)) );
 			}
 		}
-		params.put("template_content", contents);
+		params.put("template_content", contents);		
+
+		// ADD MERGE VARS
+		final ArrayList<MandrillContentWrapper> vars
+		if(mergeVars == null) {
+			vars = new ArrayList<MandrillContentWrapper>(1);
+			// i don't think that is required but i added this to be more similar with previous code
+			contents.add( MandrillContentWrapper.create("satisfy_validation", "") );
+		}
+		else {
+			vars = new ArrayList<MandrillContentWrapper>(mergeVars.size());
+			for(String cName : mergeVars.keySet()) {
+				vars.add( MandrillContentWrapper.create(cName, mergeVars.get(cName)));
+			}
+		}	
+		params.put("merge_vars", vars);
+	 	// END	
+	 	
 		params.put("message", m);
 		params.put("async", async);
 		if(ipPool != null) {
@@ -204,8 +226,7 @@ public class MandrillMessagesApi {
 			params.put("send_at", sendAt);
 		}
 		return MandrillUtil.query( rootUrl + "messages/send-template.json",
-                params, MandrillMessageStatus[].class );
-		
+		params, MandrillMessageStatus[].class );
 	}
 	
 	/**
