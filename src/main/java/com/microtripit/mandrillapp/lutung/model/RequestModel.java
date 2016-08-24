@@ -42,10 +42,10 @@ public interface RequestModel<V> {
 	/**
 	 * <p>Parses the content/data of this request's response into
 	 * a desired format {@link V}.
-	 * @param is
+	 * @param responseString
 	 * @return
 	 * @throws HandleResponseException
 	 */
-	public V handleResponse(InputStream is) throws HandleResponseException;
+	public V handleResponse(String responseString) throws HandleResponseException;
 	
 }

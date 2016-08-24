@@ -58,19 +58,17 @@ public final class MandrillRequest<OUT> implements RequestModel<OUT> {
 		return (httpResponseStatus == 200);
 	}
 
-	public final OUT handleResponse(final InputStream is) 
+	public final OUT handleResponse(final String responseString) 
 			throws HandleResponseException {
 		
-		String raw = null;
 		try {
-			raw = IOUtils.toString(is);
-            log.debug("raw content from response:\n" +raw);
+            log.debug("raw content from response:\n" +responseString);
 			return LutungGsonUtils.getGson().fromJson(
-					raw, responseContentType);
+					responseString, responseContentType);
 			
 		} catch(final Throwable t) {
 			String msg = "Error handling Mandrill response " +
-					((raw != null)?": '"+raw+"'" : "");
+					((responseString != null)?": '"+responseString+"'" : "");
 			throw new HandleResponseException(msg, t);
 			
 		}

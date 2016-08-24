@@ -43,7 +43,7 @@ final class MandrillUtil {
 		
 		final MandrillRequest<OUT> requestModel = 
 				new MandrillRequest<OUT>(url, params, responseType);
-		return MandrillRequestDispatcher.execute(requestModel, null);
+		return MandrillRequestDispatcher.execute(requestModel);
 		
 	}
 }
