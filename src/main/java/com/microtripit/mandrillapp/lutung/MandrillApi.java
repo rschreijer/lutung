@@ -16,6 +16,7 @@ import com.microtripit.mandrillapp.lutung.controller.MandrillUrlsApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillUsersApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillWebhooksApi;
 import com.microtripit.mandrillapp.lutung.controller.MandrillWhitelistsApi;
+import com.microtripit.mandrillapp.lutung.controller.MandrillUtil;
 
 /**
  * @author rschreijer
@@ -121,5 +122,9 @@ public class MandrillApi {
 	public MandrillIpsApi ips() {
 		return ips;
 	}
+
+    public void overrideMandrillApiAddress(String address) {
+        MandrillUtil.rootUrl = address;
+    }
 	
 }
