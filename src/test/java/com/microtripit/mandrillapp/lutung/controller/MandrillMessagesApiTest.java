@@ -3,6 +3,10 @@
  */
 package com.microtripit.mandrillapp.lutung.controller;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,12 +18,15 @@ import org.junit.Assume;
 import org.junit.Test;
 
 import com.microtripit.mandrillapp.lutung.MandrillTestCase;
+import com.microtripit.mandrillapp.lutung.model.LutungGsonUtils;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
+import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage.Recipient;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage.Recipient.Type;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageContent;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageInfo;
+import com.microtripit.mandrillapp.lutung.view.MandrillMessageInfo.SMTPEvent;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus;
 import com.microtripit.mandrillapp.lutung.view.MandrillSearchMessageParams;
 import com.microtripit.mandrillapp.lutung.view.MandrillTemplate;
@@ -165,5 +172,39 @@ public final class MandrillMessagesApiTest extends MandrillTestCase {
 	public void testParse02() throws IOException, MandrillApiError {
 		MandrillMessage parsedMessage = mandrillApi.messages().parse(null);
 		Assert.fail();
+	}
+	
+	@Test
+	public void testSmtpInfoResponse() {
+		String responseString = "{\"ts\":1234567890," 
+						+ "\"_id\":\"12345678901234567890123456789012\","
+						+ "\"state\":\"sent\","
+						+ "\"subject\":\"Subject\","
+						+ "\"email\":\"test@test.com\","
+						+ "\"tags\":[\"deliverable\"],"
+						+ "\"opens\":0,"
+						+ "\"clicks\":0,"
+						+ "\"smtp_events\":["
+							+ "{\"ts\":1234567890,\"type\":\"sent\",\"diag\":\"250 Queued mail for delivery\","
+								+ "\"source_ip\":\"127.0.0.1\",\"destination_ip\":\"127.0.0.2\",\"size\":12345},"
+							+ "{\"ts\":1234567890,\"type\":\"sent\",\"diag\":\"250 Queued mail for delivery\","
+								+ "\"source_ip\":\"127.0.0.1\",\"destination_ip\":\"127.0.0.2\",\"size\":12345}],"
+						+ "\"resends\":[],"
+						+ "\"sender\":\"hello@hello.com\","
+						+ "\"template\":null,"
+						+ "\"metadata\":{},"
+						+ "\"opens_detail\":[],"
+						+ "\"clicks_detail\":[]}";
+		
+		MandrillMessageInfo m = LutungGsonUtils.getGson().fromJson(responseString, MandrillMessageInfo.class);
+        Assert.assertEquals(2, m.getSmtpEvents().size());
+        SMTPEvent event = m.getSmtpEvents().get(1);
+        Assert.assertEquals(1234567890, (int)event.getTs());
+        Assert.assertEquals("sent", event.getType());
+        Assert.assertEquals("250 Queued mail for delivery", event.getDiag());
+        Assert.assertEquals("127.0.0.1", event.getSourceIp());
+        Assert.assertEquals("127.0.0.2", event.getDestinationIp());
+        Assert.assertEquals(12345, event.getSize());
+		
 	}
 }

@@ -140,8 +140,8 @@ public class MandrillMessageInfo {
 	}
 
 	public static class SMTPEvent {
-		private Integer ts;
-		private String type, diag;
+		private Integer ts, size;
+		private String type, diag, source_ip, destination_ip;
 
 		/**
 		 * @return The Unix timestamp when the event occured.
@@ -160,6 +160,24 @@ public class MandrillMessageInfo {
 		 */
 		public final String getDiag() {
 			return diag;
+		}
+		/**
+		 * @return The sender's IP address.
+		 */
+		public final String getSourceIp() {
+			return source_ip;
+		}
+		/**
+		 * @return The recipient's IP address.
+		 */
+		public final String getDestinationIp() {
+			return destination_ip;
+		}
+		/**
+		 * @return The SMTP response from the recipient's server.
+		 */
+		public final int getSize() {
+			return size;
 		}
 
 
