@@ -174,7 +174,7 @@ public class MandrillMessageInfo {
 			return destination_ip;
 		}
 		/**
-		 * @return The SMTP response from the recipient's server.
+		 * @return The size of event.
 		 */
 		public final int getSize() {
 			return size;
