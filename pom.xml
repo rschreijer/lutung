@@ -2,17 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mandrillapp.wrapper.lutung</groupId>
+    <groupId>com.postex.lutung</groupId>
     <artifactId>lutung</artifactId>
-    <version>0.0.8-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>lutung</name>
     <description>Mandrill API Client for Java</description>
     <url>https://github.com/rschreijer/lutung</url>
-    <inceptionYear>2013</inceptionYear>
-    <organization>
-        <name>Microtrip.it</name>
-        <url>http://www.microtrip.it</url>
-    </organization>
     <packaging>jar</packaging>
     <licenses>
         <license>
@@ -28,11 +23,6 @@
             <email>yukyuk@gmx.com</email>
         </developer>
     </developers>
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
 
     <properties>
         <java-version>1.6</java-version>
@@ -40,11 +30,6 @@
     </properties>
 
     <!-- Scm release info -->
-    <scm>
-        <connection>scm:git:git://github.com/rschreijer/lutung.git</connection>
-        <developerConnection>scm:git:git@github.com:rschreijer/lutung.git</developerConnection>
-        <url>http://github.com/rschreijer/lutung</url>
-    </scm>
 
     <build>
         <plugins>
