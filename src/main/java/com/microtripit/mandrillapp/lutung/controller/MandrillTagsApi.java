@@ -6,6 +6,7 @@ package com.microtripit.mandrillapp.lutung.controller;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillTag;
 import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
@@ -15,11 +16,16 @@ import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
  * @since Mar 19, 2013
  */
 public class MandrillTagsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
+	private final String rootUrl;
+
+	public MandrillTagsApi(final String key, final String url) {
+		this.key = key;
+		this.rootUrl = url;
+	}
 	
 	public MandrillTagsApi(final String key) {
-		this.key = key;
+		this(key, MandrillApi.rootUrl);
 	}
 
 	/**

@@ -5,13 +5,11 @@ package com.microtripit.mandrillapp.lutung.model;
 
 import com.microtripit.mandrillapp.lutung.logging.Logger;
 import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
 
 /**

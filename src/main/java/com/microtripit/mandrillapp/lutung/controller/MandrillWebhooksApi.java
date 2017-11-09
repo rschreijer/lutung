@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillWebhook;
 
@@ -16,11 +17,16 @@ import com.microtripit.mandrillapp.lutung.view.MandrillWebhook;
  * @since Mar 19, 2013
  */
 public class MandrillWebhooksApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
+	private final String rootUrl;
+
+	public MandrillWebhooksApi(final String key, final String url) {
+		this.key = key;
+		this.rootUrl = url;
+	}
 	
 	public MandrillWebhooksApi(final String key) {
-		this.key = key;
+		this(key, MandrillApi.rootUrl);
 	}
 	
 	/**

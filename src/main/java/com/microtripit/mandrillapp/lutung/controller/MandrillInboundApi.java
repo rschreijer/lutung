@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 
+import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillInboundDomain;
 import com.microtripit.mandrillapp.lutung.view.MandrillInboundRecipient;
@@ -17,11 +18,16 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMailboxRoute;
  * @since Mar 19, 2013
  */
 public class MandrillInboundApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
+	private final String rootUrl;
+
+	public MandrillInboundApi(final String key, final String url) {
+		this.key = key;
+		this.rootUrl = url;
+	}
 	
 	public MandrillInboundApi(final String key) {
-		this.key = key;
+		this(key, MandrillApi.rootUrl);
 	}
 
 	/**
