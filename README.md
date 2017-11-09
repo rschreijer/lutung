@@ -135,6 +135,17 @@ License
 This library is released under the GNU Lesser General Public 
 License [http://www.gnu.org/licenses/lgpl.html](http://www.gnu.org/licenses/lgpl.html).
 
+Release 0.0.8 - Release Notes (Not Released)
+-------
+* Fixed thread safety issue with `SimpleDateFormat`, create a new one each time.
+[look](https://github.com/rschreijer/lutung/pull/77/files?w=1) thanks [chrisburrell](https://github.com/chrisburrell)
+
+* Added additional fields to smtp data
+[look](https://github.com/rschreijer/lutung/pull/81) thanks [lvogelzang](https://github.com/lvogelzang)
+
+* Make the root URL configurable
+[look](https://github.com/rschreijer/lutung/pull/82)
+
 Release 0.0.7 - Release Notes
 -------
 * Fixed custom_quota field in the submarkets API [look](https://github.com/rschreijer/lutung/commit/f47e91fa0fb8c87d3afdc9e7c80298c653197703) thanks [Lokesh-Github123](https://github.com/Lokesh-Github123)
