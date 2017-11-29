@@ -3,7 +3,6 @@
  */
 package com.microtripit.mandrillapp.lutung.model;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;

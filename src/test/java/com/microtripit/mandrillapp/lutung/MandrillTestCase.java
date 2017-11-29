@@ -6,6 +6,7 @@ package com.microtripit.mandrillapp.lutung;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -47,7 +48,7 @@ public abstract class MandrillTestCase {
 						"a security measure ... I didn't want my own api key in " +
 						"a public git repo ;-)");
 			}
-			final String apikey = IOUtils.toString(is);
+			final String apikey = IOUtils.toString(is, Charset.forName("utf8"));
 			is.close();
 			if(apikey == null || apikey.isEmpty()) {
 				throw new IOException("Empty file 'myapikey.txt'");

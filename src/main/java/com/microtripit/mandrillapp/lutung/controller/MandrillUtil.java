@@ -16,8 +16,6 @@ import com.microtripit.mandrillapp.lutung.model.MandrillRequestDispatcher;
  * @since Mar 19, 2013
  */
 final class MandrillUtil {
-	protected static final String rootUrl = "https://mandrillapp.com/api/1.0/";
-	
 	/**
 	 * @param key
 	 * @return

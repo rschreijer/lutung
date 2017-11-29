@@ -22,6 +22,8 @@ import com.microtripit.mandrillapp.lutung.controller.MandrillWhitelistsApi;
  * @since Mar 17, 2013
  */
 public class MandrillApi {
+	public static final String rootUrl = "https://mandrillapp.com/api/1.0/";
+
 	private String key;
 	private final MandrillUsersApi users;
 	private final MandrillMessagesApi messages;
@@ -38,25 +40,32 @@ public class MandrillApi {
 	private final MandrillIpsApi ips;
 	
 	public MandrillApi(final String key) {
+		this(key, rootUrl);
+	}
+	
+	public MandrillApi(final String key, final String rootUrl) {
 		if(key == null) {
 			throw new NullPointerException(
 					"'key' is null; please provide Mandrill API key");
-			
+		}
+		if(rootUrl == null) {
+			throw new NullPointerException(
+					String.format("'rootUrl' is null; please provide Mandrill URL (default: %s)", rootUrl));
 		}
 		this.key = key;
-		users = new MandrillUsersApi(key);
-		messages = new MandrillMessagesApi(key);
-		tags = new MandrillTagsApi(key);
-		rejects = new MandrillRejectsApi(key);
-		whitelists = new MandrillWhitelistsApi(key);
-		senders = new MandrillSendersApi(key);
-		urls = new MandrillUrlsApi(key);
-		templates = new MandrillTemplatesApi(key);
-		webhooks = new MandrillWebhooksApi(key);
-		subaccounts = new MandrillSubaccountsApi(key);
-		inbound = new MandrillInboundApi(key);
-		exports = new MandrillExportsApi(key);
-		ips = new MandrillIpsApi(key);
+		users = new MandrillUsersApi(key, rootUrl);
+		messages = new MandrillMessagesApi(key, rootUrl);
+		tags = new MandrillTagsApi(key, rootUrl);
+		rejects = new MandrillRejectsApi(key, rootUrl);
+		whitelists = new MandrillWhitelistsApi(key, rootUrl);
+		senders = new MandrillSendersApi(key, rootUrl);
+		urls = new MandrillUrlsApi(key, rootUrl);
+		templates = new MandrillTemplatesApi(key, rootUrl);
+		webhooks = new MandrillWebhooksApi(key, rootUrl);
+		subaccounts = new MandrillSubaccountsApi(key, rootUrl);
+		inbound = new MandrillInboundApi(key, rootUrl);
+		exports = new MandrillExportsApi(key, rootUrl);
+		ips = new MandrillIpsApi(key, rootUrl);
 	}
 
 	/**

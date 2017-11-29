@@ -5,6 +5,7 @@ package com.microtripit.mandrillapp.lutung.controller;
 
 import java.io.IOException;
 
+import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillSender;
 import com.microtripit.mandrillapp.lutung.view.MandrillUserInfo;
@@ -15,11 +16,16 @@ import com.microtripit.mandrillapp.lutung.view.MandrillUserInfo;
  * @since Mar 19, 2013
  */
 public class MandrillUsersApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
+	private final String rootUrl;
+
+	public MandrillUsersApi(final String key, final String url) {
+		this.key = key;
+		this.rootUrl = url;
+	}
 	
 	public MandrillUsersApi(final String key) {
-		this.key = key;
+		this(key, MandrillApi.rootUrl);
 	}
 	
 	/**

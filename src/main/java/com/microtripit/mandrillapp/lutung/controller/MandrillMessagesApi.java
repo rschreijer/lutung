@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.*;
 
@@ -18,11 +19,16 @@ import com.microtripit.mandrillapp.lutung.view.*;
  * @since Mar 19, 2013
  */
 public class MandrillMessagesApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
+	private final String rootUrl;
+
+	public MandrillMessagesApi(final String key, final String url) {
+		this.key = key;
+		this.rootUrl = url;
+	}
 	
 	public MandrillMessagesApi(final String key) {
-		this.key = key;
+		this(key, MandrillApi.rootUrl);
 	}
 	
 	/**

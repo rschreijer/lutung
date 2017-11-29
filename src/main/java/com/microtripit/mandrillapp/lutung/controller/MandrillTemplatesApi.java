@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.model.MandrillContentWrapper;
 import com.microtripit.mandrillapp.lutung.model.MandrillHelperClasses.MandrillRenderTemplateResponse;
@@ -19,11 +20,16 @@ import com.microtripit.mandrillapp.lutung.view.MandrillTimeSeries;
  * @since Mar 19, 2013
  */
 public class MandrillTemplatesApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
+	private final String rootUrl;
 
-	public MandrillTemplatesApi(final String key) {
+	public MandrillTemplatesApi(final String key, final String url) {
 		this.key = key;
+		this.rootUrl = url;
+	}
+	
+	public MandrillTemplatesApi(final String key) {
+		this(key, MandrillApi.rootUrl);
 	}
 
 	/**

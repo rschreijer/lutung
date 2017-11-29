@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
+import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillDedicatedIp;
 import com.microtripit.mandrillapp.lutung.view.MandrillDedicatedIp.MandrillDnsCheck;
@@ -17,11 +18,16 @@ import com.microtripit.mandrillapp.lutung.view.MandrillDedicatedIpPool;
  *
  */
 public class MandrillIpsApi {
-	private static final String rootUrl = MandrillUtil.rootUrl;
 	private final String key;
+	private final String rootUrl;
+
+	public MandrillIpsApi(final String key, final String url) {
+		this.key = key;
+		this.rootUrl = url;
+	}
 	
 	public MandrillIpsApi(final String key) {
-		this.key = key;
+		this(key, MandrillApi.rootUrl);
 	}
 	
 	/**
