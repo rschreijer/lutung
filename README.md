@@ -29,7 +29,7 @@ If you're using Maven, just add this [dependency](http://search.maven.org/#searc
 <dependency>
     <groupId>com.mandrillapp.wrapper.lutung</groupId>
     <artifactId>lutung</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 </dependency>
 ```
 If you're not using Maven, see [Dependencies](#dependencies) below.
