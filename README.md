@@ -135,7 +135,7 @@ License
 This library is released under the GNU Lesser General Public 
 License [http://www.gnu.org/licenses/lgpl.html](http://www.gnu.org/licenses/lgpl.html).
 
-Release 0.0.8 - Release Notes (Not Released)
+Release 0.0.8 - Release Notes
 -------
 * Fixed thread safety issue with `SimpleDateFormat`, create a new one each time.
 [look](https://github.com/rschreijer/lutung/pull/77/files?w=1) thanks [chrisburrell](https://github.com/chrisburrell)
