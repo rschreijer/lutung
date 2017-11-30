@@ -376,10 +376,7 @@ public class MandrillMessage {
 	}
 
 	/**
-	 * @return Whether to evaluate merge tags in the message. Will 
-	 * automatically be set to true if either 
-	 * {@link #setMerge_vars(MergeVarBucket)} or 
-	 * {@link #setGlobal_merge_vars(MergeVar[])} are provided.
+	 * @return Whether to evaluate merge tags in the message.
 	 */
 	public Boolean getMerge() {
 		return merge;
@@ -401,10 +398,7 @@ public class MandrillMessage {
 	}
 
 	/**
-	 * @param merge Whether to evaluate merge tags in the message. Will
-	 * automatically be set to true if either 
-	 * {@link #setMerge_vars(MergeVarBucket)} or 
-	 * {@link #setGlobal_merge_vars(MergeVar[])} are provided.
+	 * @param merge Whether to evaluate merge tags in the message.
 	 */
 	public void setMerge(final Boolean merge) {
 		this.merge = merge;
@@ -599,7 +593,6 @@ public class MandrillMessage {
 
 		/**
 		 * @return The type of the recipient.
-		 * @see {@link Type}
 		 */
 		public Type getType() {
 			return type;
@@ -607,7 +600,6 @@ public class MandrillMessage {
 
 		/**
 		 * @param type The type of the recipient.
-		 * @see {@link Type}
 		 */
 		public void setType(final Type type) {
 			this.type = type;

@@ -31,8 +31,8 @@ public class MandrillTagsApi {
 	/**
 	 * <p>Access all of the user-defined tag information.</p>
 	 * @return All of the user-defined tag information.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTag[] list() 
 			throws MandrillApiError, IOException {
@@ -51,8 +51,8 @@ public class MandrillTagsApi {
 	 * so use it carefully.</p>
 	 * @param tagName The name of the tag.
 	 * @return The tag that was deleted.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTag delete(final String tagName) 
 			throws MandrillApiError, IOException {
@@ -69,8 +69,8 @@ public class MandrillTagsApi {
 	 * including aggregates of recent stats.</p>
 	 * @param tagName The name of the tag.
 	 * @return Detailed information on the tag.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTag info(final String tagName) 
 			throws MandrillApiError, IOException {
@@ -88,8 +88,8 @@ public class MandrillTagsApi {
 	 * @param tagName The name of the tag.
 	 * @return The recent history (hourly stats for the last 30 
 	 * days) for a tag.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTimeSeries[] timeSeries(final String tagName) 
 			throws MandrillApiError, IOException{
@@ -106,8 +106,8 @@ public class MandrillTagsApi {
 	 * last 30 days) for all tags.</p>
 	 * @return The recent history (hourly stats for 
 	 * the last 30 days) for all tags.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTimeSeries[] allTimeSeries() 
 			throws MandrillApiError, IOException {

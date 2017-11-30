@@ -40,8 +40,8 @@ public class MandrillExportsApi {
 	 * that job type.</p>
 	 * @param id An export job identifier.
 	 * @return The information about the export.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillExportJobInfo info(final String id) 
 			throws MandrillApiError, IOException {
@@ -56,8 +56,8 @@ public class MandrillExportsApi {
 	/**
 	 * <p>Returns a list of your exports.</p>
 	 * @return The account's exports.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillExportJobInfo list() 
 			throws MandrillApiError, IOException {
@@ -78,12 +78,12 @@ public class MandrillExportsApi {
 	 * <li>created_at</li>
 	 * <li>expires_at</li>
 	 * <li>last_event_at</li>
-	 * <li>expires_at.</li></ul></p>
+	 * <li>expires_at.</li></ul>
 	 * @param notifyEmail An optional email address to notify when 
 	 * the export job has finished.
 	 * @return Information about the rejects export job that was started.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillExportJobInfo rejects(final String notifyEmail) 
 			throws MandrillApiError, IOException {
@@ -101,12 +101,12 @@ public class MandrillExportsApi {
 	 * whitelist.csv that includes the following fields:
 	 * <ul><li>email</li>
 	 * <li>detail</li>
-	 * <li>created_at</li></ul></p>
+	 * <li>created_at</li></ul>
 	 * @param notifyEmail An optional email address to notify when 
 	 * the export job has finished.
 	 * @return Information about the whitelist export job that was started.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillExportJobInfo whitelist(final String notifyEmail) 
 			throws MandrillApiError, IOException {
@@ -133,7 +133,7 @@ public class MandrillExportsApi {
 	 * <li>clicks</li>
 	 * <li>bounce detail</li></ul>
 	 * If you have configured any custom metadata fields, they will 
-	 * be included in the exported data.</p>
+	 * be included in the exported data.
 	 * @param notifyEmail An optional email address to notify when 
 	 * the export job has finished.
 	 * @param dateFrom Start date.
@@ -146,8 +146,8 @@ public class MandrillExportsApi {
 	 * @param apiKeys An array of api keys to narrow the export to; 
 	 * messsagse sent with ANY of the keys will be included.
 	 * @return Information about the activity export job that was started.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillExportJobInfo activity(final String notifyEmail, 
 			final Date dateFrom, final Date dateTo, 

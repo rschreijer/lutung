@@ -31,8 +31,8 @@ public class MandrillUrlsApi {
 	/**
 	 * <p>Get the 100 most clicked URLs.</p>
 	 * @return
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 * @since Mar 19, 2013
 	 */
 	public MandrillUrl[] list() 
@@ -51,8 +51,8 @@ public class MandrillUrlsApi {
 	 * @param query A search query.
 	 * @return An array of {@link MandrillUrl} objects with 
 	 * the 100 most clicked URLs matching the search query.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillUrl[] search(final String query) 
 			throws MandrillApiError, IOException {
@@ -69,8 +69,8 @@ public class MandrillUrlsApi {
 	 * last 30 days) for a url.</p>
 	 * @param url An existing URL.
 	 * @return An array of {@link MandrillTimeSeries} objects.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTimeSeries[] timeSeries(final String url) 
 			throws MandrillApiError, IOException {

@@ -34,8 +34,8 @@ public class MandrillSendersApi {
 	 * <p>Get the senders that have tried to use this account.</p>
 	 * @return An array of {@link MandrillSender} objects, one 
 	 * for each sending addresses used by the account.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillSender[] list() 
 			throws MandrillApiError, IOException {
@@ -51,8 +51,8 @@ public class MandrillSendersApi {
 	 * <p>Get the sender domains that have been added to this account.</p>
 	 * @return An array of sender domain data, one for each 
 	 * sending domain used by the account.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDomain[] domains() 
 			throws MandrillApiError, IOException {
@@ -70,8 +70,8 @@ public class MandrillSendersApi {
 	 * this call to add them ahead of time.</p>
 	 * @param domain A domain name.
 	 * @return Information about the domain.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDomain addDomain(final String domain) 
 			throws MandrillApiError, IOException {
@@ -89,8 +89,8 @@ public class MandrillSendersApi {
 	 * it will be added automatically.</p>
 	 * @param domain A domain name.
 	 * @return Information about the sender domain.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDomain checkDomain(final String domain) 
 			throws MandrillApiError, IOException {
@@ -114,8 +114,8 @@ public class MandrillSendersApi {
 	 * @param mailbox A mailbox at the domain where the verification 
 	 * email should be sent.
 	 * @return Info about the verification email that was sent.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDomainVerificationInfo verifyDomain(
 			final String domain, final String mailbox) 
@@ -134,8 +134,8 @@ public class MandrillSendersApi {
 	 * including aggregates of recent stats.</p>
 	 * @param address The email address of the sender.
 	 * @return The detailed information on the sender.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillSender info(final String address) 
 			throws MandrillApiError, IOException {
@@ -152,8 +152,8 @@ public class MandrillSendersApi {
 	 * the last 30 days) for a sender.</p>
 	 * @param address The email address of the sender.
 	 * @return An array of history information.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTimeSeries[] timeSeries(final String address) 
 			throws MandrillApiError, IOException {

@@ -33,8 +33,8 @@ public class MandrillIpsApi {
 	/**
 	 * <p>Lists your dedicated IPs.</p>
 	 * @return An array of dedicated IPs.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIp[] list() 
 			throws MandrillApiError, IOException {
@@ -49,8 +49,8 @@ public class MandrillIpsApi {
 	 * <p>Retrieves information about a single dedicated ip.</p>
 	 * @param ip A dedicated IP address.
 	 * @return Information about the dedicated ip.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIp info(final String ip) 
 			throws MandrillApiError, IOException {
@@ -70,8 +70,8 @@ public class MandrillIpsApi {
 	 * @param pool The id of the pool to add the dedicated ip to, 
 	 * or null to use your account's default pool.
 	 * @return The date and time that the request was created.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public Date provision(final Boolean warmup, final String pool) 
 			throws MandrillApiError, IOException {
@@ -92,8 +92,8 @@ public class MandrillIpsApi {
 	 * shared IPs or other dedicated IPs in the same pool.</p>
 	 * @param ip A dedicated ip address.
 	 * @return Information about the dedicated IP.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIp startWarmup(final String ip) 
 			throws MandrillApiError, IOException {
@@ -109,8 +109,8 @@ public class MandrillIpsApi {
 	 * <p>Cancels the warmup process for a dedicated IP.</p>
 	 * @param ip A dedicated ip address.
 	 * @return Information about the dedicated IP.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIp cancelWarmup(final String ip) 
 			throws MandrillApiError, IOException {
@@ -129,8 +129,8 @@ public class MandrillIpsApi {
 	 * @param createPool Whether to create the pool if it does not exist; 
 	 * if false and the pool does not exist, an Unknown_Pool will be thrown.
 	 * @return Information about the updated state of the dedicated IP.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIp setPool(final String ip, 
 			final String pool, final Boolean createPool) 
@@ -149,8 +149,8 @@ public class MandrillIpsApi {
 	 * <p>Deletes a dedicated IP. This is permanent and cannot be undone.</p>
 	 * @param ip The dedicated ip to remove from your account.
 	 * @return A boolean indicating whether the ip was successfully deleted.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public Boolean delete(final String ip) 
 			throws MandrillApiError, IOException {
@@ -166,8 +166,8 @@ public class MandrillIpsApi {
 	 * <p>Lists your dedicated IP pools.</p>
 	 * @return The dedicated IP pools for your account, 
 	 * up to a maximum of 1000.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIpPool[] listPools() 
 			throws MandrillApiError, IOException {
@@ -182,8 +182,8 @@ public class MandrillIpsApi {
 	 * <p>Describes a single dedicated IP pool.</p>
 	 * @param pool A pool name.
 	 * @return Information about the dedicated ip pool.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIpPool poolInfo(final String pool) 
 			throws MandrillApiError, IOException {
@@ -200,8 +200,8 @@ public class MandrillIpsApi {
 	 * with this name, no action will be performed.</p>
 	 * @param pool The name of a pool to create.
 	 * @return Information about the dedicated ip pool.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIpPool createPool(final String pool) 
 			throws MandrillApiError, IOException {
@@ -218,8 +218,8 @@ public class MandrillIpsApi {
 	 * it, and you cannot delete your default pool.</p>
 	 * @param pool The name of the pool to delete.
 	 * @return Whether the pool was deleted.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public Boolean deletePool(final String pool) 
 			throws MandrillApiError, IOException {
@@ -237,8 +237,8 @@ public class MandrillIpsApi {
 	 * @param ip A dedicated ip address.
 	 * @param domain The domain name to test.
 	 * @return Validation results for the domain.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDnsCheck checkCustomDns(final String ip, 
 			final String domain) throws MandrillApiError, IOException {
@@ -257,8 +257,8 @@ public class MandrillIpsApi {
 	 * @param domain A domain name to set as the dedicated 
 	 * IP's custom dns name.
 	 * @return Information about the dedicated IP's new configuration.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillDedicatedIp setCustomDns(final String ip, 
 			final String domain) throws MandrillApiError, IOException {

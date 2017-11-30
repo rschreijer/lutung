@@ -27,8 +27,8 @@ public class MandrillWhitelistsApi {
 	 * entry will be removed automatically.</p>
 	 * @param email An email address to add to the whitelist.
 	 * @return If the operation succeeded.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public Boolean add(final String email) 
 			throws MandrillApiError, IOException {
@@ -46,8 +46,8 @@ public class MandrillWhitelistsApi {
 	 * Returns up to 1000 results.</p>
 	 * @param email An optional email address or prefix to search by.
 	 * @return Information for each whitelist entry.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillWhitelistEntry[] list(final String email) 
 			throws MandrillApiError, IOException {
@@ -63,8 +63,8 @@ public class MandrillWhitelistsApi {
 	 * <p>Removes an email address from the whitelist.</p>
 	 * @param email The email address to remove from the whitelist.
 	 * @return Whether the address was deleted successfully.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public Boolean delete(final String email) 
 			throws MandrillApiError, IOException {

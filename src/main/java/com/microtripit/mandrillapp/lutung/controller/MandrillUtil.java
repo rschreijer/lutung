@@ -32,8 +32,8 @@ final class MandrillUtil {
 	 * @param params
 	 * @param responseType
 	 * @return
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	protected static final <OUT> OUT query(final String url, 
 			final Map<String,Object> params, Class<OUT> responseType) 

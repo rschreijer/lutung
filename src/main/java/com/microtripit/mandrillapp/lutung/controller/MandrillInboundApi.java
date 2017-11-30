@@ -34,8 +34,8 @@ public class MandrillInboundApi {
 	 * <p>List the domains that have been configured for 
 	 * inbound delivery.</p>
 	 * @return The inbound domains associated with the account.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	 MandrillInboundDomain[] domains() 
 			throws MandrillApiError, IOException {
@@ -51,8 +51,8 @@ public class MandrillInboundApi {
 	 * <p>List the mailbox routes defined for an inbound domain.</p>
 	 * @param domain The domain to check.
 	 * @return The routes associated with the domain.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	 MandrillMailboxRoute[] routes(final String domain)
 			throws MandrillApiError, IOException {
@@ -75,8 +75,8 @@ public class MandrillInboundApi {
 	 * provided in the document.
 	 * @return An array of the information for each recipient in the 
 	 * message (usually one) that matched an inbound route.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 * @since Mar 19, 2013
 	 */
 	 MandrillInboundRecipient[] sendRaw(
@@ -104,8 +104,8 @@ public class MandrillInboundApi {
 	 * required for the SPF check.
 	 * @return An array of the information for each recipient in the 
 	 * message (usually one) that matched an inbound route.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	 MandrillInboundRecipient[] sendRaw(final String rawMessage, 
 			final Collection<String> to, final String mailFrom, 

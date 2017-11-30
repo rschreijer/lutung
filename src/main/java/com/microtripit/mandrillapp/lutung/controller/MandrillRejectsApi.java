@@ -51,8 +51,8 @@ public class MandrillRejectsApi {
 	 * @param includeExpired Whether to include rejections that 
 	 * have already expired.
 	 * @return Up to 1000 {@link MandrillRejectsEntry} objects.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillRejectsEntry[] list(final String email, 
 			final Boolean includeExpired) throws MandrillApiError, IOException {
@@ -73,8 +73,8 @@ public class MandrillRejectsApi {
 	 * @param subaccount An optional unique identifier for the 
 	 * subaccount to limit the blacklist.
 	 * @return Up to 1000 {@link MandrillRejectsEntry} objects.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillRejectsEntry[] list(final String email, 
 			final Boolean includeExpired, final String subaccount) 
@@ -99,8 +99,8 @@ public class MandrillRejectsApi {
 	 * @param email The email address that was removed from 
 	 * the blacklist.
 	 * @return Whether the address was deleted successfully.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public Boolean delete(final String email) 
 			throws MandrillApiError, IOException {
@@ -119,8 +119,8 @@ public class MandrillRejectsApi {
 	 * @param subaccount An optional unique identifier for the 
 	 * subaccount to limit the blacklist.
 	 * @return Whether the address was deleted successfully.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public Boolean delete(final String email, final String subaccount) 
 			throws MandrillApiError, IOException {

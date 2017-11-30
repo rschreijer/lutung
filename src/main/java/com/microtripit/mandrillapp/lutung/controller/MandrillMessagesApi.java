@@ -46,8 +46,8 @@ public class MandrillMessagesApi {
 	 * ({@link MandrillMessageStatus#getEmail()}) and 
 	 * {@link MandrillMessageStatus#getStatus()} as either 'sent', 
 	 * 'queued', or 'rejected'.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillMessageStatus[] send(final MandrillMessage m, 
 			final Boolean async) throws MandrillApiError, IOException {
@@ -81,8 +81,8 @@ public class MandrillMessagesApi {
 	 * ({@link MandrillMessageStatus#getEmail()}) and 
 	 * {@link MandrillMessageStatus#getStatus()} as either 'sent', 
 	 * 'queued', or 'rejected'.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillMessageStatus[] send(final MandrillMessage m, 
 			final Boolean async, final String ipPool, final Date sendAt) 
@@ -128,8 +128,8 @@ public class MandrillMessagesApi {
 	 * ({@link MandrillMessageStatus#getEmail()}) and 
 	 * {@link MandrillMessageStatus#getStatus()} as either 'sent', 
 	 * 'queued', or 'rejected'.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillMessageStatus[] sendTemplate(
 			final String templateName, final Map<String,String> templateContent, 
@@ -175,8 +175,8 @@ public class MandrillMessagesApi {
 	 * ({@link MandrillMessageStatus#getEmail()}) and 
 	 * {@link MandrillMessageStatus#getStatus()} as either 'sent', 
 	 * 'queued', or 'rejected'.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillMessageStatus[] sendTemplate(
 			final String templateName, final Map<String,String> templateContent, 
@@ -220,8 +220,8 @@ public class MandrillMessagesApi {
 	 * @param search Search parameters for message searching.
 	 * @return An array of {@link MandrillMessageInfo} objects 
 	 * containing found messages for the performed search.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillMessageInfo[] search(
 			final MandrillSearchMessageParams search) 
@@ -248,8 +248,8 @@ public class MandrillMessagesApi {
 	 * @param search Search parameters for message searching.
 	 * @return An array of {@link MandrillTimeSeries} objects 
 	 * containing aggregated hourly stats for the matching messages.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTimeSeries[] searchTimeSeries(
 			final MandrillSearchMessageParams search) 
@@ -273,8 +273,8 @@ public class MandrillMessagesApi {
 	 * @param id The unique id of the message to get &ndash; passed as 
 	 * the '_id' field in webhooks, send calls, or search calls.
 	 * @return The information for the message.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillMessageInfo info(final String id) 
 			throws MandrillApiError, IOException {
@@ -291,8 +291,8 @@ public class MandrillMessagesApi {
      * @param id The unique id of the message to get &ndash; passed as
      * the '_id' field in webhooks, send calls, or search calls.
      * @return The content of the message.
-     * @throws MandrillApiError
-     * @throws IOException
+     * @throws MandrillApiError Mandrill API Error
+     * @throws IOException IO Error
      */
     public MandrillMessageContent content(final String id)
             throws MandrillApiError, IOException {
@@ -310,8 +310,8 @@ public class MandrillMessagesApi {
 	 * its constituent pieces.</p>
 	 * @param rawMessage The full MIME document of an email message.
 	 * @return The parsed message as a {@link MandrillMessage}.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillMessage parse(final String rawMessage) 
 			throws MandrillApiError, IOException {
@@ -325,14 +325,16 @@ public class MandrillMessagesApi {
 	
 	/**
 	 * 
-	 * @param fromEmail
-	 * @param fromName
-	 * @param rawMessage
-	 * @param to
-	 * @param async
-	 * @return
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @param fromEmail Optionally define the sender address - otherwise it'll use the
+	 *                     address found in the provided headers.
+	 * @param fromName Optionally define the sender alias.
+	 * @param rawMessage The full MIME document of an email message Validation.
+	 * @param to Optionally define the recipients to receive the message - otherwise it'll
+	 *              use the To, Cc, and Bcc headers provided in the document.
+	 * @param async Enable a background sending mode.
+	 * @return Mandrill Message Status Info
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 * @since Mar 18, 2013
 	 */
 	public MandrillMessageStatus[] sendRaw(final String fromEmail, 
@@ -376,8 +378,8 @@ public class MandrillMessagesApi {
 	 * <p>Queries your scheduled emails by sender or recipient, or both.</p>
 	 * @param to An optional recipient address to restrict results to.
 	 * @return A list of up to 1000 scheduled emails.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillScheduledMessageInfo[] listScheduled(final String to) 
 			throws MandrillApiError, IOException {
@@ -394,8 +396,8 @@ public class MandrillMessagesApi {
 	 * @param id A scheduled email id, as returned by any of 
 	 * the messages/send calls or messages/list-scheduled.
 	 * @return Information about the scheduled email that was cancelled.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillScheduledMessageInfo cancelScheduled(final String id) 
 			throws MandrillApiError, IOException {
@@ -415,8 +417,8 @@ public class MandrillMessagesApi {
 	 * sent. Mandrill can't time travel, so if you specify a time in 
 	 * past the message will be sent immediately.
 	 * @return Information about the scheduled email that was cancelled.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillScheduledMessageInfo reschedule(final String id, 
 			final Date send_at) throws MandrillApiError, IOException {

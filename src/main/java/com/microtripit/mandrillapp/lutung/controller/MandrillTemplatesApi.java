@@ -40,8 +40,8 @@ public class MandrillTemplatesApi {
 	 * @param publish Set to false to add a draft template
 	 * without publishing.
 	 * @return The information saved about the new template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate add(final String name,
 			final String code, final Boolean publish)
@@ -59,8 +59,8 @@ public class MandrillTemplatesApi {
 	 * @param publish Set to false to add a draft template
 	 * without publishing.
 	 * @return The information saved about the new template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate add(final String name,
 			final String code, final Boolean publish, String[] labels)
@@ -85,8 +85,8 @@ public class MandrillTemplatesApi {
 	 * without publishing.
 	 * @param labels Strings associated with the template
 	 * @return The information saved about the new template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate add(final String name, final String fromEmail,
 			final String fromName, final String subject, final String code,
@@ -111,8 +111,8 @@ public class MandrillTemplatesApi {
 	 * <p>Get the information for an existing template.</p>
 	 * @param name The immutable name of an existing template.
 	 * @return The information saved about the template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate info(final String name)
 			throws MandrillApiError, IOException {
@@ -131,8 +131,8 @@ public class MandrillTemplatesApi {
 	 * @param publish Set to false to update the draft
 	 * version of the template without publishing.
 	 * @return The updated template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate update(final String name,
 			final String code, final Boolean publish)
@@ -150,8 +150,8 @@ public class MandrillTemplatesApi {
 	 * version of the template without publishing.
 	 * @param labels Strings associated with the template
 	 * @return The updated template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate update(final String name,
 			final String code, final Boolean publish, String[] labels)
@@ -175,8 +175,8 @@ public class MandrillTemplatesApi {
 	 * version of the template without publishing.
 	 * @param labels Strings associated with the template
 	 * @return The updated template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate update(final String name,
 			final String fromEmail, final String fromName,
@@ -203,8 +203,8 @@ public class MandrillTemplatesApi {
 	 * that was previously in draft.</p>
 	 * @param name The immutable name of an existing template.
 	 * @return The published template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate publish(final String name)
 			throws MandrillApiError, IOException {
@@ -220,8 +220,8 @@ public class MandrillTemplatesApi {
 	 * <p>Delete a template.</p>
 	 * @param name The immutable name of an existing template.
 	 * @return The deleted template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate delete(final String name)
 			throws MandrillApiError, IOException {
@@ -237,8 +237,8 @@ public class MandrillTemplatesApi {
 	 * <p>Get a list of all the templates available to this user.</p>
 	 * @return An array of {@link MandrillTemplate} objects with
 	 * information about each template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate[] list()
 			throws MandrillApiError, IOException {
@@ -255,8 +255,8 @@ public class MandrillTemplatesApi {
 	 * @param label String associated with the template
 	 * @return An array of {@link MandrillTemplate} objects with
 	 * information about each template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTemplate[] list(String label)
 			throws MandrillApiError, IOException {
@@ -276,8 +276,8 @@ public class MandrillTemplatesApi {
 	 * @param name The immutable name of an existing template.
 	 * @return An array of {@link MandrillTimeSeries} objects
 	 * containing stats from the history of this template.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillTimeSeries[] timeSeries(final String name)
 			throws MandrillApiError, IOException {
@@ -302,8 +302,8 @@ public class MandrillTemplatesApi {
 	 * will be replaced.
 	 * @return The result of rendering the given template with the
 	 * content and merge field values injected.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public String render(final String name,
 			final Map<String,String> templateContent,

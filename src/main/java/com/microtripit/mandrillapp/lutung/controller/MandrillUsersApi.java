@@ -31,8 +31,8 @@ public class MandrillUsersApi {
 	/**
 	 * <p>Get information about the account for the given api key.</p>
 	 * @return The information about the API-connected user.
-	 * @throws MandrillApiError If the Mandrill API returns an error
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillUserInfo info() throws MandrillApiError, IOException {
 		return MandrillUtil.query(rootUrl+ "users/info.json", 
@@ -43,8 +43,8 @@ public class MandrillUsersApi {
 	/**
 	 * <p>Validate an API key and respond to a ping.</p>
 	 * @return The String literal "PONG!"
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public String ping() throws MandrillApiError, IOException {
 		return MandrillUtil.query(rootUrl+ "users/ping.json", 
@@ -57,8 +57,8 @@ public class MandrillUsersApi {
 	 * both verified and unverified.</p>
 	 * @return The senders that have tried to use this account, 
 	 * both verified and unverified.
-	 * @throws MandrillApiError
-	 * @throws IOException
+	 * @throws MandrillApiError Mandrill API Error
+	 * @throws IOException IO Error
 	 */
 	public MandrillSender[] senders() throws MandrillApiError, 
 			IOException {

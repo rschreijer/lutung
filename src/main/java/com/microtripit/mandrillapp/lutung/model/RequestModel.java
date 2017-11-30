@@ -25,7 +25,7 @@ public interface RequestModel<V> {
 	/**
 	 * @return The request object describing the request to 
 	 * be made w/ a http client.
-	 * @throws IOException
+	 * @throws IOException IO Error
 	 * @since Mar 22, 2013
 	 */
 	public HttpRequestBase getRequest() throws IOException;

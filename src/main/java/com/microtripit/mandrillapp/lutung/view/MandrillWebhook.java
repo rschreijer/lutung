@@ -87,9 +87,6 @@ public class MandrillWebhook {
 	 * @return The message events that will be posted to the hook.
 	 * Those are the string literals that Mandrill understands: send, 
 	 * hard_bounce, soft_bounce, open, click, spam, unsub, or reject.
-	 * @see {@link #SEND}, {@link #HARD_BOUNCE}, {@link #SOFT_BOUNCE}, 
-	 * {@link #OPEN}, {@link #CLICK}, {@link #SPAM}, {@link #UNSUB}, 
-	 * {@link #REJECT}
 	 */
 	public String[] getEvents() {
 		return events;
