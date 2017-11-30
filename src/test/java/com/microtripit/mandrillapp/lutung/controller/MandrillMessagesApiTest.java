@@ -58,7 +58,7 @@ public final class MandrillMessagesApiTest extends MandrillTestCase {
 	    message.setTo(recipients);
         MandrillMessageStatus[] status = mandrillApi.messages().send(message, false);
         Assert.assertNotNull(status);
-        Assert.assertTrue("sent".equals(status[0].getStatus()) || "rejected".equals(status[0].getStatus()));
+        Assert.assertTrue("sent".equals(status[0].getStatus()) || "rejected".equals(status[0].getStatus()) || "queued".equals(status[0].getStatus()));
     }
 
 	@Test(expected=MandrillApiError.class)
