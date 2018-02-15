@@ -3,14 +3,18 @@
  */
 package com.microtripit.mandrillapp.lutung.model;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
@@ -19,12 +23,15 @@ import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.ProxySelector;
 import java.net.URI;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.net.ssl.SSLContext;
 
 /**
  * @author rschreijer
@@ -53,18 +60,37 @@ public final class MandrillRequestDispatcher {
 	private static CloseableHttpClient httpClient;
 	private static PoolingHttpClientConnectionManager connexionManager;
 	private static RequestConfig defaultRequestConfig;
-
+	private static SSLContext sslContext;
+	private static SSLConnectionSocketFactory sslSocketFactory;
+	private static Registry<ConnectionSocketFactory> socketFactoryRegistry;
+	
 	static {
-		connexionManager = new PoolingHttpClientConnectionManager();
-		connexionManager.setDefaultMaxPerRoute(50);
 		defaultRequestConfig = RequestConfig.custom()
 				.setSocketTimeout(SOCKET_TIMEOUT_MILLIS)
 				.setConnectTimeout(CONNECTION_TIMEOUT_MILLIS)
 				.setConnectionRequestTimeout(CONNECTION_TIMEOUT_MILLIS).build();
-		httpClient = HttpClients.custom().setUserAgent("/Lutung-0.1")
+		
+		sslContext = createSSLContext();
+		sslSocketFactory = new SSLConnectionSocketFactory(
+			 	sslContext,
+                new String[] { "TLSv1.2" },
+                null,
+                new DefaultHostnameVerifier());
+		
+		socketFactoryRegistry = RegistryBuilder
+		        .<ConnectionSocketFactory> create().register("https", sslSocketFactory)
+		        .build();
+		
+		connexionManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
+		connexionManager.setDefaultMaxPerRoute(50);
+		
+		
+		httpClient = HttpClientBuilder.create()
+				.setUserAgent("/Lutung-0.1")
+				.setConnectionManager(connexionManager)
 				.setDefaultRequestConfig(defaultRequestConfig)
-				.setConnectionManager(connexionManager).useSystemProperties()
-				.build();
+				.setSSLSocketFactory(sslSocketFactory)
+				.build();		
 	}
 
 	public static final <T> T execute(final RequestModel<T> requestModel) throws MandrillApiError, IOException {
@@ -116,7 +142,6 @@ public final class MandrillRequestDispatcher {
 						"Unexpected http status in response: " 
 						+status.getStatusCode()+ " (" 
 						+status.getReasonPhrase()+ ")").withError(error);
-				
 			}
 				
 		} finally {
@@ -150,6 +175,20 @@ public final class MandrillRequestDispatcher {
         }
     }
 
+    private static SSLContext createSSLContext() {
+		SSLContext sslContext = null;
+    	try{
+			sslContext = SSLContext.getInstance("TLSv1.2");
+			sslContext.init(null, null, null);
+		}catch(NoSuchAlgorithmException e){
+			e.printStackTrace();
+		}catch (KeyManagementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sslContext;
+	}
+    
     private static final class ProxyData {
         String host;
         int port;
