@@ -36,6 +36,7 @@
 
     <properties>
         <java-version>1.6</java-version>
+		<org.apache.httpcomponents.version>4.5.3</org.apache.httpcomponents.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -155,7 +156,21 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
+            <version>${org.apache.httpcomponents.version}</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+		
+		<!-- Apache Http Core -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${org.apache.httpcomponents.version}</version>
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
