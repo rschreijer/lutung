@@ -10,6 +10,7 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
@@ -81,8 +82,14 @@ public final class MandrillRequestDispatcher {
 				}
 				final HttpHost proxy = new HttpHost(proxyData.host,
 						proxyData.port);
-				httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-						proxy);
+
+				RequestConfig requestConfig = RequestConfig.custom()
+						.setProxy(proxy).build();
+
+				httpClient = HttpClients.custom().setUserAgent("/Lutung-0.1")
+						.setDefaultRequestConfig(requestConfig)
+						.setConnectionManager(connexionManager).useSystemProperties()
+						.build();
 			}
             log.debug("starting request '" +requestModel.getUrl()+ "'");
 			response = httpClient.execute( requestModel.getRequest() );
