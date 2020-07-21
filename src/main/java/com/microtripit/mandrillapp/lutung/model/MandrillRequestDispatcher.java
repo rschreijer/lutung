@@ -3,7 +3,6 @@
  */
 package com.microtripit.mandrillapp.lutung.model;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -19,7 +18,6 @@ import com.microtripit.mandrillapp.lutung.logging.LoggerFactory;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError.MandrillError;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.ProxySelector;
@@ -48,23 +46,25 @@ public final class MandrillRequestDispatcher {
 	 * The value is expressed in milliseconds.
 	 * */
 	public static int CONNECTION_TIMEOUT_MILLIS = 0;
-	
-	
-	private static CloseableHttpClient httpClient;
-	private static PoolingHttpClientConnectionManager connexionManager;
-	private static RequestConfig defaultRequestConfig;
 
-	static {
-		connexionManager = new PoolingHttpClientConnectionManager();
-		connexionManager.setDefaultMaxPerRoute(50);
-		defaultRequestConfig = RequestConfig.custom()
-				.setSocketTimeout(SOCKET_TIMEOUT_MILLIS)
-				.setConnectTimeout(CONNECTION_TIMEOUT_MILLIS)
-				.setConnectionRequestTimeout(CONNECTION_TIMEOUT_MILLIS).build();
-		httpClient = HttpClients.custom().setUserAgent("/Lutung-0.1")
-				.setDefaultRequestConfig(defaultRequestConfig)
-				.setConnectionManager(connexionManager).useSystemProperties()
-				.build();
+	private static CloseableHttpClient httpClient;
+
+	private static CloseableHttpClient getHttpClient() {
+		if (httpClient == null) {
+			PoolingHttpClientConnectionManager connexionManager = new PoolingHttpClientConnectionManager();
+			connexionManager.setDefaultMaxPerRoute(50);
+
+			RequestConfig defaultRequestConfig = RequestConfig.custom()
+					.setSocketTimeout(SOCKET_TIMEOUT_MILLIS)
+					.setConnectTimeout(CONNECTION_TIMEOUT_MILLIS)
+					.setConnectionRequestTimeout(CONNECTION_TIMEOUT_MILLIS).build();
+
+			httpClient = HttpClients.custom().setUserAgent("/Lutung-0.1")
+					.setDefaultRequestConfig(defaultRequestConfig)
+					.setConnectionManager(connexionManager).useSystemProperties()
+					.build();
+		}
+		return httpClient;
 	}
 
 	public static final <T> T execute(final RequestModel<T> requestModel) throws MandrillApiError, IOException {
@@ -81,11 +81,11 @@ public final class MandrillRequestDispatcher {
 				}
 				final HttpHost proxy = new HttpHost(proxyData.host,
 						proxyData.port);
-				httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+				getHttpClient().getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
 						proxy);
 			}
             log.debug("starting request '" +requestModel.getUrl()+ "'");
-			response = httpClient.execute( requestModel.getRequest() );
+			response = getHttpClient().execute( requestModel.getRequest() );
 			final StatusLine status = response.getStatusLine();
 			responseString = EntityUtils.toString(response.getEntity());
 			if( requestModel.validateResponseStatus(status.getStatusCode()) ) {
