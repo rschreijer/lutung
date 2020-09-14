@@ -4,6 +4,7 @@
 package com.microtripit.mandrillapp.lutung.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 public class MandrillMessage {
 	private String subject, html, text, from_email, from_name;
 	private List<Recipient> to;
-	private Map<String,String> headers;
+	private Map<String,MandrillHeaderValue> headers;
 	private Boolean important, track_opens, track_clicks, auto_text, auto_html, 
 			inline_css, url_strip_qs, preserve_recipients, view_content_link;
 	private String bcc_address, tracking_domain, signing_domain, 
@@ -120,11 +121,30 @@ public class MandrillMessage {
 	}
 	
 	/**
+	 * Returns the headers. If a header has multople values
+	 * the first value is returned. If you require both
+	 * values see {@link #getHeadersWithMultipleValuesSupport}
+	 *
 	 * @return Optional extra headers to add to the 
 	 * message (currently only Reply-To and X-* headers 
 	 * are allowed).
 	 */
 	public Map<String,String> getHeaders() {
+		Map<String, String> firstValueHeaders = new HashMap<String, String>();
+
+		for (String key : headers.keySet()) {
+			firstValueHeaders.put(key, headers.get(key).getFirstValue());
+		}
+
+		return firstValueHeaders;
+	}
+
+	/**
+	 * @return Optional extra headers to add to the
+	 * message (currently only Reply-To and X-* headers
+	 * are allowed).
+	 */
+	public Map<String,MandrillHeaderValue> getHeadersWithMultipleValuesSupport() {
 		return headers;
 	}
 
@@ -134,6 +154,21 @@ public class MandrillMessage {
 	 * are allowed)
 	 */
 	public void setHeaders(final Map<String,String> headers) {
+		Map<String, MandrillHeaderValue> multiValueHeaders = new HashMap<String, MandrillHeaderValue>();
+
+		for (String key : headers.keySet()) {
+			multiValueHeaders.put(key, new MandrillHeaderValue());
+		}
+
+		setHeadersWithMultipleValuesSupport(multiValueHeaders);
+	}
+
+	/**
+	 * @param headers Optional extra headers to add to the
+	 * message (currently only Reply-To and X-* headers
+	 * are allowed)
+	 */
+	public void setHeadersWithMultipleValuesSupport(final Map<String,MandrillHeaderValue> headers) {
 		this.headers = headers;
 	}
 

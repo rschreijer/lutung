@@ -13,6 +13,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.microtripit.mandrillapp.lutung.view.MandrillHeaderValue;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
 
 import java.lang.reflect.Type;
@@ -45,7 +46,9 @@ public final class LutungGsonUtils {
 				.registerTypeAdapter(Date.class, new DateDeserializer())
 				.registerTypeAdapter(Map.class, new MapSerializer())
                 .registerTypeAdapter(MandrillMessage.Recipient.Type.class,
-                		new RecipientTypeSerializer());
+						new RecipientTypeSerializer())
+				.registerTypeAdapter(MandrillHeaderValue.class,
+						new MandrillHeaderValueDeserializer());
 	}
 
 	public static final class DateDeserializer
@@ -134,4 +137,26 @@ public final class LutungGsonUtils {
 			return new JsonPrimitive(src.name().toLowerCase());
 		}
 	}
+
+	public static class MandrillHeaderValueDeserializer
+			implements JsonDeserializer<MandrillHeaderValue> {
+
+		@Override
+		public MandrillHeaderValue deserialize(
+				final JsonElement jsonElement,
+				final Type type,
+				final JsonDeserializationContext context)
+						throws JsonParseException {
+
+			if (jsonElement.isJsonArray()) {
+				return new MandrillHeaderValue(
+						(String[]) context.deserialize(jsonElement, String[].class));
+			}
+			else {
+				return new MandrillHeaderValue(jsonElement.getAsString());
+			}
+		}
+
+	}
+
 }

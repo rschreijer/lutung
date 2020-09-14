@@ -173,6 +173,20 @@ public final class MandrillMessagesApiTest extends MandrillTestCase {
 		MandrillMessage parsedMessage = mandrillApi.messages().parse(null);
 		Assert.fail();
 	}
+
+	@Test
+	public void testParse03_mutlipleValuesForSingleHeader() throws IOException, MandrillApiError {
+		String testUnparsedMsg =
+			"Return-Path: <me@googlemail.com>\n" +
+			"Received: from mail47.google.com\n" +
+			"Received: by mail47.google.com with SMTP id 123\n" +
+			"To: " + mailToAddress()+ "\n" +
+			"Subject: Lutung test subject\n\n" +
+			"Sup mandrill !";
+		MandrillMessage parsedMessage = mandrillApi.messages().parse(testUnparsedMsg);
+		Assume.assumeNotNull(parsedMessage);
+		Assert.assertEquals("Lutung test subject", parsedMessage.getSubject());
+	}
 	
 	@Test
 	public void testSmtpInfoResponse() {
