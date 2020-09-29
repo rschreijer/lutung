@@ -1,4 +1,4 @@
-/**
+it /**
  * 
  */
 package com.microtripit.mandrillapp.lutung.controller;
@@ -19,6 +19,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMailboxRoute;
  */
 public class MandrillInboundApi {
 	private final String key;
+	private final String happy;
 	private final String rootUrl;
 
 	public MandrillInboundApi(final String key, final String url) {
