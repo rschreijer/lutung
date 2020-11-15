@@ -11,6 +11,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
@@ -62,6 +63,7 @@ public final class MandrillRequestDispatcher {
 				.setConnectTimeout(CONNECTION_TIMEOUT_MILLIS)
 				.setConnectionRequestTimeout(CONNECTION_TIMEOUT_MILLIS).build();
 		httpClient = HttpClients.custom().setUserAgent("/Lutung-0.1")
+				.setRedirectStrategy(new LaxRedirectStrategy())
 				.setDefaultRequestConfig(defaultRequestConfig)
 				.setConnectionManager(connexionManager).useSystemProperties()
 				.build();
